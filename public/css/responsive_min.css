@@ -1,0 +1,1079 @@
+@media (max-width: 650.98px) {
+
+    .tableTasks tr td {
+
+        font-size: 16px !important;
+
+    }
+
+
+
+    .getMadmen,
+
+    .getVoters {
+
+        display: none;
+
+    }
+
+
+
+    #timer  {
+
+        padding: 0.4rem;
+
+    }
+
+    #timer span {
+
+        padding: 0.1rem 0.2rem;
+
+        color: #efefef;
+
+    }
+
+
+
+    #timer small {
+
+        font-size: 8px;
+
+    }
+
+   
+
+
+
+    .navbar-bottom div {
+
+        display: flex;
+
+        
+
+    }
+
+
+
+    .navbar-bottom a {
+
+        display: flex;
+
+        font-size: 12px;
+
+        padding: 0.3rem;
+
+        flex-direction: column;
+
+    }
+
+
+
+    #DataTables_Table_0_length {
+
+        top: 1px;
+
+        position: absolute;
+
+        right: 155px;
+
+    }
+
+
+
+    #DataTables_Table_1_length {
+
+        top: 3px;
+
+        position: absolute;
+
+        right: 202px;
+
+    }
+
+
+
+    .searchname {
+
+        right: 206px;
+
+        padding: 4px;
+
+        width: 72px;
+
+    }
+
+
+
+    .tablesearch p {
+
+        right: 71%;
+
+        top: 6px;
+
+    }
+
+
+
+    .dataTables_wrapper .dataTables_filter {
+
+        float: right;
+
+    }
+
+
+
+    .dataTables_wrapper .dataTables_filter input {
+
+        font-size: 17px !important;
+
+
+
+    }
+
+
+
+    .dataTables_wrapper .dataTables_length {
+
+        padding-top: 5px;
+
+        float: left;
+
+    }
+
+
+
+    .headquarters {
+
+        width: 47px;
+
+        left: 8%;
+
+    }
+
+
+
+    .areaName {
+
+        left: 23%;
+
+        width: 55px;
+
+    }
+
+
+
+    .mainMaleOrFemaleHomePage {
+
+        left: 57%;
+
+    }
+
+
+
+    .committees {
+
+        width: 53px;
+
+        left: 40%;
+
+    }
+
+
+
+    .selectAttendOr {
+
+        left: 40%;
+
+
+
+        top: 25px;
+
+
+
+    }
+
+
+
+    #maleOrFemaleChose {
+
+        left: 18%;
+
+        top: 36px;
+
+
+
+
+
+    }
+
+
+
+    .mainMaleOrFemaleMandob {
+
+        left: 15%;
+
+        top: 25px;
+
+    }
+
+
+
+    table tr th {
+
+        padding: 1px !important;
+
+        margin: 0 !important;
+
+    }
+
+
+
+    .dataTables_wrapper .dataTables_paginate {
+
+        text-align: right !important;
+
+
+
+    }
+
+
+
+    .card {
+
+        padding: 0;
+
+        font-size: 10px;
+
+    }
+
+
+
+    .table {
+
+        margin: 0;
+
+    }
+
+
+
+    .dataTables_length {
+
+        font-size: 12px;
+
+    }
+
+
+
+    input[type="search"] {
+
+        padding: 2px !important;
+
+    }
+
+
+
+    .load_data_degree table tr td:nth-child(2) {
+
+        width: 100%;
+
+    }
+
+
+
+    .width-100 {
+
+        width: 100%;
+
+    }
+
+
+
+    .appHeader img {
+
+        width: 110px;
+
+    }
+
+
+
+    .appHeader .info p {
+
+        font-size: 12px;
+
+        padding: 5px;
+
+        text-align: center;
+
+    }
+
+
+
+    .app .guarantor p {
+
+        font-size: 14px;
+
+    }
+
+
+
+    .modal {
+
+        width: 100%;
+
+
+
+    }
+
+
+
+    .btndeletelist {
+
+        padding: 5px 0;
+
+        margin: 10px 0;
+
+    }
+
+
+
+
+
+
+
+    .insertMulti button,
+
+    .insertMulti select {
+
+        font-size: 13px;
+
+    }
+
+
+
+    .formSearch>div input,
+
+    .formSearch>div select,
+
+    .formSearch>div label,
+
+    .formSearch>div button {
+
+        font-size: 14px;
+
+
+
+    }
+
+
+
+    .myBtnTable {
+
+        width: 50%;
+
+    }
+
+
+
+    .resBtn {
+
+        padding: 0 6px;
+
+    }
+
+
+
+    .listOfName h4 {
+
+        font-size: 15px;
+
+    }
+
+
+
+    .listOfName h4 span {
+
+        font-size: 16px;
+
+    }
+
+
+
+    .createListNames form {
+
+        display: block;
+
+    }
+
+
+
+    .createListNames h3 {
+
+        font-size: 17px;
+
+    }
+
+
+
+    #createList .click {
+
+        width: 100% !important;
+
+        font-size: 14px;
+
+    }
+
+
+
+    .createListNames form input,
+
+    .createListNames form select {
+
+        font-size: 15px;
+
+    }
+
+
+
+    .myTable tr td,
+
+    .styleTable tr td {
+
+        font-size: 12px;
+
+    }
+
+
+
+
+
+    .dataTables_length,
+
+    table.dataTable tbody th,
+
+    table.dataTable tbody td {
+
+        padding: 0;
+
+        margin: 0;
+
+    }
+
+
+
+    div.dataTables_wrapper div.dataTables_filter input {
+
+        width: 150px;
+
+    }
+
+
+
+
+
+    .responsive-name {
+
+        padding: 0 5px;
+
+    }
+
+
+
+    .listOfName table tbody tr td {
+
+        padding: 7px 0;
+
+    }
+
+
+
+    .myTable input[type='checkbox'],
+
+    .styleTable input[type='checkbox'] {
+
+        widows: 15px;
+
+        height: 15px;
+
+    }
+
+
+
+
+
+    .dataTables_info {
+
+        font-size: 15px;
+
+    }
+
+
+
+    .dataTables_wrapper .dataTables_paginate {
+
+        margin: 0;
+
+    }
+
+
+
+    .dataTables_wrapper .dataTables_paginate .paginate_button {
+
+        padding: 3px;
+
+        margin: 0 2px;
+
+    }
+
+
+
+
+
+    /* Timer */
+
+    #timer span {
+
+        font-size: 10px;
+
+    }
+
+
+
+    
+
+
+
+
+
+/*#region Admin*/
+
+
+
+.app{
+
+border-radius: 10px;
+
+width: 97% ;
+
+border-width:1px ;
+
+}
+
+
+
+
+
+
+
+.dataTables_length,
+
+#DataTables_Table_0_length,
+
+#DataTables_Table_1_length
+
+    {
+
+    position: relative !important;
+
+    top:0  !important;
+
+    right: 0  !important;
+
+}
+
+
+
+
+
+.bottom{
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: space-between;
+
+}
+
+
+
+
+
+/*#endregion Admin */
+
+
+
+
+
+/*#region Footer */
+
+footer{
+
+    height: 30vh;
+
+}
+
+footer img{
+
+    object-fit: contain;
+
+}
+
+
+
+/*#endregion Footer */
+
+
+
+
+
+
+
+}
+
+
+
+@media (max-width: 580px) {
+
+    h6 {
+
+        font-size: .6rem !important;
+
+    }
+
+
+
+    .print,
+
+    .btn-print-pdf,
+
+    .btn-print-csv {
+
+        padding: 2px;
+
+        font-size: 5px;
+
+    }
+
+
+
+    .input-group-text,
+
+    .insertMulti button,
+
+    .click {
+
+        /* padding: 0; */
+
+        font-size: 8px !important;
+
+
+
+    }
+
+
+
+    .load_data_search h4,
+
+    .load_data_degree h4 {
+
+        font-size: 13px;
+
+    }
+
+
+
+    .h1,
+
+    .h2,
+
+    .h3,
+
+    .h4,
+
+    .h5,
+
+    .h6,
+
+    h1,
+
+    h2,
+
+    h3,
+
+    h4,
+
+    h5,
+
+    h6 {
+
+        margin: 0;
+
+    }
+
+
+
+    .checkboxlist {
+
+        width: 10px;
+
+        height: 10px;
+
+    }
+
+
+
+    .app .header {
+
+        padding: 0;
+
+    }
+
+
+
+    /* table tr th,
+
+    table tr td {
+
+        font-size: 13px !important;
+
+    } */
+
+    .fixedStyleTd {
+
+        font-size: 16px !important;
+
+    }
+
+
+
+    .myBtnTable {
+
+        width: 60%;
+
+        height: 17px !important;
+
+    }
+
+
+
+    .dataTables_info {
+
+        font-size: 12px;
+
+    }
+
+
+
+    .paginate_button {
+
+        font-size: 12px;
+
+    }
+
+
+
+    .modal-body,
+
+    .modal-footer {
+
+        padding: 0;
+
+    }
+
+
+
+    .appSearch {
+
+        width: 100%;
+
+    }
+
+
+
+    .formSearch>div button {
+
+        font-size: 10px;
+
+    }
+
+
+
+
+
+    .formSearch>div input,
+
+    .formSearch>div select {
+
+        width: 100%;
+
+        font-size: 10px;
+
+    }
+
+
+
+    h5,
+
+    h6 {
+
+        font-size: 15px;
+
+    }
+
+
+
+    .app .guarantor p {
+
+        font-size: 10px;
+
+    }
+
+
+
+    .appHeader img {
+
+        width: 60px;
+
+    }
+
+
+
+    .btn-group-sm>.btn,
+
+    .btn-sm {
+
+        padding: 0;
+
+    }
+
+
+
+    .listOfName h4 span {
+
+        font-size: 12px;
+
+    }
+
+
+
+    /* .myTable tr td, .styleTable tr td{
+
+        font-size: 14px;
+
+     } */
+
+    .createListNames h3 {
+
+        font-size: 12px;
+
+    }
+
+
+
+    input,
+
+    select,
+
+    button:not(.showInfoSearch) {
+
+        font-size: 16px !important;
+
+    }
+
+
+
+    #createList .click {
+
+        padding: 8px 0;
+
+    }
+
+
+
+    .countVoters h5 {
+
+        font-size: 12px;
+
+    }
+
+
+
+    /* select2 */
+
+    .select2 {
+
+        width: 100% !important;
+
+        text-align: center;
+
+        font-size: 10px;
+
+    }
+
+
+
+    .select2-results__option--selectable {
+
+        font-size: 10px;
+
+        text-align: center;
+
+
+
+    }
+
+
+
+    div.dataTables_wrapper div.dataTables_info {
+
+        text-align: center;
+
+    }
+
+
+
+    .appHeader .info p {
+
+        padding: 0;
+
+    }
+
+
+
+    .myBtnTable {
+
+
+
+        display: flex;
+
+        justify-content: center;
+
+    }
+
+}
+
+
+
+@media (max-width: 400.98px) {
+
+    table tr th {
+
+        font-size: 12px !important
+
+    }
+
+
+
+    table tr td {
+
+        font-size: 12px !important
+
+    }
+
+    
+
+}
+
+
+
+
+
+
+
+@media (max-width: 350.98px) {
+
+    table tr th {
+
+        font-size: 10px !important;
+
+    }
+
+
+
+    table tr td {
+
+        font-size: 10px !important;
+
+    }
+
+   
+
+}
+
+
+
+@media (max-width: 640px) {
+
+    .getTableMadmen tr th:nth-child(4) {
+
+        width: 25%;
+
+    }
+
+
+
+    .namePage {
+
+        /* display: none; */
+
+    }
+
+
+
+    .mainMaleOrFemaleMandob,
+
+    .selectAttendOr {
+
+        top: 42px;
+
+    }
+
+
+
+    .getMadmen,
+
+    .getVoters {
+
+        left: 4%;
+
+    }
+
+
+
+    .textAttend {
+
+        top: -21px;
+
+        left: 16px;
+
+        padding: 0;
+
+        font-size: 12px;
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+/*
+
+
+
+@media (min-width: 768px) { ... }
+
+
+
+@media (min-width: 992px) { ... }
+
+
+
+@media (min-width: 1200px) { ... }
+
+*/

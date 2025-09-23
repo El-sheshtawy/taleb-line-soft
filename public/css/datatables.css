@@ -1,0 +1,28 @@
+/* Move sorting arrows to the left */
+.dataTables_wrapper th {
+    direction: rtl; /* Ensures right-to-left layout */
+    position: relative;
+}
+
+.dataTables_wrapper th.sorting:after,
+.dataTables_wrapper th.sorting_asc:after,
+.dataTables_wrapper th.sorting_desc:after {
+    content: '\f0dc'; /* FontAwesome sort icon */
+    font-family: FontAwesome;
+    position: absolute;
+    left: 8px; /* Move icon to the left */
+    right: auto; /* Remove right positioning */
+}
+
+/* Add margins to elements */
+.dataTables_filter {
+    margin-bottom: 10px; /* Space below search bar */
+}
+
+.dataTables_paginate {
+    margin-top: 10px; /* Space above pagination */
+}
+
+.dataTables_info {
+    margin-top: 10px; /* Space above "إظهار 1 إلى 2 من أصل 2 مدخل" */
+}
