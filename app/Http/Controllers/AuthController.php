@@ -36,7 +36,7 @@ class AuthController extends Controller
                 case 'teacher':
                     return redirect()->route('teacher.index');
                 case 'student':
-                    return redirect()->route('student.index');
+                    return redirect()->route('admin.index');
                 case 'father':
                     return redirect()->route('father.index');
                 default:
