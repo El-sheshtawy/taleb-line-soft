@@ -22,7 +22,7 @@ class SchoolSubscription
 
             if (!$this->hasValidSubscription($user->profile)) abort(Response::HTTP_FORBIDDEN, 'انتهت صلاحية اشتراك المدرسة أو غير موجود');
         }
-        elseif ($user->user_type === 'teacher') {
+        elseif (in_array($user->user_type, ['teacher', 'مراقب', 'مشرف'])) {
             if (!$user->profile || !$user->profile->school) abort(Response::HTTP_FORBIDDEN, 'المعلم غير مرتبط بمدرسة أو لا يوجد حساب مدرسة');
 
             if (!$this->hasValidSubscription($user->profile->school)) abort(Response::HTTP_FORBIDDEN, 'انتهت صلاحية اشتراك المدرسة أو غير موجود');

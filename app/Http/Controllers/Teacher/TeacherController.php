@@ -38,8 +38,8 @@ class TeacherController extends Controller
         $date = $validated['date'] ?? $today;
         
         $user = Auth::user();
-        $teacher = $user->user_type == 'teacher' ? $user->profile : null;
-        $school = $user->user_type == 'teacher' ? $user->profile->school : $user->profile;
+        $teacher = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile : null;
+        $school = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile->school : $user->profile;
         $teachers = $school->teachers;
         
         $school_absent_item = $school->followUp->getAbsent();

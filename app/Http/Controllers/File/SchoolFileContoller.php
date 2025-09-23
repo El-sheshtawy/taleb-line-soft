@@ -13,7 +13,7 @@ class SchoolFileContoller extends Controller
     public function index()
     {
         $user = Auth::user();
-        $school = $user->user_type == 'teacher' ? $user->profile->school : $user->profile;
+        $school = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile->school : $user->profile;
         
         $files = SchoolFile::where('school_id', $school->id)->orderBy('created_at', 'desc')->get();
         return view('files.index', compact('files', 'school'));

@@ -135,7 +135,9 @@
                                                 @endfor
                                             </tbody>
                                         </table>
+                                        @if(!in_array(auth()->user()->user_type, ['مراقب']))
                                         <button type="submit" class="btn btn-success mt-2 mb-4">حفظ</button>
+                                        @endif
                                         <button type="button" class="btn btn-primary mt-2 mb-4 show-followup-btn" data-student-id="{{$student->id}}">عرض سجل المتابعة</button>
                                         <div class="followup-table-container mt-2" id="followup-table-{{$student->id}}" style="display: none;"><!-- The table will be inserted here --></div>
                                     </form>
@@ -176,10 +178,12 @@
                 				@else
                 				    <input type="hidden" value="{{$teacher->id}}" name="teacher_id" id="teacher-select">
                 				@endif
+            				    @if(!in_array(auth()->user()->user_type, ['مراقب']))
             				    <div class="col-6 col-md-4 col-sm-6">
             				         <button type="button" id="saveSessionBtn" class="btn btn-primary" disabled>
             		                            حفظ التغييرات</button>
             				    </div>
+            				    @endif
             				</div>
     	                </div>
     	            </div>

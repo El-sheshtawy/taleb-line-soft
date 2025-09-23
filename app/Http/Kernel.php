@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         
         'user.role' => \App\Http\Middleware\CheckRole::class,
          'school.subscribed' => \App\Http\Middleware\SchoolSubscription::class,
+        'check.action' => \App\Http\Middleware\CheckActionPermission::class,
     ];
 }

@@ -33,14 +33,20 @@
             <tr class="text-center teacher-row" data-subject="{{ $teacher->subject }}" data-head="{{ $teacher->head_of_department ? '1' : '0' }}" data-supervisor="{{ $teacher->supervisor ? '1' : '0' }}">
                 <td class="p-1">{{$loop->iteration}}</td>
                 <td class="p-1 text-end responsive-cell">
-                    <a href="#" class="edit-teacher-btn cell-link text-{{$teacher->head_of_department ? 'success' : 'primary'}}" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#editTeacherModal" 
-                        data-teacher="{{ json_encode($teacher) }}"
-                        data-edit-action="{{ route('school.teachers.update', $teacher->id) }}"
-                        data-delete-action="{{ route('school.teachers.destroy', $teacher->id) }}">
-                         {{$teacher->name}}
-                    </a>
+                    @if(auth()->user()->canPerformActions(request()->route()->getName()))
+                        <a href="#" class="edit-teacher-btn cell-link text-{{$teacher->head_of_department ? 'success' : 'primary'}}" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#editTeacherModal" 
+                            data-teacher="{{ json_encode($teacher) }}"
+                            data-edit-action="{{ route('school.teachers.update', $teacher->id) }}"
+                            data-delete-action="{{ route('school.teachers.destroy', $teacher->id) }}">
+                             {{$teacher->name}}
+                        </a>
+                    @else
+                        <span class="text-{{$teacher->head_of_department ? 'success' : 'primary'}}">
+                            {{$teacher->name}}
+                        </span>
+                    @endif
                 </td>
                 <td class="p-1">{{$teacher->subject}}</td>
                 <td class="p-1">{{$teacher->passport_id }}</td>
@@ -50,11 +56,13 @@
     </tbody>
     </table>
 </div>
-<div class="d-flex gap-2 mb-1">
-    <button  type="button" class="block btn btn-primary w-50 mt-4 text-center" data-bs-toggle="modal" data-bs-target="#createTeacherModal">إضافة معلم  </button>
-    <button  type="button" class="block btn btn-primary w-50 mt-4 text-center" data-bs-toggle="modal" data-bs-target="#importTeachersModal">إستيراد معلمين <i class="fas fa-upload"></i></button>
-    <button  type="button" class="block btn btn-success w-50 mt-4 text-center"><a href="{{asset('templates/المعلمين.xlsx')}}" class="w-100 h-100 text-white" download> تحميل قالب المعلمين <i class="fa fa-download"></i></a></button>
-</div>
+<x-action-button>
+    <div class="d-flex gap-2 mb-1">
+        <button  type="button" class="block btn btn-primary w-50 mt-4 text-center" data-bs-toggle="modal" data-bs-target="#createTeacherModal">إضافة معلم  </button>
+        <button  type="button" class="block btn btn-primary w-50 mt-4 text-center" data-bs-toggle="modal" data-bs-target="#importTeachersModal">إستيراد معلمين <i class="fas fa-upload"></i></button>
+        <button  type="button" class="block btn btn-success w-50 mt-4 text-center"><a href="{{asset('templates/المعلمين.xlsx')}}" class="w-100 h-100 text-white" download> تحميل قالب المعلمين <i class="fa fa-download"></i></a></button>
+    </div>
+</x-action-button>
 
 @include('school.teachers.create')
 @include('school.teachers.import')

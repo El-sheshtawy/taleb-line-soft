@@ -17,6 +17,9 @@ class User extends Authenticatable
         'password',
         'defualt_password'
     ];
+    
+    public const VIEWER_ROLE = 'مراقب';
+    public const SUPERVISOR_ROLE = 'مشرف';
 
     protected $hidden = [
         'password',
@@ -36,8 +39,25 @@ class User extends Authenticatable
             return $this->hasOne(SchoolAccount::class, 'user_id');
         } elseif ($this->user_type === 'teacher') {
             return $this->hasOne(Teacher::class, 'user_id');
+        } elseif ($this->user_type === 'مراقب') {
+            return $this->hasOne(Teacher::class, 'user_id');
+        } elseif ($this->user_type === 'مشرف') {
+            return $this->hasOne(Teacher::class, 'user_id');
         }
         
         return null;
+    }
+    
+    public function canPerformActions($currentRoute = null)
+    {
+        if ($this->user_type === 'مراقب') {
+            return false;
+        }
+        
+        if ($this->user_type === 'مشرف') {
+            return $currentRoute && str_contains($currentRoute, 'teacher.');
+        }
+        
+        return true;
     }
 }

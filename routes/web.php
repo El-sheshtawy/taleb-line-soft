@@ -48,7 +48,7 @@ Route::get('/home', function () {
         if (auth()->user()->user_type == 'school') {
             return redirect()->route('school.index');
         }
-        if (auth()->user()->user_type == 'teacher') {
+        if (in_array(auth()->user()->user_type, ['teacher', 'مراقب', 'مشرف'])) {
             return redirect()->route('teacher.index');
         }
     }
@@ -90,10 +90,13 @@ Route::middleware('auth')->group(function(){
         
         Route::resource('follow-ups', FollowUpController::class)
                 ->only(['store', 'update', 'destroy']);
+                
+        Route::resource('special-users', \App\Http\Controllers\Admin\SpecialUserController::class)
+                ->only(['store', 'update', 'destroy']);
     });
     
     
-    Route::prefix('school')->middleware('user.role:school', 'school.subscribed')->name("school.")->group(function () {
+    Route::prefix('school')->middleware('user.role:school,teacher,مراقب,مشرف', 'school.subscribed')->name("school.")->group(function () {
 
         Route::get('/', [SchoolController::class, 'index'])->name('index');
         Route::put('/{schoolAccount}', [SchoolController::class, 'update'])->name('update');
@@ -111,10 +114,10 @@ Route::middleware('auth')->group(function(){
         Route::post('students/import', [StudentController::class, 'import'])->name('students.import');
 
         Route::resource('teachers', SchoolTeacherController::class)
-            ->only(['update', 'destroy']);
-        Route::post('teachers/store', [SchoolTeacherController::class, 'store'])->name('teachers.store');
+            ->only(['update', 'destroy'])->middleware('check.action');
+        Route::post('teachers/store', [SchoolTeacherController::class, 'store'])->name('teachers.store')->middleware('check.action');
 
-        Route::post('teachers/import', [SchoolTeacherController::class, 'import'])->name('teachers.import');
+        Route::post('teachers/import', [SchoolTeacherController::class, 'import'])->name('teachers.import')->middleware('check.action');
         
         
         Route::get('/statistics/general', [StatisticsController::class, 'index'])->name('statistics.index');
@@ -126,14 +129,14 @@ Route::middleware('auth')->group(function(){
     Route::post('school/attendance/delete-day', [StudentSessionController::class, 'deleteDay']);
     
     
-    Route::prefix('teacher')->middleware('user.role:teacher,school', 'school.subscribed')->name("teacher.")->group(function(){
+    Route::prefix('teacher')->middleware('user.role:teacher,school,مراقب,مشرف', 'school.subscribed')->name("teacher.")->group(function(){
         Route::get('/', [TeacherController::class, 'index'])->name('index');
         
-        Route::post('student-sessions', [StudentSessionController::class, 'store'])->name('student-sessions.store');
+        Route::post('student-sessions', [StudentSessionController::class, 'store'])->name('student-sessions.store')->middleware('check.action');
         Route::get('student-sessions/{sessionNumber}', [StudentSessionController::class, 'getSessionData']);
-        Route::delete('student-sessions/{sessionNumber}', [StudentSessionController::class, 'deleteSessionData']);
-        Route::post('student-sessions/quick-update', [StudentSessionController::class, 'quickUpdateSession'])->name('student-sessions.quick-update');
-        Route::post('/student-sessions/bulk-update', [StudentSessionController::class, 'bulkUpdateSessions'])->name('student-sessions.bulk-update');
+        Route::delete('student-sessions/{sessionNumber}', [StudentSessionController::class, 'deleteSessionData'])->middleware('check.action');
+        Route::post('student-sessions/quick-update', [StudentSessionController::class, 'quickUpdateSession'])->name('student-sessions.quick-update')->middleware('check.action');
+        Route::post('/student-sessions/bulk-update', [StudentSessionController::class, 'bulkUpdateSessions'])->name('student-sessions.bulk-update')->middleware('check.action');
     });
     
     Route::get('/students/{student}/sessions', [StudentSessionController::class, 'getDaySessions'])->name('student.day-sessions');
@@ -146,29 +149,29 @@ Route::middleware('auth')->group(function(){
     });
     
     
-    Route::prefix('attendance')->middleware('user.role:student,school,teacher,father,admin')->name("attendance.")->group(function(){
+    Route::prefix('attendance')->middleware('user.role:student,school,teacher,father,admin,مراقب,مشرف')->name("attendance.")->group(function(){
         Route::get('/', [AttendanceController::class, 'index'])->name('index');
     });
     
-    Route::prefix('files')->controller(SchoolFileContoller::class)->middleware('user.role:teacher,school', 'school.subscribed')->name("files.")->group(function(){
+    Route::prefix('files')->controller(SchoolFileContoller::class)->middleware('user.role:teacher,school,مراقب,مشرف', 'school.subscribed')->name("files.")->group(function(){
         Route::get('/', 'index')->name('index');
         Route::get('/download/{schoolFile}', 'download')->name('download');
         Route::get('/view/{schoolFile}', 'viewFile')->name('view');
         
         Route::middleware('user.role:school')->group(function(){
-            Route::post('/', 'store')->name('store');
-            Route::put('/{schoolFile}', 'update')->name('update');
-            Route::delete('/{schoolFile}', 'destroy')->name('destroy');
+            Route::post('/', 'store')->name('store')->middleware('check.action');
+            Route::put('/{schoolFile}', 'update')->name('update')->middleware('check.action');
+            Route::delete('/{schoolFile}', 'destroy')->name('destroy')->middleware('check.action');
         });
     });
     
-    Route::prefix('reminders')->controller(SchoolReminderContoller::class)->middleware('user.role:teacher,school', 'school.subscribed')->name("reminders.")->group(function(){
+    Route::prefix('reminders')->controller(SchoolReminderContoller::class)->middleware('user.role:teacher,school,مراقب,مشرف', 'school.subscribed')->name("reminders.")->group(function(){
         Route::get('/', 'index')->name('index');
         
         Route::middleware('user.role:school')->group(function(){
-            Route::post('/', 'store')->name('store');
-            Route::put('/{schoolReminder}', 'update')->name('update');
-            Route::delete('/{schoolReminder}', 'destroy')->name('destroy');
+            Route::post('/', 'store')->name('store')->middleware('check.action');
+            Route::put('/{schoolReminder}', 'update')->name('update')->middleware('check.action');
+            Route::delete('/{schoolReminder}', 'destroy')->name('destroy')->middleware('check.action');
         });
     });
     

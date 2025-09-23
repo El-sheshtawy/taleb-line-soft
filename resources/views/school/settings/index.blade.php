@@ -8,15 +8,16 @@
         <div class="col-md-6 mb-1">
             <label for="school_name" class="form-label"> اسم المدرسة <i class="text-danger">*</i></label>
             <input type="text" class="form-control" id="school_name" value="{{ $school->school_name }}"
-                name="school_name" required>
+                name="school_name" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }} required>
         </div>
 
         <div class="col-md-6 mb-1">
             <label for="edu_region" class="form-label">المنطقة التعليمية</label>
             <input type="text" class="form-control" id="edu_region" value="{{ $school->edu_region }}"
-                name="edu_region">
+                name="edu_region" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
         </div>
 
+        @if(!in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
         <div class="col-md-6 mb-1">
             <label for="school_logo_url" class="form-label"> شعار المدرسة <i class="text-gray">png, jpg, jpeg,
                     svg</i></label>
@@ -46,6 +47,31 @@
                 </div>
             @endif
         </div>
+        @else
+        <div class="col-md-6 mb-1">
+            <label class="form-label">شعار المدرسة</label>
+            @if ($school->school_logo_url)
+                <div class="mt-2">
+                    <img src="{{ $school->school_logo_url }}" alt="School Logo"
+                        style="max-width: 100px; max-height: 100px;" class="img-thumbnail">
+                </div>
+            @else
+                <p class="text-muted">لا يوجد شعار</p>
+            @endif
+        </div>
+
+        <div class="col-md-6 mb-1">
+            <label class="form-label">لافتة المدرسة</label>
+            @if ($school->school_banner_url)
+                <div class="mt-2">
+                    <img src="{{ $school->school_banner_url }}" alt="School Banner"
+                        style="max-width: 200px; max-height: 100px;" class="img-thumbnail">
+                </div>
+            @else
+                <p class="text-muted">لا توجد لافتة</p>
+            @endif
+        </div>
+        @endif
 
         <!-- Rest of your form fields -->
         <!--
@@ -71,6 +97,7 @@
         </div>
         -->
 
+        @if(!in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
         <div class="col-md-6 mb-1 mt-4">
             <label for="table_general" class="form-label"> <i class="text-gray"> الجدول العام PDF</i></label>
             <br>
@@ -105,27 +132,55 @@
                 </div>
             @endif
         </div>
+        @else
+        <div class="col-md-6 mb-1 mt-4">
+            <label class="form-label">الجدول العام</label>
+            @if ($school->table_general)
+                <div class="mt-2">
+                    <a href="{{ $school->table_general }}" target="_blank" class="btn btn-sm btn-primary">
+                        عرض الجدول العام
+                    </a>
+                </div>
+            @else
+                <p class="text-muted">لا يوجد جدول</p>
+            @endif
+        </div>
+        <div class="col-md-6 mb-1">
+            <label class="form-label">جدول الحصص</label>
+            @if ($school->table_classes)
+                <div class="mt-2">
+                    <a href="{{ $school->table_classes }}" target="_blank" class="btn btn-sm btn-primary">
+                        عرض جدول الحصص
+                    </a>
+                </div>
+            @else
+                <p class="text-muted">لا يوجد جدول</p>
+            @endif
+        </div>
+        @endif
 
         <div class="col-md-6 mb-1">
             <label for="absence_count" class="form-label">نصاب الغياب </label>
             <input type="number" class="form-control" id="absence_count" value="{{ $school->absence_count }}"
-                name="absence_count">
+                name="absence_count" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
         </div>
 
         <div class="col-md-6 mb-1">
             <label for="teachers_default_password" class="form-label">كلمة مرور المعلمين الافتراضية</label>
             <input type="text" class="form-control" id="teachers_default_password"
-                value="{{ $school->teachers_default_password }}" name="teachers_default_password">
+                value="{{ $school->teachers_default_password }}" name="teachers_default_password" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
         </div>
 
         <div class="col-md-6 mb-1">
             <label for="students_default_password" class="form-label">كلمة مرور الطلاب الافتراضية</label>
             <input type="text" class="form-control" id="students_default_password"
-                value="{{ $school->students_default_password }}" name="students_default_password">
+                value="{{ $school->students_default_password }}" name="students_default_password" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
         </div>
     </div>
 
+    @if(!in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
     <button type="submit" class="btn btn-primary px-3 mb-4">حفظ</button>
+    @endif
 </form>
 
 <script>

@@ -26,8 +26,8 @@ class StudentSessionController extends Controller
         ]);
         
         $user = Auth::user();
-        $teacher = $user->user_type == 'teacher' ? $user->profile : null;
-        $school = $user->user_type == 'teacher' ? $user->profile->school : $user->profile;
+        $teacher = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile : null;
+        $school = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile->school : $user->profile;
         
         if(!$teacher && $request->filled('teacher_id')){
             $teacher = Teacher::find($request->teacher_id);
@@ -219,8 +219,8 @@ class StudentSessionController extends Controller
     
     
         $user = Auth::user();
-        $school = $user->user_type == 'teacher' ? $user->profile->school : $user->profile;
-        $teacher = $user->user_type == 'teacher' ? $user->profile : null;
+        $school = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile->school : $user->profile;
+        $teacher = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile : null;
         
         $today = now()->format('Y-m-d');
         $date = $request->input('date', $today);

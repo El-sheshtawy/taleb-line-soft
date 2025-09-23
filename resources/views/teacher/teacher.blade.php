@@ -74,11 +74,22 @@
             <div class="guarantor">
                 <div class="title"
                     style="color:#fff;background:#555;display:flex; justify-content:center;align-items:center">
-                    <h5> <span style="color:#75f98c;"> <i class="ri-shield-user-fill"></i>المعلم</span>
-                        {{ $teacher ? $teacher->name : '' }} </h5>
-
+                    @if(auth()->user()->user_type === 'مراقب')
+                        <h5> <span style="color:#75f98c;"> <i class="ri-eye-fill"></i>مراقب</span>
+                            {{ $teacher ? $teacher->name : '' }} </h5>
+                    @elseif(auth()->user()->user_type === 'مشرف')
+                        <h5> <span style="color:#75f98c;"> <i class="ri-user-settings-fill"></i>مشرف</span>
+                            {{ $teacher ? $teacher->name : '' }} </h5>
+                    @else
+                        <h5> <span style="color:#75f98c;"> <i class="ri-shield-user-fill"></i>المعلم</span>
+                            {{ $teacher ? $teacher->name : '' }} </h5>
+                    @endif
                 </div>
-                <p> هذه الصفحة تمكنكم من متابعة حضور الطلاب <br /> ولكم كل الشكر والتقدير على دعمكم لنا 🌹 </p>
+                @if(auth()->user()->user_type === 'مراقب')
+                    <p> هذه الصفحة تمكنكم من مراقبة حضور الطلاب <br /> ولكم كل الشكر والتقدير على دعمكم لنا 🌹 </p>
+                @else
+                    <p> هذه الصفحة تمكنكم من متابعة حضور الطلاب <br /> ولكم كل الشكر والتقدير على دعمكم لنا 🌹 </p>
+                @endif
             </div>
 
             <div class="listOfName">
@@ -97,9 +108,11 @@
                         <option value="monitoring">عرض المتابعة</option>
                         <option value="export-pdf">تصدير بي دي اف</option>
                         <option value="meeting-room">غرفة ميتينج</option>
-                        @if (auth()->user()->user_type == 'school')
-                            <option value="clear-data">مسح متابعة اليوم</option>
-                        @endif
+                        <x-action-button>
+                            @if (auth()->user()->user_type == 'school')
+                                <option value="clear-data">مسح متابعة اليوم</option>
+                            @endif
+                        </x-action-button>
                     </select>
                 </div>
 
@@ -337,8 +350,13 @@
 
             // Save button for main table
             async function handleSaveClick() {
+                @if(auth()->user()->user_type === 'مراقب')
+                    showError('غير مسموح لك بتنفيذ هذا الإجراء');
+                    return;
+                @endif
+                
                 const saveBtn = document.getElementById('saveSessionBtn');
-                saveBtn.disabled = true;
+                if (saveBtn) saveBtn.disabled = true;
 
                 const date = dateInput.value || "{{ request('date', $date) }}";
 
@@ -525,6 +543,12 @@
 
             // Handle modal form submission
             async function handleFormSubmit(e) {
+                @if(auth()->user()->user_type === 'مراقب')
+                    e.preventDefault();
+                    showError('غير مسموح لك بتنفيذ هذا الإجراء');
+                    return;
+                @endif
+                
                 e.preventDefault();
                 // showLoading();
 
@@ -569,7 +593,10 @@
                 cell.addEventListener('click', handleCellClick);
             });
 
-            document.getElementById('saveSessionBtn').addEventListener('click', handleSaveClick);
+            const saveBtn = document.getElementById('saveSessionBtn');
+            if (saveBtn) {
+                saveBtn.addEventListener('click', handleSaveClick);
+            }
             document.getElementById('sessionModal').addEventListener('click', handleModalCellClick);
             document.querySelectorAll(".session-btn").forEach(button => {
                 button.addEventListener("click", handleSessionButtonClick);

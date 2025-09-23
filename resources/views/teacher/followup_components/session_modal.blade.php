@@ -44,7 +44,7 @@
                                     </td>
                                     <td class="">
                                         <input type="text" class="form-control px-1 py-0" value=""
-                                            name="students[{{ $student->id }}][teacher_note]">
+                                            name="students[{{ $student->id }}][teacher_note]" {{ in_array(auth()->user()->user_type, ['مراقب']) ? 'readonly' : '' }}>
                                     </td>
                                 </tr>
                             @endforeach
@@ -58,7 +58,9 @@
                                             <div><strong>المادة:</strong> {{ $teacher->subject ?? 'غير محدد' }}</div>
                                         </div>
                                         <div class="d-flex gap-1">
+                                            @if(!in_array(auth()->user()->user_type, ['مراقب']))
                                             <button type="submit" class="btn btn-primary"> حفظ التغييرات</button>
+                                            @endif
                                             <button type="button" class="btn btn-secondary"
                                                 data-bs-dismiss="modal">إغلاق</button>
                                         </div>

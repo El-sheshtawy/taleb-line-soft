@@ -47,7 +47,7 @@ class AttendanceController extends Controller
             return $user->profile;
         }
         
-        if ($user->user_type == 'teacher') {
+        if (in_array($user->user_type, ['teacher', 'مراقب', 'مشرف'])) {
             return $user->profile->school;
         }
         

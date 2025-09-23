@@ -34,17 +34,23 @@
     </div>
 @endif
 
-@if (auth()->user()->user_type == 'teacher')
+@if (in_array(auth()->user()->user_type, ['teacher', 'مراقب', 'مشرف']))
     <div class="navbar-bottom">
         <div>
+            <a href="{{ route('school.index') }}"> <i class="ri-shield-user-fill" style="color: #0d6efd;"></i> الادارة </a>
             <a href="{{ route('teacher.index') }}"> <i class="ri-user-star-fill" style="color: #0d6efd;"></i> المعلم
             </a>
             <a href="{{ route('attendance.index') }}"> <i class="ri-graduation-cap-fill" style="color: #0d6efd;"></i>
                 كشوفات </a>
+            <a href="{{ route('school.statistics.index') }}">
+                <i class="ri-bar-chart-fill" style="color: #0d6efd;"></i>
+                احصائيات
+            </a>
             <a href="#!"> <i class="ri-file-chart-fill" style="color: #0d6efd;"></i> تقارير </a>
             <a href="{{ route('files.index') }}"> <i class="ri-folder-fill" style="color: #0d6efd;"></i> الملفات </a>
             <a href="{{ route('reminders.index') }}"> <i class="ri-notification-3-fill" style="color: #0d6efd;"></i>
                 رسائل </a>
+            <a href="#!"> <i class="ri-parent-fill" style="color: #0d6efd;"></i> ولى امر </a>
         </div>
     </div>
 @endif

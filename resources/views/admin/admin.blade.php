@@ -66,6 +66,7 @@
                         <option value="admins">المشرفون</option>
                         <option value="school-subscriptions">الاشتراكات</option>
                         <option value="follow-up-systems">نظم المتابعة</option>
+                        <option value="special-users">المراقبون والمشرفون</option>
                     </select>
 
                     <select id="busPilgrims" class="tabs-selector"
@@ -87,6 +88,7 @@
                     <div class="tab-pane fade" id="school-accounts"> @include('admin.school_accounts.index') </div>
                     <div class="tab-pane fade" id="school-subscriptions"> @include('admin.school_subscriptions.index') </div>
                     <div class="tab-pane fade" id="follow-up-systems"> @include('admin.followup_systems.index') </div>
+                    <div class="tab-pane fade" id="special-users"> @include('admin.special_users.index') </div>
                 </div>
             </div>
 

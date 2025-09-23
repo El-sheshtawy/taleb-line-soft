@@ -65,7 +65,7 @@
         </div>
     </div>
 @endif
-@if (auth()->user()->user_type == 'teacher')
+@if (in_array(auth()->user()->user_type, ['teacher', 'مراقب', 'مشرف']))
     <div class="header" class="header"
         style="background: #004aad; width: 100%; min-height: 70px; padding-bottom:0.3rem;">
         <div class="appHeader w-100 h-100">

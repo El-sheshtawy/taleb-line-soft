@@ -11,6 +11,7 @@ use App\Models\FollowUp;
 use App\Models\SchoolAccountSubscription;
 use App\Models\AcademicYear;
 use App\Models\User;
+use App\Models\Nationality;
 
 class AdminController extends Controller
 {
@@ -23,7 +24,9 @@ class AdminController extends Controller
         $schoolAccountSubscriptions = SchoolAccountSubscription::with('schoolAccount')->get();
         $academicYears = AcademicYear::orderBy('created_at')->get();
         $admins = User::where('user_type', 'admin')->get();
+        $specialUsers = User::whereIn('user_type', ['مراقب', 'مشرف'])->get();
+        $nationalities = Nationality::all();
         
-        return view('admin.admin', compact('schoolAccounts', 'grades', 'levels', 'followUps', 'schoolAccountSubscriptions', 'academicYears', 'admins'));
+        return view('admin.admin', compact('schoolAccounts', 'grades', 'levels', 'followUps', 'schoolAccountSubscriptions', 'academicYears', 'admins', 'specialUsers', 'nationalities'));
     }
 }
