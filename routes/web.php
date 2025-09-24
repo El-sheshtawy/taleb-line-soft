@@ -42,17 +42,28 @@ Route::get('/', function () {
 })->name('home');
 Route::get('/home', function () {
     if (auth()->check()) {
-        if (auth()->user()->user_type == 'admin') {
+        $userType = auth()->user()->user_type;
+        
+        if ($userType == 'admin') {
             return redirect()->route('admin.index');
         }
-        if (auth()->user()->user_type == 'school') {
+        if ($userType == 'school') {
             return redirect()->route('school.index');
         }
-        if (in_array(auth()->user()->user_type, ['teacher', 'مراقب', 'مشرف'])) {
+        if (in_array($userType, ['teacher', 'مراقب', 'مشرف'])) {
             return redirect()->route('teacher.index');
         }
+        if ($userType == 'student') {
+            return redirect()->route('teacher.index'); // or create student dashboard
+        }
+        if ($userType == 'father') {
+            return redirect('/father');
+        }
+        
+        // For unknown user types, show debug info
+        return response('Unknown user type: ' . $userType . '. Please contact administrator.', 400);
     }
-    return view('welcome');
+    return redirect()->route('login');
 })->name('temp.redirect'); // this route solve bug of redirect when authentication but should solve using better way
 Route::get('/father', function () {
     return view('fathers.fathers');
