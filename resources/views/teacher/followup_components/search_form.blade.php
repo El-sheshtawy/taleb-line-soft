@@ -54,17 +54,22 @@
     
         classSelect.innerHTML = '<option value="">جاري التحميل...</option>';
         classSelect.disabled = true;
-        fetch('{{ url('public/schools') }}/' + schoolId + '/grades/' + gradeId + '/classes')
+        const url = '{{ url('public/schools') }}/' + schoolId + '/grades/' + gradeId + '/classes';
+        console.log('Fetching URL:', url);
+        
+        fetch(url)
             .then(response => {
+                console.log('Response status:', response.status);
                 if (!response.ok) {
-                    throw new Error('Network response was not ok');
+                    throw new Error('HTTP ' + response.status + ': ' + response.statusText);
                 }
                 return response.json();
             })
             .then(data => {
+                console.log('Data received:', data);
                 let options = '<option selected disabled>اختر الفصل...</option>';
                 data.forEach(cls => {
-                    options += `<option value="${cls.id}">${cls.name}</option>`;
+                    options += '<option value="' + cls.id + '">' + cls.name + '</option>';
                 });
                 
                 classSelect.innerHTML = options;
@@ -76,8 +81,8 @@
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                classSelect.innerHTML = '<option value="">حدث خطأ أثناء التحميل</option>';
+                console.error('Fetch error:', error);
+                classSelect.innerHTML = '<option value="">حدث خطأ أثناء التحميل: ' + error.message + '</option>';
             });
     }
 </script>
