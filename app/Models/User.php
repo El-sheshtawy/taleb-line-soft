@@ -15,7 +15,8 @@ class User extends Authenticatable
         'user_type',
         'username',
         'password',
-        'defualt_password'
+        'defualt_password',
+        'school_id'
     ];
     
     public const VIEWER_ROLE = 'مراقب';

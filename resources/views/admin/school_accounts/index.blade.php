@@ -67,6 +67,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             document.getElementById("edit_logo_preview").src = schoolData.school_logo_url ?? "";
             document.getElementById("edit_banner_preview").src = schoolData.school_banner_url ?? "";
+            
+            document.getElementById("edit_viewer_name").value = schoolData.viewer_name || "";
+            document.getElementById("edit_viewer_password").value = schoolData.viewer_password || "";
+            document.getElementById("edit_supervisor_name").value = schoolData.supervisor_name || "";
+            document.getElementById("edit_supervisor_password").value = schoolData.supervisor_password || "";
         });
     });
 });

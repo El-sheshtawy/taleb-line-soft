@@ -3,7 +3,7 @@
         <thead>
             <tr class="text-center align-middle">
                 <th class="p-1">#</th>
-                <th class="p-1 text-end" style="min-width: 120px;">الطالب</th>
+                <th class="p-1 text-end">الطالب</th>
                 @for ($i = 1; $i <= 7; $i++)
                     <?php 
                         $sessionHasData = false;
@@ -21,9 +21,9 @@
                             }
                         }
                     ?>
-                    <th style="min-width:20px">
+                    <th style="min-width:20px; width: 25px; max-width: 25px;">
                         <button type="button" 
-                                class="w-100 h-100 bg-primary px-2 py-1 session-btn {{ $sessionHasData ? 'btn-secondary' : 'btn-primary' }}" 
+                                class="w-100 h-100 bg-primary px-1 py-1 session-btn {{ $sessionHasData ? 'btn-secondary' : 'btn-primary' }}" 
                                 data-session="{{ $i }}" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#sessionModal"
@@ -32,14 +32,14 @@
                         </button>
                     </th>
                 @endfor
-                <th class="p-1">غائب</th>
+                <th class="p-1" style="width: 30px; max-width: 30px;">غ</th>
             </tr>
         </thead>
         <tbody>
             @foreach($students as $student)
                 <tr class="text-center">
                     <td class="p-1" style="background-color: #15336a; color:#ffd400">{{ $loop->iteration }}</td>
-                    <td class="p-1 text-end responsive-cell" style="min-width: 120px;">
+                    <td class="p-1 text-end responsive-cell">
                         <a href="#student-details-{{ $student->id }}" 
                            class="student-name-toggle cell-link d-flex align-items-center justify-content-start
                                 text-{{$student->gender ? 'primary' : 'danger'}} text-{{ $student->note ? 'danger' : '' }}" 
@@ -85,7 +85,7 @@
                             @endif
                         </td>
                     @endfor
-                    <td class="px-1">
+                    <td class="px-1" style="width: 30px; max-width: 30px;">
                         <?php $day =  $days->where('student_id', $student->id)->first() ?>
                         @if($day && $day->is_absent)
                             <span class="text-danger">غ</span>
@@ -217,6 +217,17 @@
         text-decoration: none;
     }
 
+.table-responsive {
+    overflow-x: visible;
+}
+
+.table th:not(:nth-child(2)), 
+.table td:not(:nth-child(2)) {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 @media (max-width: 768px) {
     .table-responsive {
         overflow-x: auto !important;
@@ -224,7 +235,7 @@
         scroll-behavior: smooth !important;
     }
     .table-responsive table {
-        min-width: 550px !important;
+        min-width: 400px !important;
     }
     .table-responsive::-webkit-scrollbar {
         height: 6px;

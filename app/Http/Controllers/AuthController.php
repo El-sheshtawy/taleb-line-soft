@@ -21,6 +21,29 @@ class AuthController extends Controller
         $user = User::where('username', $request->username)->first();
 
         if (!$user) {
+            // Check if it's a viewer or supervisor login
+            $school = \App\Models\SchoolAccount::where('viewer_name', $request->username)
+                ->orWhere('supervisor_name', $request->username)
+                ->first();
+                
+            if ($school) {
+                $isViewer = $school->viewer_name === $request->username && $school->viewer_password === $request->password;
+                $isSupervisor = $school->supervisor_name === $request->username && $school->supervisor_password === $request->password;
+                
+                if ($isViewer || $isSupervisor) {
+                    // Create temporary user session
+                    $tempUser = new User([
+                        'user_type' => $isViewer ? 'مراقب' : 'مشرف',
+                        'username' => $request->username,
+                        'school_id' => $school->id
+                    ]);
+                    $tempUser->id = 'temp_' . $school->id . '_' . ($isViewer ? 'viewer' : 'supervisor');
+                    
+                    Auth::login($tempUser, $request->remember ?? false);
+                    return redirect()->route('school.index');
+                }
+            }
+            
             return back()->withErrors(['username' => 'بيانات الاعتماد غير صحيحة']);
         }
 
@@ -39,6 +62,9 @@ class AuthController extends Controller
                     return redirect()->route('admin.index');
                 case 'father':
                     return redirect()->route('father.index');
+                case 'مراقب':
+                case 'مشرف':
+                    return redirect()->route('school.index');
                 default:
                     return redirect()->route('home');
             }

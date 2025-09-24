@@ -28,7 +28,7 @@
                         </div>
 
                         <div class="col-md-6 mb-1">
-                            <label for="username" class="form-label">اسم المستخدم <i class="text-danger">*</i></label>
+                            <label for="username" class="form-label">اسم الادمن <i class="text-danger">*</i></label>
                             <input type="text" class="form-control" id="username" name="username" required>
                         </div>
 
@@ -79,6 +79,31 @@
                         <div class="col-md-6 mb-1">
                             <label for="students_default_password" class="form-label">كلمة مرور الطلاب الافتراضية</label>
                             <input type="text" class="form-control" id="students_default_password" name="students_default_password">
+                        </div>
+                        
+                        <div class="col-md-6 mb-1">
+                            <label for="students_default_password" class="form-label">كلمة مرور الطلاب الافتراضية</label>
+                            <input type="text" class="form-control" id="students_default_password" name="students_default_password">
+                        </div>
+                        
+                        <div class="col-md-6 mb-1">
+                            <label for="viewer_name" class="form-label">اسم المراقب</label>
+                            <input type="text" class="form-control" id="viewer_name" name="viewer_name">
+                        </div>
+                        
+                        <div class="col-md-6 mb-1">
+                            <label for="supervisor_name" class="form-label">اسم المشرف</label>
+                            <input type="text" class="form-control" id="supervisor_name" name="supervisor_name">
+                        </div>
+                        
+                        <div class="col-md-6 mb-1">
+                            <label for="viewer_password" class="form-label">كلمة مرور المراقب</label>
+                            <input type="text" class="form-control" id="viewer_password" name="viewer_password">
+                        </div>
+                        
+                        <div class="col-md-6 mb-1">
+                            <label for="supervisor_password" class="form-label">كلمة مرور المشرف</label>
+                            <input type="text" class="form-control" id="supervisor_password" name="supervisor_password">
                         </div>
                         
                         <div class="col-md-12 mb-1">

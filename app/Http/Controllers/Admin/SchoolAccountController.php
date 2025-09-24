@@ -28,7 +28,11 @@ class SchoolAccountController extends Controller
             'students_default_password' => 'nullable|string|max:255',
             'absence_count' => 'nullable|integer|min:1|max:7',
             'follow_up_id' => 'required|exists:follow_ups,id',
-            'level_id' => 'nullable|exists:levels,id'
+            'level_id' => 'nullable|exists:levels,id',
+            'viewer_name' => 'nullable|string|max:255',
+            'viewer_password' => 'nullable|string|max:255',
+            'supervisor_name' => 'nullable|string|max:255',
+            'supervisor_password' => 'nullable|string|max:255'
         ], [], [
 	        'school_name' => 'اسم المدرسة',
 	        'password' => 'كلمة المرور',
@@ -76,7 +80,13 @@ class SchoolAccountController extends Controller
                 'absence_count' => $validated['absence_count'] ?? 2,
                 'level_id' => $validated['level_id'],
                 'user_id' => $user->id,
+                'viewer_name' => $validated['viewer_name'],
+                'viewer_password' => $validated['viewer_password'],
+                'supervisor_name' => $validated['supervisor_name'],
+                'supervisor_password' => $validated['supervisor_password'],
             ]);
+            
+
     	
              DB::commit();
             return redirect()->route('admin.index')->with('success', 'تم إنشاء حساب المدرسة بنجاح');
@@ -100,6 +110,10 @@ class SchoolAccountController extends Controller
             'students_default_password' => 'nullable|string|max:255',
             'absence_count' => 'nullable|integer|min:1|max:7',
             'level_id' => 'nullable|exists:levels,id',
+            'viewer_name' => 'nullable|string|max:255',
+            'viewer_password' => 'nullable|string|max:255',
+            'supervisor_name' => 'nullable|string|max:255',
+            'supervisor_password' => 'nullable|string|max:255'
         ], [], [
 	        'school_name' => 'اسم المدرسة',
 	        'password' => 'كلمة المرور',
@@ -126,6 +140,48 @@ class SchoolAccountController extends Controller
 	        }
     	    
             $schoolAccount->update($validated);
+            
+            // Update or create viewer user if provided
+            if (!empty($validated['viewer_name']) && !empty($validated['viewer_password'])) {
+                $viewerUser = User::where('user_type', 'مراقب')
+                    ->where('school_id', $schoolAccount->id)
+                    ->first();
+                    
+                if ($viewerUser) {
+                    $viewerUser->update([
+                        'username' => $validated['viewer_name'],
+                        'password' => Hash::make($validated['viewer_password'])
+                    ]);
+                } else {
+                    User::create([
+                        'user_type' => 'مراقب',
+                        'username' => $validated['viewer_name'],
+                        'password' => Hash::make($validated['viewer_password']),
+                        'school_id' => $schoolAccount->id
+                    ]);
+                }
+            }
+            
+            // Update or create supervisor user if provided
+            if (!empty($validated['supervisor_name']) && !empty($validated['supervisor_password'])) {
+                $supervisorUser = User::where('user_type', 'مشرف')
+                    ->where('school_id', $schoolAccount->id)
+                    ->first();
+                    
+                if ($supervisorUser) {
+                    $supervisorUser->update([
+                        'username' => $validated['supervisor_name'],
+                        'password' => Hash::make($validated['supervisor_password'])
+                    ]);
+                } else {
+                    User::create([
+                        'user_type' => 'مشرف',
+                        'username' => $validated['supervisor_name'],
+                        'password' => Hash::make($validated['supervisor_password']),
+                        'school_id' => $schoolAccount->id
+                    ]);
+                }
+            }
             
             if ($request->hasFile('school_logo_url')) {
                 if ($schoolAccount->school_logo_url) {

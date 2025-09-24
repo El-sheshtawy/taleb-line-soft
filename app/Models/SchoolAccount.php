@@ -25,6 +25,10 @@ class SchoolAccount extends Model
         'absence_count',
         'table_general',
         'table_classes',
+        'viewer_name',
+        'viewer_password',
+        'supervisor_name',
+        'supervisor_password',
     ];
 
     public function getSchoolLogoUrlAttribute($value)
