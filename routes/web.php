@@ -202,6 +202,12 @@ Route::middleware('auth')->group(function(){
     
 });
 
+// Temporary test route
+Route::get('/test-classes/{school_id}/{grade_id}', function($school_id, $grade_id) {
+    $classes = App\Models\ClassRoom::where('school_id', $school_id)->where('grade_id', $grade_id)->get(['id', 'name']);
+    return response()->json($classes);
+});
+
 
 
 // this is the same code
