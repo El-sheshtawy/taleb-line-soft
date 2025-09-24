@@ -1,9 +1,9 @@
-<div class="table-responsive mb-1" style="overflow-x: auto; -webkit-overflow-scrolling: touch;"> 
-    <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap" style="min-width: 800px;">
+<div class="table-responsive mb-1"> 
+    <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap">
         <thead>
             <tr class="text-center align-middle">
                 <th class="p-1">#</th>
-                <th class="p-1 text-end" style="min-width: 150px; width: 40%;">الطالب</th>
+                <th class="p-1 text-end" style="min-width: 120px;">الطالب</th>
                 @for ($i = 1; $i <= 7; $i++)
                     <?php 
                         $sessionHasData = false;
@@ -39,7 +39,7 @@
             @foreach($students as $student)
                 <tr class="text-center">
                     <td class="p-1" style="background-color: #15336a; color:#ffd400">{{ $loop->iteration }}</td>
-                    <td class="p-1 text-end responsive-cell" style="min-width: 150px; width: 40%;">
+                    <td class="p-1 text-end responsive-cell" style="min-width: 120px;">
                         <a href="#student-details-{{ $student->id }}" 
                            class="student-name-toggle cell-link d-flex align-items-center justify-content-start
                                 text-{{$student->gender ? 'primary' : 'danger'}} text-{{ $student->note ? 'danger' : '' }}" 
@@ -216,6 +216,31 @@
         color: #0d6efd;
         text-decoration: none;
     }
+
+@media (max-width: 768px) {
+    .table-responsive {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-behavior: smooth !important;
+    }
+    .table-responsive table {
+        min-width: 550px !important;
+    }
+    .table-responsive::-webkit-scrollbar {
+        height: 6px;
+    }
+    .table-responsive::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+    }
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+}
 </style>
 
 <script>
