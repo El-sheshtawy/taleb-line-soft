@@ -1,5 +1,5 @@
 <div class="table-responsive mb-1" style="overflow-x: auto; -webkit-overflow-scrolling: touch;"> 
-    <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap">
+    <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap" style="min-width: 800px;">
         <thead>
             <tr class="text-center align-middle">
                 <th class="p-1">#</th>
