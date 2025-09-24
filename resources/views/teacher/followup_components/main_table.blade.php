@@ -3,7 +3,7 @@
         <thead>
             <tr class="text-center align-middle">
                 <th class="p-1">#</th>
-                <th class="p-1 text-end">الطالب</th>
+                <th class="p-1 text-end" style="min-width: 150px; width: 40%;">الطالب</th>
                 @for ($i = 1; $i <= 7; $i++)
                     <?php 
                         $sessionHasData = false;
@@ -39,7 +39,7 @@
             @foreach($students as $student)
                 <tr class="text-center">
                     <td class="p-1" style="background-color: #15336a; color:#ffd400">{{ $loop->iteration }}</td>
-                    <td class="p-1 text-end responsive-cell">
+                    <td class="p-1 text-end responsive-cell" style="min-width: 150px; width: 40%;">
                         <a href="#student-details-{{ $student->id }}" 
                            class="student-name-toggle cell-link d-flex align-items-center justify-content-start
                                 text-{{$student->gender ? 'primary' : 'danger'}} text-{{ $student->note ? 'danger' : '' }}" 
