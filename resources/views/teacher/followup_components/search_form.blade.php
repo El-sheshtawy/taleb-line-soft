@@ -54,7 +54,7 @@
     
         classSelect.innerHTML = '<option value="">جاري التحميل...</option>';
         classSelect.disabled = true;
-        fetch(`{{ url('public/schools') }}/${schoolId}/grades/${gradeId}/classes`)
+        fetch('{{ url('public/schools') }}/' + schoolId + '/grades/' + gradeId + '/classes')
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
