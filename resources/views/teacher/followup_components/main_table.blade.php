@@ -1,5 +1,5 @@
-<div class="table-responsive mb-1" style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
-    <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap" style="min-width: 100%;">
+<div class="table-responsive mb-1" style="overflow-x: auto; -webkit-overflow-scrolling: touch;"> 
+    <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap" style="min-width: 800px;">
         <thead>
             <tr class="text-center align-middle">
                 <th class="p-1">#</th>
@@ -194,25 +194,6 @@
 </div>
 
 <style>
-    @media (max-width: 768px) {
-        .table-responsive table {
-            min-width: 700px !important;
-            display: block;
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-        
-        .table-responsive {
-            -webkit-overflow-scrolling: touch;
-            overflow-x: auto;
-            width: 100%;
-        }
-    }
-
-    .table td, .table th {
-        min-width: 0;
-    }
-
     /* Enhanced collapse animation */
     .student-details-row .collapse-inner {
         overflow: hidden;
@@ -380,3 +361,4 @@
         });
     }
 </script>
+
