@@ -1,4 +1,4 @@
-<div class="table-responsive mb-1"> 
+<div class="table-responsive mb-1" style="overflow-x: auto; -webkit-overflow-scrolling: touch;"> 
     <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap">
         <thead>
             <tr class="text-center align-middle">
