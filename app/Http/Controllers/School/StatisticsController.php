@@ -33,7 +33,7 @@ class StatisticsController extends Controller
         $date = $validated['date'] ?? $today;
 
         $user = Auth::user();
-        $school = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile->school : $user->profile;
+        $school = $user->getSchool();
 
         // First get all classes
         $classes = ClassRoom::with('grade')
@@ -112,7 +112,7 @@ class StatisticsController extends Controller
     public function students(Request $request)
     {
         $user = Auth::user();
-        $school = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile->school : $user->profile;
+        $school = $user->getSchool();
         $grades = Grade::where('level_id', $school->level_id)->get();
         $classes = ClassRoom::with('grade')->where('school_id', $school->id)->get();
 
@@ -202,7 +202,7 @@ class StatisticsController extends Controller
 
         $user = Auth::user();
         $teacher = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile : null;
-        $school = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile->school : $user->profile;
+        $school = $user->getSchool();
         $teachers = $school->teachers;
 
         $school_absent_item = $school->followUp->getAbsent();
@@ -305,7 +305,7 @@ class StatisticsController extends Controller
         $date = $validated['date'] ?? $today;
 
         $user = Auth::user();
-        $school = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile->school : $user->profile;
+        $school = $user->getSchool();
 
         // First get all classes
         $classes = ClassRoom::with('grade')
@@ -328,7 +328,7 @@ class StatisticsController extends Controller
     public function table()
     {
         $user = Auth::user();
-        $school = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile->school : $user->profile;
+        $school = $user->getSchool();
         $table = $school->table_general;
         return view('school.statistics.table.index', compact('table', 'school'));
     }

@@ -24,7 +24,8 @@ class SchoolController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        $school = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile->school : $user->profile;
+        
+        $school = $user->getSchool();
         if (!$school) return back()->with('error', 'لا يوجد مدارس في السيستم');
 
         $classes = ClassRoom::with('grade')->where('school_id', $school->id)->get();

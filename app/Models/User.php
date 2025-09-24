@@ -61,4 +61,17 @@ class User extends Authenticatable
         
         return true;
     }
+    
+    public function getSchool()
+    {
+        if (in_array($this->user_type, ['مراقب', 'مشرف']) && $this->school_id) {
+            return SchoolAccount::find($this->school_id);
+        } elseif ($this->user_type === 'teacher' && $this->profile) {
+            return $this->profile->school;
+        } elseif ($this->user_type === 'school') {
+            return $this->profile;
+        }
+        
+        return null;
+    }
 }

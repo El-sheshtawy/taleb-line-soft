@@ -16,15 +16,20 @@ class CheckActionPermission
             abort(403, 'Unauthorized access');
         }
         
-        // مراقب role - no actions allowed
+        // مراقب role - allow read-only access to school routes
         if ($user->user_type === 'مراقب') {
-            abort(403, 'غير مسموح لك بتنفيذ هذا الإجراء');
+            $currentRoute = $request->route()->getName() ?? '';
+            $currentPath = $request->path();
+            if (!str_contains($currentRoute, 'school') && !str_contains($currentPath, 'school')) {
+                abort(403, 'غير مسموح لك بتنفيذ هذا الإجراء');
+            }
         }
         
-        // مشرف role - only actions on teacher routes allowed
+        // مشرف role - allow access to teacher and school routes
         if ($user->user_type === 'مشرف') {
-            $currentRoute = $request->route()->getName();
-            if (!str_contains($currentRoute, 'teacher.') && !str_contains($request->path(), 'teacher')) {
+            $currentRoute = $request->route()->getName() ?? '';
+            $currentPath = $request->path();
+            if (!str_contains($currentRoute, 'teacher') && !str_contains($currentRoute, 'school') && !str_contains($currentPath, 'teacher') && !str_contains($currentPath, 'school')) {
                 abort(403, 'غير مسموح لك بتنفيذ هذا الإجراء');
             }
         }

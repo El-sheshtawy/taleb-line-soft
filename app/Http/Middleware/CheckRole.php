@@ -19,7 +19,17 @@ class CheckRole
     {
         $user = Auth::user();
         
-        if (!$user || !in_array($user->user_type, $types) || !$user->profile) {
+        if (!$user || !in_array($user->user_type, $types)) {
+            abort(403, 'Unauthorized access');
+        }
+        
+        // Allow مراقب and مشرف users without profiles if they have school_id
+        if (in_array($user->user_type, ['مراقب', 'مشرف']) && $user->school_id) {
+            return $next($request);
+        }
+        
+        // For other user types, require profile
+        if (!in_array($user->user_type, ['مراقب', 'مشرف']) && !$user->profile) {
             abort(403, 'Unauthorized access');
         }
         

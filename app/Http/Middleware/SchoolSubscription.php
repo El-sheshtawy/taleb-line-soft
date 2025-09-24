@@ -23,9 +23,20 @@ class SchoolSubscription
             if (!$this->hasValidSubscription($user->profile)) abort(Response::HTTP_FORBIDDEN, 'انتهت صلاحية اشتراك المدرسة أو غير موجود');
         }
         elseif (in_array($user->user_type, ['teacher', 'مراقب', 'مشرف'])) {
-            if (!$user->profile || !$user->profile->school) abort(Response::HTTP_FORBIDDEN, 'المعلم غير مرتبط بمدرسة أو لا يوجد حساب مدرسة');
+            $school = null;
+            
+            // For مراقب and مشرف users with school_id
+            if (in_array($user->user_type, ['مراقب', 'مشرف']) && $user->school_id) {
+                $school = SchoolAccount::find($user->school_id);
+            }
+            // For teachers with profile
+            elseif ($user->profile && $user->profile->school) {
+                $school = $user->profile->school;
+            }
+            
+            if (!$school) abort(Response::HTTP_FORBIDDEN, 'المعلم غير مرتبط بمدرسة أو لا يوجد حساب مدرسة');
 
-            if (!$this->hasValidSubscription($user->profile->school)) abort(Response::HTTP_FORBIDDEN, 'انتهت صلاحية اشتراك المدرسة أو غير موجود');
+            if (!$this->hasValidSubscription($school)) abort(Response::HTTP_FORBIDDEN, 'انتهت صلاحية اشتراك المدرسة أو غير موجود');
         }
         else {
             abort(Response::HTTP_FORBIDDEN, 'هذه الصفحة متاحة فقط للمدارس والمعلمين');

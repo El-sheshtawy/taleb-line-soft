@@ -30,7 +30,9 @@
                         </span>
                     </td>
                     <td class="p-1">
-                    @if($user->profile && $user->profile->school_id)
+                    @if($user->school_id)
+                        {{App\Models\SchoolAccount::find($user->school_id)->school_name ?? 'غير محدد'}}
+                    @elseif($user->profile && $user->profile->school_id)
                         {{App\Models\SchoolAccount::find($user->profile->school_id)->school_name ?? 'غير محدد'}}
                     @else
                         غير محدد

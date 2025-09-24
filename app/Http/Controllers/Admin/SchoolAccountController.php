@@ -86,6 +86,28 @@ class SchoolAccountController extends Controller
                 'supervisor_password' => $validated['supervisor_password'],
             ]);
             
+            // Create viewer user
+            if (!empty($validated['viewer_name']) && !empty($validated['viewer_password'])) {
+                User::create([
+                    'user_type' => 'مراقب',
+                    'username' => $validated['viewer_name'],
+                    'password' => Hash::make($validated['viewer_password']),
+                    'defualt_password' => Hash::make($validated['viewer_password']),
+                    'school_id' => $schoolAccount->id
+                ]);
+            }
+            
+            // Create supervisor user
+            if (!empty($validated['supervisor_name']) && !empty($validated['supervisor_password'])) {
+                User::create([
+                    'user_type' => 'مشرف',
+                    'username' => $validated['supervisor_name'],
+                    'password' => Hash::make($validated['supervisor_password']),
+                    'defualt_password' => Hash::make($validated['supervisor_password']),
+                    'school_id' => $schoolAccount->id
+                ]);
+            }
+            
 
     	
              DB::commit();
@@ -141,47 +163,33 @@ class SchoolAccountController extends Controller
     	    
             $schoolAccount->update($validated);
             
-            // Update or create viewer user if provided
+            // Create or update viewer user
             if (!empty($validated['viewer_name']) && !empty($validated['viewer_password'])) {
-                $viewerUser = User::where('user_type', 'مراقب')
-                    ->where('school_id', $schoolAccount->id)
-                    ->first();
-                    
-                if ($viewerUser) {
-                    $viewerUser->update([
-                        'username' => $validated['viewer_name'],
-                        'password' => Hash::make($validated['viewer_password'])
-                    ]);
-                } else {
-                    User::create([
+                User::updateOrCreate(
+                    ['username' => $validated['viewer_name']],
+                    [
                         'user_type' => 'مراقب',
-                        'username' => $validated['viewer_name'],
                         'password' => Hash::make($validated['viewer_password']),
+                        'defualt_password' => Hash::make($validated['viewer_password']),
                         'school_id' => $schoolAccount->id
-                    ]);
-                }
+                    ]
+                );
             }
             
-            // Update or create supervisor user if provided
+            // Create or update supervisor user
             if (!empty($validated['supervisor_name']) && !empty($validated['supervisor_password'])) {
-                $supervisorUser = User::where('user_type', 'مشرف')
-                    ->where('school_id', $schoolAccount->id)
-                    ->first();
-                    
-                if ($supervisorUser) {
-                    $supervisorUser->update([
-                        'username' => $validated['supervisor_name'],
-                        'password' => Hash::make($validated['supervisor_password'])
-                    ]);
-                } else {
-                    User::create([
+                User::updateOrCreate(
+                    ['username' => $validated['supervisor_name']],
+                    [
                         'user_type' => 'مشرف',
-                        'username' => $validated['supervisor_name'],
                         'password' => Hash::make($validated['supervisor_password']),
+                        'defualt_password' => Hash::make($validated['supervisor_password']),
                         'school_id' => $schoolAccount->id
-                    ]);
-                }
+                    ]
+                );
             }
+            
+
             
             if ($request->hasFile('school_logo_url')) {
                 if ($schoolAccount->school_logo_url) {

@@ -39,7 +39,7 @@ class TeacherController extends Controller
         
         $user = Auth::user();
         $teacher = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile : null;
-        $school = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile->school : $user->profile;
+        $school = $user->getSchool();
         $teachers = $school->teachers;
         
         $school_absent_item = $school->followUp->getAbsent();

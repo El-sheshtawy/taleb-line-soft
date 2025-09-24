@@ -176,7 +176,7 @@
             				            </div>
                 				    </div>
                 				@else
-                				    <input type="hidden" value="{{$teacher->id}}" name="teacher_id" id="teacher-select">
+                				    <input type="hidden" value="{{$teacher->id ?? ''}}" name="teacher_id" id="teacher-select">
                 				@endif
             				    @if(!in_array(auth()->user()->user_type, ['مراقب']))
             				    <div class="col-6 col-md-4 col-sm-6">

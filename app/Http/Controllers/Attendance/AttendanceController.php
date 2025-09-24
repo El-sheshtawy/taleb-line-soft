@@ -48,7 +48,7 @@ class AttendanceController extends Controller
         }
         
         if (in_array($user->user_type, ['teacher', 'مراقب', 'مشرف'])) {
-            return $user->profile->school;
+            return $user->getSchool();
         }
         
         if ($request->filled('school_id')) {
