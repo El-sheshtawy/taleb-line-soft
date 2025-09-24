@@ -54,7 +54,7 @@
     
         classSelect.innerHTML = '<option value="">جاري التحميل...</option>';
         classSelect.disabled = true;
-        const url = '{{ url('public/schools') }}/' + schoolId + '/grades/' + gradeId + '/classes';
+        const url = '{{ route('public.grade-classes', ['schoolAccount' => '__SCHOOL__', 'grade' => '__GRADE__']) }}'.replace('__SCHOOL__', schoolId).replace('__GRADE__', gradeId);
         console.log('Fetching URL:', url);
         
         fetch(url)
