@@ -40,6 +40,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('login');
 })->name('home');
+
+Route::get('/debug-user', function () {
+    if (auth()->check()) {
+        $user = auth()->user();
+        return response()->json([
+            'id' => $user->id,
+            'username' => $user->username,
+            'user_type' => $user->user_type,
+            'has_profile' => $user->profile ? 'Yes' : 'No',
+            'profile_type' => $user->profile ? get_class($user->profile) : 'None'
+        ]);
+    }
+    return 'Not logged in';
+});
 Route::get('/home', function () {
     if (auth()->check()) {
         $userType = auth()->user()->user_type;
