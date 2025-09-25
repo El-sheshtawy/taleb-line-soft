@@ -17,34 +17,12 @@ class SchoolSubscription
         
         if (!$user) abort(Response::HTTP_UNAUTHORIZED, 'غير مصرح بالدخول');
 
-        if ($user->user_type === 'school') {
-            if (!$user->profile) abort(Response::HTTP_FORBIDDEN, 'لا يوجد حساب مدرسة مرتبط بهذا المستخدم');
-
-            // Subscription check disabled
-            // if (!$this->hasValidSubscription($user->profile)) abort(Response::HTTP_FORBIDDEN, 'انتهت صلاحية اشتراك المدرسة أو غير موجود');
+        // Simple check - just allow authenticated users with valid user types
+        if (in_array($user->user_type, ['school', 'teacher', 'مراقب', 'مشرف'])) {
+            return $next($request);
         }
-        elseif (in_array($user->user_type, ['teacher', 'مراقب', 'مشرف'])) {
-            $school = null;
-            
-            // For مراقب and مشرف users with school_id
-            if (in_array($user->user_type, ['مراقب', 'مشرف']) && $user->school_id) {
-                $school = SchoolAccount::find($user->school_id);
-            }
-            // For teachers with profile
-            elseif ($user->profile && $user->profile->school) {
-                $school = $user->profile->school;
-            }
-            
-            if (!$school) abort(Response::HTTP_FORBIDDEN, 'المعلم غير مرتبط بمدرسة أو لا يوجد حساب مدرسة');
-
-            // Subscription check disabled
-            // if (!$this->hasValidSubscription($school)) abort(Response::HTTP_FORBIDDEN, 'انتهت صلاحية اشتراك المدرسة أو غير موجود');
-        }
-        else {
-            abort(Response::HTTP_FORBIDDEN, 'هذه الصفحة متاحة فقط للمدارس والمعلمين');
-        }
-
-        return $next($request);
+        
+        abort(Response::HTTP_FORBIDDEN, 'هذه الصفحة متاحة فقط للمدارس والمعلمين');
     }
     
     
