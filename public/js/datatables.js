@@ -48,7 +48,36 @@ $(document).ready(function() {
               form.appendChild(tableInput);
               
               document.body.appendChild(form);
-              form.submit();
+              console.log('Form created:', form);
+              console.log('CSRF token:', csrfInput.value);
+              console.log('Title:', titleInput.value);
+              console.log('Table HTML length:', tableInput.value.length);
+              
+              // Try direct window.open first
+              const url = '/admin/export-pdf';
+              const params = new URLSearchParams();
+              params.append('_token', csrfInput.value);
+              params.append('title', titleInput.value);
+              params.append('tableData', tableInput.value);
+              
+              fetch(url, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: params
+              })
+              .then(response => response.text())
+              .then(html => {
+                const newWindow = window.open('', '_blank');
+                newWindow.document.write(html);
+                newWindow.document.close();
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                alert('حدث خطأ في التصدير');
+              });
+              
               document.body.removeChild(form);
           },
           className: 'print-pdf'
