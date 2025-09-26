@@ -48,7 +48,6 @@ $(document).ready(function() {
               form.appendChild(tableInput);
               
               document.body.appendChild(form);
-              console.log('Submitting form to:', form.action);
               form.submit();
               document.body.removeChild(form);
           },
@@ -81,8 +80,4 @@ $(document).ready(function() {
       localStorage.setItem('datatablePageLength', len);
     });
   });
-  
-  
-
-
 });
