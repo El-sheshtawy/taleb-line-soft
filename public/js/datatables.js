@@ -14,10 +14,7 @@ $(document).ready(function() {
         {
           text: 'طباعة pdf',
           action: function(e, dt, node, config) {
-              node.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> جاري التصدير...');
-              exportToPDF().finally(() => {
-                node.prop('disabled', false).text('تصدير PDF');
-              });
+              printTable();
           },
           className: 'print-pdf'
         }
@@ -51,55 +48,53 @@ $(document).ready(function() {
   
   
   
-  async function exportToPDF() {
+  function printTable() {
     // Get the active table
-    const activeTable = document.querySelector('.tab-pane.active .myTable');
+    const activeTable = document.querySelector('.tab-pane.active .myTable, .myTable');
     if (!activeTable) {
-      alert('لم يتم العثور على جدول لتصديره');
+      alert('لم يتم العثور على جدول للطباعة');
       return;
     }
 
     // Get current tab title
-    const activeTabTitle = document.querySelector('.tab-pane.active h5')?.textContent || 'تقرير';
-    const tableHTML = activeTable.outerHTML;
+    const activeTabTitle = document.querySelector('.tab-pane.active h5, h5')?.textContent || 'تقرير';
     
-    // Create form and submit to server
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = '/admin/export-pdf';
-    form.target = '_blank';
-    form.onsubmit = function() {
-        setTimeout(() => {
-            const newWindow = window.open('', '_blank');
-            newWindow.onload = function() {
-                setTimeout(() => {
-                    newWindow.print();
-                }, 1000);
-            };
-        }, 2000);
+    // Create print window
+    const printWindow = window.open('', '_blank');
+    const printContent = `
+      <!DOCTYPE html>
+      <html dir="rtl" lang="ar">
+      <head>
+        <meta charset="UTF-8">
+        <title>${activeTabTitle}</title>
+        <style>
+          body { font-family: Arial, sans-serif; margin: 20px; direction: rtl; }
+          h1 { text-align: center; color: #333; margin-bottom: 30px; }
+          table { width: 100%; border-collapse: collapse; margin: 0 auto; }
+          th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+          th { background-color: #f2f2f2; font-weight: bold; }
+          tr:nth-child(even) { background-color: #f9f9f9; }
+          @media print {
+            body { margin: 0; }
+            table { page-break-inside: auto; }
+            tr { page-break-inside: avoid; page-break-after: auto; }
+          }
+        </style>
+      </head>
+      <body>
+        <h1>${activeTabTitle}</h1>
+        ${activeTable.outerHTML}
+      </body>
+      </html>
+    `;
+    
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    
+    // Wait for content to load then print
+    printWindow.onload = function() {
+      printWindow.print();
+      printWindow.close();
     };
-    
-    const csrfInput = document.createElement('input');
-    csrfInput.type = 'hidden';
-    csrfInput.name = '_token';
-    csrfInput.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-    
-    const titleInput = document.createElement('input');
-    titleInput.type = 'hidden';
-    titleInput.name = 'title';
-    titleInput.value = activeTabTitle;
-    
-    const tableInput = document.createElement('input');
-    tableInput.type = 'hidden';
-    tableInput.name = 'tableData';
-    tableInput.value = tableHTML;
-    
-    form.appendChild(csrfInput);
-    form.appendChild(titleInput);
-    form.appendChild(tableInput);
-    
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
   }
 });
