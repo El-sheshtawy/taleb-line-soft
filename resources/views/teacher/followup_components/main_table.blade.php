@@ -97,7 +97,7 @@
                         <div class="collapse-inner bg-light p-2">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p><strong>الاسم الكامل:</strong> <a target="_blank" class="text-{{$student->gender ? 'danger' : 'primary'}}" href="{{ route('student.day-sessions', $student) }}?date={{ $date }}">{{ $student->name }}</a></p>
+                                    <p><strong>الاسم الكامل:</strong> <span class="text-{{$student->gender ? 'danger' : 'primary'}}">{{ $student->name }}</span></p>
                                     <p><strong>الرقم المدني :</strong> {{ $student->passport_id }}</p>
                                     <p><strong>الملاحظة :</strong> <span class="text-secondary">{{ $student->note}}</span></p>
                                 </div>

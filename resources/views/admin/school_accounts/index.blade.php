@@ -7,7 +7,7 @@
                 <th class="p-1 text-center">المدرسة</th>
                 <th class="p-1 text-center">المرحلة</th>
                 <th class="p-1 text-center">المنطقة </th>
-                <th class="p-1 text-center">عدد الطلاب</th>
+                <th class="p-1 text-center">الطلاب</th>
                 <th class="p-1 text-center">الحالة</th>
             </tr>
         </thead>
