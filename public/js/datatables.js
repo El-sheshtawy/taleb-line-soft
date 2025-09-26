@@ -14,7 +14,43 @@ $(document).ready(function() {
         {
           text: 'طباعة pdf',
           action: function(e, dt, node, config) {
-              exportToPDF();
+              console.log('PDF button clicked');
+              const activeTable = document.querySelector('.tab-pane.active .myTable, .myTable');
+              if (!activeTable) {
+                alert('لم يتم العثور على جدول لتصديره');
+                return;
+              }
+
+              const activeTabTitle = document.querySelector('.tab-pane.active h5, h5')?.textContent || 'تقرير';
+              const tableHTML = activeTable.outerHTML;
+              
+              const form = document.createElement('form');
+              form.method = 'POST';
+              form.action = '/admin/export-pdf';
+              form.target = '_blank';
+              
+              const csrfInput = document.createElement('input');
+              csrfInput.type = 'hidden';
+              csrfInput.name = '_token';
+              csrfInput.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+              
+              const titleInput = document.createElement('input');
+              titleInput.type = 'hidden';
+              titleInput.name = 'title';
+              titleInput.value = activeTabTitle;
+              
+              const tableInput = document.createElement('input');
+              tableInput.type = 'hidden';
+              tableInput.name = 'tableData';
+              tableInput.value = tableHTML;
+              
+              form.appendChild(csrfInput);
+              form.appendChild(titleInput);
+              form.appendChild(tableInput);
+              
+              document.body.appendChild(form);
+              form.submit();
+              document.body.removeChild(form);
           },
           className: 'print-pdf'
         }
@@ -47,43 +83,6 @@ $(document).ready(function() {
   });
   
   
-  function exportToPDF() {
-    const activeTable = document.querySelector('.tab-pane.active .myTable, .myTable');
-    if (!activeTable) {
-      alert('لم يتم العثور على جدول لتصديره');
-      return;
-    }
 
-    const activeTabTitle = document.querySelector('.tab-pane.active h5, h5')?.textContent || 'تقرير';
-    const tableHTML = activeTable.outerHTML;
-    
-    const form = document.createElement('form');
-    form.method = 'POST';
-    form.action = '/admin/export-pdf';
-    form.target = '_blank';
-    
-    const csrfInput = document.createElement('input');
-    csrfInput.type = 'hidden';
-    csrfInput.name = '_token';
-    csrfInput.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
-    
-    const titleInput = document.createElement('input');
-    titleInput.type = 'hidden';
-    titleInput.name = 'title';
-    titleInput.value = activeTabTitle;
-    
-    const tableInput = document.createElement('input');
-    tableInput.type = 'hidden';
-    tableInput.name = 'tableData';
-    tableInput.value = tableHTML;
-    
-    form.appendChild(csrfInput);
-    form.appendChild(titleInput);
-    form.appendChild(tableInput);
-    
-    document.body.appendChild(form);
-    form.submit();
-    document.body.removeChild(form);
-  }
 
 });
