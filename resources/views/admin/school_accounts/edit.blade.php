@@ -95,13 +95,13 @@
                         </div>
                         
                         <div class="col-md-6 mb-1">
-                            <label for="edit_supervisor_name" class="form-label">اسم المشرف</label>
-                            <input type="text" class="form-control" id="edit_supervisor_name" name="supervisor_name">
+                            <label for="edit_viewer_password" class="form-label">كلمة مرور المراقب</label>
+                            <input type="text" class="form-control" id="edit_viewer_password" name="viewer_password">
                         </div>
                         
                         <div class="col-md-6 mb-1">
-                            <label for="edit_viewer_password" class="form-label">كلمة مرور المراقب</label>
-                            <input type="text" class="form-control" id="edit_viewer_password" name="viewer_password">
+                            <label for="edit_supervisor_name" class="form-label">اسم المشرف</label>
+                            <input type="text" class="form-control" id="edit_supervisor_name" name="supervisor_name">
                         </div>
                         
                         <div class="col-md-6 mb-1">
