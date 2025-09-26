@@ -39,6 +39,7 @@
 </head>
 <body>
     <div class="header">
+        <img src="{{ asset('dashboard/uploads/header/image.png') }}" alt="Logo" style="width: 150px; margin-bottom: 20px;" />
         <h1>وزارة التربية والتعليم</h1>
         <h2>منصة طالب</h2>
         <h3>{{ $title }}</h3>
