@@ -31,7 +31,7 @@ $(document).ready(function() {
               const csrfInput = document.createElement('input');
               csrfInput.type = 'hidden';
               csrfInput.name = '_token';
-              csrfInput.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+              csrfInput.value = $('meta[name="csrf-token"]').attr('content') || document.querySelector('input[name="_token"]')?.value || '';
               
               const titleInput = document.createElement('input');
               titleInput.type = 'hidden';
@@ -56,7 +56,7 @@ $(document).ready(function() {
               // Try direct window.open first
               const url = '/admin/export-pdf';
               const params = new URLSearchParams();
-              params.append('_token', csrfInput.value);
+              params.append('_token', $('meta[name="csrf-token"]').attr('content') || document.querySelector('input[name="_token"]')?.value || '');
               params.append('title', titleInput.value);
               params.append('tableData', tableInput.value);
               
