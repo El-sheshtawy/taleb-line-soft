@@ -14,10 +14,7 @@ $(document).ready(function() {
         {
           text: 'طباعة pdf',
           action: function(e, dt, node, config) {
-              node.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> جاري التصدير...');
-              exportToPDF().finally(() => {
-                node.prop('disabled', false).text('طباعة pdf');
-              });
+              exportToPDF();
           },
           className: 'print-pdf'
         }
@@ -50,7 +47,7 @@ $(document).ready(function() {
   });
   
   
-  async function exportToPDF() {
+  function exportToPDF() {
     const activeTable = document.querySelector('.tab-pane.active .myTable, .myTable');
     if (!activeTable) {
       alert('لم يتم العثور على جدول لتصديره');
