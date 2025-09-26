@@ -3,7 +3,7 @@
         الطلاب
         <span class="badge bg-primary text-light">{{ count($students) }}</span>
     </span>
-    @if(auth()->user()->user_type !== 'مراقب')
+    @if(!in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
     <a class="badge bg-danger text-white" onclick="return confirm('هل انت متاكد من حذف الطلاب؟')" 
         href="{{ route('school.students.delete', ['grade_id' => request()->grade_id, 'class_id' => request()->class_id]) }}">
         حذف الطلاب
@@ -55,7 +55,7 @@
                     data-class="{{ $student->class_id }}">
                     <td class="p-1">{{$loop->iteration}}</td>
                     <td class="p-1 text-end responsive-cell">
-                        @if(auth()->user()->user_type === 'مراقب')
+                        @if(in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
                             <span class="text-{{ $student->gender ? 'primary' : 'danger' }} text-{{ $student->note ? 'danger' : '' }}">
                                 {{ $student->name }}
                             </span>
@@ -80,7 +80,7 @@
 </div>
 
 
-@if(auth()->user()->user_type !== 'مراقب')
+@if(!in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
 <div class="row g-2 my-1">
     <div class="col-12 col-md-4">
         <button type="button" class="btn btn-primary w-100 text-center" data-bs-toggle="modal" data-bs-target="#createStudentModal">

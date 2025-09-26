@@ -30,7 +30,7 @@
                 <td class="p-1 text-center">{{$loop->iteration}}</td>
                 <td class="p-1 text-center">{{$class->grade->name}}</td>
                 <td class="p-1 text-center">
-                    @if(auth()->user()->user_type === 'مراقب')
+                    @if(in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
                         {{$class->name}}
                     @else
                         <a href="#" class="edit-class-btn" 
@@ -55,7 +55,7 @@
     </tbody>
 </table>
 
-@if(auth()->user()->user_type !== 'مراقب')
+@if(!in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
 <button  type="button" class="block btn btn-primary w-100 my-4 text-center" data-bs-toggle="modal" data-bs-target="#createClassModal">إنشاء فصل </button>
 @endif
 
