@@ -52,6 +52,9 @@
             <a href="{{ route('files.index') }}"> <i class="ri-folder-fill" style="color: #0d6efd;"></i> الملفات </a>
             <a href="{{ route('reminders.index') }}"> <i class="ri-notification-3-fill" style="color: #0d6efd;"></i>
                 رسائل </a>
+            @if (in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
+                <a href="#!"> <i class="ri-parent-fill" style="color: #0d6efd;"></i> ولى امر </a>
+            @endif
         </div>
     </div>
 @endif

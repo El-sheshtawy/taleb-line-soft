@@ -59,11 +59,22 @@
 @if(!in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
 <x-action-button>
     <div class="d-flex gap-2 mb-1">
-        <button  type="button" class="block btn btn-primary w-50 mt-4 text-center" data-bs-toggle="modal" data-bs-target="#createTeacherModal">إضافة معلم  </button>
-        <button  type="button" class="block btn btn-primary w-50 mt-4 text-center" data-bs-toggle="modal" data-bs-target="#importTeachersModal">إستيراد معلمين <i class="fas fa-upload"></i></button>
-        <button  type="button" class="block btn btn-success w-50 mt-4 text-center"><a href="{{asset('templates/المعلمين.xlsx')}}" class="w-100 h-100 text-white" download> تحميل قالب المعلمين <i class="fa fa-download"></i></a></button>
+        <button  type="button" class="block btn btn-primary w-25 mt-4 text-center" data-bs-toggle="modal" data-bs-target="#createTeacherModal">إضافة معلم  </button>
+        <button  type="button" class="block btn btn-primary w-25 mt-4 text-center" data-bs-toggle="modal" data-bs-target="#importTeachersModal">إستيراد معلمين <i class="fas fa-upload"></i></button>
+        <button  type="button" class="block btn btn-success w-25 mt-4 text-center"><a href="{{asset('templates/المعلمين.xlsx')}}" class="w-100 h-100 text-white" download> تحميل قالب المعلمين <i class="fa fa-download"></i></a></button>
+        <button type="button" class="btn btn-danger w-25 mt-4 text-center" onclick="exportTeachersPDF()">
+            طباعة PDF <i class="fas fa-file-pdf"></i>
+        </button>
     </div>
 </x-action-button>
+@else
+<div class="row g-2 my-1">
+    <div class="col-12">
+        <button type="button" class="btn btn-danger w-100 text-center" onclick="exportTeachersPDF()">
+            طباعة PDF <i class="fas fa-file-pdf"></i>
+        </button>
+    </div>
+</div>
 @endif
 
 @include('school.teachers.create')
@@ -99,6 +110,45 @@ function submitFilterForm(value) {
         url.searchParams.set('subject', value);
     }
     window.location.href = url.toString();
+}
+
+function exportTeachersPDF() {
+    const activeTable = document.querySelector('.myTable');
+    if (!activeTable) {
+        alert('لم يتم العثور على جدول لتصديره');
+        return;
+    }
+
+    const title = 'قائمة المعلمين';
+    const tableHTML = activeTable.outerHTML;
+    
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/admin/export-pdf';
+    form.target = '_blank';
+    
+    const csrfInput = document.createElement('input');
+    csrfInput.type = 'hidden';
+    csrfInput.name = '_token';
+    csrfInput.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    
+    const titleInput = document.createElement('input');
+    titleInput.type = 'hidden';
+    titleInput.name = 'title';
+    titleInput.value = title;
+    
+    const tableInput = document.createElement('input');
+    tableInput.type = 'hidden';
+    tableInput.name = 'tableData';
+    tableInput.value = tableHTML;
+    
+    form.appendChild(csrfInput);
+    form.appendChild(titleInput);
+    form.appendChild(tableInput);
+    
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
 }
 
 
