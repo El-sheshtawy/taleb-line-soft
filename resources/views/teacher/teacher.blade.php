@@ -634,27 +634,58 @@
         checkMonitoringParameter()
 
         async function exportToPDF() {
-            const {
-                jsPDF
-            } = window.jspdf;
-            const element = document.body; // Select the specific section if needed
-
-            html2canvas(element, {
-                scale: 3, // Improves resolution
-                useCORS: true // Ensures cross-origin images load properly
-            }).then(canvas => {
-                let imgData = canvas.toDataURL("image/png");
-
-                let pdf = new jsPDF("p", "mm", "a2");
-                let pageWidth = pdf.internal.pageSize.getWidth();
-                let pageHeight = pdf.internal.pageSize.getHeight();
-
-                let imgWidth = pageWidth + 20; // Increased width
-                let imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-                pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight); // Shifted left for better fit
-                pdf.save("كشف_متابعة_الطلاب.pdf");
-            });
+            // Create a new window with printable content
+            const printWindow = window.open('', '_blank');
+            
+            // Get table data
+            const table = document.querySelector('.table-responsive table');
+            if (!table) {
+                showError('لم يتم العثور على الجدول');
+                return;
+            }
+            
+            const tableHTML = table.outerHTML;
+            
+            // Create printable HTML
+            const printContent = `
+                <!DOCTYPE html>
+                <html dir="rtl">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>كشف متابعة الطلاب</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; direction: rtl; margin: 20px; }
+                        .header { text-align: center; margin-bottom: 30px; }
+                        .header h1 { color: #4c4cd8; margin: 5px 0; }
+                        .header h2 { color: #333; margin: 5px 0; }
+                        .header h3 { color: #666; margin: 5px 0; }
+                        .header p { color: #888; margin: 5px 0; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; font-size: 10px; }
+                        th { background-color: #f2f2f2; font-weight: bold; }
+                        @media print { body { margin: 0; } }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>وزارة التربية والتعليم</h1>
+                        <h2>منصة طالب</h2>
+                        <h3>كشف متابعة الطلاب</h3>
+                        <p>تاريخ التقرير: ${new Date().toLocaleDateString('ar-SA')}</p>
+                    </div>
+                    ${tableHTML}
+                </body>
+                </html>
+            `;
+            
+            printWindow.document.write(printContent);
+            printWindow.document.close();
+            
+            // Wait for content to load then print
+            printWindow.onload = function() {
+                printWindow.print();
+                printWindow.close();
+            };
         }
 
         document.getElementById('settingsSelector').addEventListener('change', function() {

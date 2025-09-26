@@ -2004,75 +2004,61 @@
 
             const content = document.getElementById('modalContent').innerHTML;
 
-            const originalContents = document.body.innerHTML;
+            
 
+            // Create a temporary div with proper styling and header
 
+            const tempDiv = document.createElement('div');
 
-            // Temporarily replace the body content with the table content
+            tempDiv.innerHTML = `
 
-            document.body.innerHTML = `
+                <div style="font-family: 'Almarai', sans-serif; direction: rtl; text-align: right; padding: 20px;">
 
-        <html>
+                    <div style="text-align: center; margin-bottom: 30px;">
 
-            <head>
+                        <h1 style="color: #4c4cd8; margin-bottom: 10px;">وزارة التربية والتعليم</h1>
 
-                <title>تقرير الغرف</title>
+                        <h2 style="color: #333; margin-bottom: 5px;">منصة طالب</h2>
 
-                <style>
+                        <h3 style="color: #666; margin-bottom: 20px;">تقرير الغرف</h3>
 
-                    body {
+                        <p style="color: #888;">تاريخ التقرير: ${new Date().toLocaleDateString('ar-SA')}</p>
 
-                        font-family: 'Almarai', sans-serif;
+                    </div>
 
-                        direction: rtl;
+                    <div style="margin-top: 20px;">
 
-                        text-align: right;
+                        ${content}
 
-                    }
+                    </div>
 
-                    table {
+                </div>
 
-                        border-collapse: collapse;
+            `;
 
-                        width: 100%;
+            
 
-                    }
+            // Configure PDF options
 
-                    th, td {
+            const opt = {
 
-                        border: 1px solid #ddd;
+                margin: 1,
 
-                        padding: 8px;
+                filename: 'تقرير_الغرف.pdf',
 
-                    }
+                image: { type: 'jpeg', quality: 0.98 },
 
-                    th {
+                html2canvas: { scale: 2 },
 
-                        background-color: #4c4cd8;
+                jsPDF: { unit: 'cm', format: 'a4', orientation: 'portrait' }
 
-                        color: white;
+            };
 
-                    }
+            
 
-                </style>
+            // Generate PDF
 
-            </head>
-
-            <body>
-
-                ${content}
-
-            </body>
-
-        </html>
-
-    `;
-
-
-
-            // Trigger print
-
-            window.print();
+            html2pdf().set(opt).from(tempDiv).save();
 
 
 

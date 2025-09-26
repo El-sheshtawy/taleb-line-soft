@@ -93,6 +93,7 @@ Route::middleware('guest')->group(function(){
 
 Route::middleware('auth')->group(function(){
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+    Route::post('/admin/export-pdf', [\App\Http\Controllers\Admin\PdfExportController::class, 'exportTable'])->name('admin.export-pdf');
     
     
     Route::prefix('admin')->middleware('user.role:admin')->name("admin.")->group(function(){

@@ -2,8 +2,8 @@
     <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap">
         <thead>
             <tr class="text-center align-middle">
-                <th class="p-1">#</th>
-                <th class="p-1 text-end">الطالب</th>
+                <th class="p-1" style="width: 30px; max-width: 30px;">#</th>
+                <th class="p-1 text-end" style="width: 120px; max-width: 120px;">الطالب</th>
                 @for ($i = 1; $i <= 7; $i++)
                     <?php 
                         $sessionHasData = false;
@@ -21,7 +21,7 @@
                             }
                         }
                     ?>
-                    <th style="min-width:20px; width: 25px; max-width: 25px;">
+                    <th style="min-width:35px; width: 40px; max-width: 40px;">
                         <button type="button" 
                                 class="w-100 h-100 bg-primary px-1 py-1 session-btn {{ $sessionHasData ? 'btn-secondary' : 'btn-primary' }}" 
                                 data-session="{{ $i }}" 
@@ -38,8 +38,8 @@
         <tbody>
             @foreach($students as $student)
                 <tr class="text-center">
-                    <td class="p-1" style="background-color: #15336a; color:#ffd400">{{ $loop->iteration }}</td>
-                    <td class="p-1 text-end responsive-cell">
+                    <td class="p-1" style="background-color: #15336a; color:#ffd400; width: 30px; max-width: 30px;">{{ $loop->iteration }}</td>
+                    <td class="p-1 text-end responsive-cell" style="width: 120px; max-width: 120px; word-wrap: break-word; white-space: normal;">
                         <a href="#student-details-{{ $student->id }}" 
                            class="student-name-toggle cell-link d-flex align-items-center justify-content-start
                                 text-{{$student->gender ? 'primary' : 'danger'}} text-{{ $student->note ? 'danger' : '' }}" 
@@ -238,6 +238,12 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.table th:nth-child(2), 
+.table td:nth-child(2) {
+    font-size: 12px;
+    line-height: 1.2;
 }
 
 @media (max-width: 768px) {

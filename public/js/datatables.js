@@ -52,32 +52,54 @@ $(document).ready(function() {
   
   
   async function exportToPDF() {
-    const title = document.title || 'كشف_متابعة_الطلاب';
-    const { jsPDF } = window.jspdf;
-    const element = document.body; 
-
-    try {
-      const canvas = await html2canvas(element, {
-        scale: 3,
-        useCORS: true
-      });
-      
-      let imgData = canvas.toDataURL("image/png");
-      let pdf = new jsPDF("p", "mm", "a2");
-      let pageWidth = pdf.internal.pageSize.getWidth();
-      let imgWidth = pageWidth;
-      let imgHeight = (canvas.height * imgWidth) / canvas.width;
-
-      pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
-      
-      const cleanTitle = title
-        .replace(/\s+/g, '_') 
-        .replace(/[^\w\u0600-\u06FF_]/g, ''); 
-      
-      pdf.save(`${cleanTitle}.pdf`);
-    } catch (error) {
-      console.error('PDF export failed:', error);
-      alert('حدث خطأ أثناء تصدير PDF');
+    // Get the active table
+    const activeTable = document.querySelector('.tab-pane.active .myTable');
+    if (!activeTable) {
+      alert('لم يتم العثور على جدول لتصديره');
+      return;
     }
+
+    // Get current tab title
+    const activeTabTitle = document.querySelector('.tab-pane.active h5')?.textContent || 'تقرير';
+    const tableHTML = activeTable.outerHTML;
+    
+    // Create form and submit to server
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/admin/export-pdf';
+    form.target = '_blank';
+    form.onsubmit = function() {
+        setTimeout(() => {
+            const newWindow = window.open('', '_blank');
+            newWindow.onload = function() {
+                setTimeout(() => {
+                    newWindow.print();
+                }, 1000);
+            };
+        }, 2000);
+    };
+    
+    const csrfInput = document.createElement('input');
+    csrfInput.type = 'hidden';
+    csrfInput.name = '_token';
+    csrfInput.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    
+    const titleInput = document.createElement('input');
+    titleInput.type = 'hidden';
+    titleInput.name = 'title';
+    titleInput.value = activeTabTitle;
+    
+    const tableInput = document.createElement('input');
+    tableInput.type = 'hidden';
+    tableInput.name = 'tableData';
+    tableInput.value = tableHTML;
+    
+    form.appendChild(csrfInput);
+    form.appendChild(titleInput);
+    form.appendChild(tableInput);
+    
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
   }
 });
