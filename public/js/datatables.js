@@ -14,14 +14,41 @@ $(document).ready(function() {
         {
           text: 'طباعة pdf',
           action: function(e, dt, node, config) {
-              const activeTable = document.querySelector('.tab-pane.active .myTable, .myTable');
-              if (!activeTable) {
+              // Get the current DataTable instance and its container
+              const currentTable = dt.table().node();
+              const currentContainer = $(currentTable).closest('.tab-pane');
+              
+              if (!currentTable) {
                 alert('لم يتم العثور على جدول لتصديره');
                 return;
               }
 
-              const activeTabTitle = document.querySelector('.tab-pane.active h5, h5')?.textContent || 'تقرير';
-              const tableHTML = activeTable.outerHTML;
+              // Get title from current tab
+              const activeTabTitle = currentContainer.find('h5').text() || 'تقرير';
+              
+              // Get only visible/filtered rows from DataTable
+              const visibleData = dt.rows({ search: 'applied' }).data().toArray();
+              const columns = dt.columns().header().toArray().map(th => $(th).text());
+              
+              // Build filtered table HTML
+              let filteredTableHTML = '<table class="table table-bordered">';
+              filteredTableHTML += '<thead><tr>';
+              columns.forEach(col => {
+                filteredTableHTML += `<th>${col}</th>`;
+              });
+              filteredTableHTML += '</tr></thead><tbody>';
+              
+              visibleData.forEach(row => {
+                filteredTableHTML += '<tr>';
+                row.forEach(cell => {
+                  // Clean cell data (remove HTML tags)
+                  const cleanCell = $('<div>').html(cell).text();
+                  filteredTableHTML += `<td>${cleanCell}</td>`;
+                });
+                filteredTableHTML += '</tr>';
+              });
+              filteredTableHTML += '</tbody></table>';
+              const tableHTML = filteredTableHTML;
               
               const form = document.createElement('form');
               form.method = 'POST';
@@ -58,7 +85,7 @@ $(document).ready(function() {
               const params = new URLSearchParams();
               params.append('_token', $('meta[name="csrf-token"]').attr('content') || document.querySelector('input[name="_token"]')?.value || '');
               params.append('title', titleInput.value);
-              params.append('tableData', tableInput.value);
+              params.append('tableData', filteredTableHTML);
               
               fetch(url, {
                 method: 'POST',
