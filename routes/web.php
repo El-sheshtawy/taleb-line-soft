@@ -49,11 +49,16 @@ Route::get('/debug-user', function () {
             'username' => $user->username,
             'user_type' => $user->user_type,
             'has_profile' => $user->profile ? 'Yes' : 'No',
-            'profile_type' => $user->profile ? get_class($user->profile) : 'None'
+            'profile_type' => $user->profile ? get_class($user->profile) : 'None',
+            'school_id' => $user->school_id ?? 'None'
         ]);
     }
     return 'Not logged in';
 });
+
+Route::get('/test-auth', function () {
+    return 'Auth test - if you see this, basic auth works';
+})->middleware('auth');
 Route::get('/home', function () {
     if (auth()->check()) {
         $userType = auth()->user()->user_type;
