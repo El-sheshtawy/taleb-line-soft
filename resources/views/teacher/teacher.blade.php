@@ -634,49 +634,43 @@
         checkMonitoringParameter()
 
         async function exportToPDF() {
-            // Create a new window with printable content
-            const printWindow = window.open('', '_blank');
-            
             // Get table data
             const table = document.querySelector('.table-responsive table');
             if (!table) {
                 showError('لم يتم العثور على الجدول');
                 return;
             }
-            
+
+            const title = 'كشف متابعة الطلاب';
             const tableHTML = table.outerHTML;
             
-            // Create printable HTML
-            const printContent = `
-                <!DOCTYPE html>
-                <html dir="rtl">
-                <head>
-                    <meta charset="UTF-8">
-                    <title>كشف متابعة الطلاب</title>
-                    <style>
-                        body { font-family: Arial, sans-serif; direction: rtl; margin: 20px; }
-                        .header { text-align: center; margin-bottom: 30px; }
-                        .header h1 { color: #4c4cd8; margin: 5px 0; }
-                        .header h2 { color: #333; margin: 5px 0; }
-                        .header h3 { color: #666; margin: 5px 0; }
-                        .header p { color: #888; margin: 5px 0; }
-                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-                        th, td { border: 1px solid #ddd; padding: 8px; text-align: center; font-size: 10px; }
-                        th { background-color: #f2f2f2; font-weight: bold; }
-                        @media print { body { margin: 0; } }
-                    </style>
-                </head>
-                <body>
-                    <div class="header">
-                        <h1>وزارة التربية والتعليم</h1>
-                        <h2>منصة طالب</h2>
-                        <h3>كشف متابعة الطلاب</h3>
-                        <p>تاريخ التقرير: ${new Date().toLocaleDateString('ar-SA')}</p>
-                    </div>
-                    ${tableHTML}
-                </body>
-                </html>
-            `;
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '/admin/export-pdf';
+            form.target = '_blank';
+            
+            const csrfInput = document.createElement('input');
+            csrfInput.type = 'hidden';
+            csrfInput.name = '_token';
+            csrfInput.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+            
+            const titleInput = document.createElement('input');
+            titleInput.type = 'hidden';
+            titleInput.name = 'title';
+            titleInput.value = title;
+            
+            const tableInput = document.createElement('input');
+            tableInput.type = 'hidden';
+            tableInput.name = 'tableData';
+            tableInput.value = tableHTML;
+            
+            form.appendChild(csrfInput);
+            form.appendChild(titleInput);
+            form.appendChild(tableInput);
+            
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
             
             printWindow.document.write(printContent);
             printWindow.document.close();
