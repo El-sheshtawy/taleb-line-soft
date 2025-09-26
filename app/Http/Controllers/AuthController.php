@@ -19,8 +19,18 @@ class AuthController extends Controller
     public function loginAction(LoginRequest $request)
     {
         $user = User::where('username', $request->username)->first();
-
+        
+        // If no user found by username, try teacher login with passport_id
         if (!$user) {
+            $teacher = \App\Models\Teacher::where('passport_id', $request->username)->first();
+            if ($teacher && $teacher->user) {
+                $user = $teacher->user;
+                // Check if password matches phone_number for teachers
+                if ($request->password === $teacher->phone_number) {
+                    Auth::login($user, $request->remember ?? false);
+                    return redirect()->route('teacher.index');
+                }
+            }
             return back()->withErrors(['username' => 'بيانات الاعتماد غير صحيحة']);
         }
 
@@ -40,8 +50,9 @@ class AuthController extends Controller
                 case 'father':
                     return redirect()->route('father.index');
                 case 'مراقب':
-                case 'مشرف':
                     return redirect()->route('school.index');
+                case 'مشرف':
+                    return redirect()->route('teacher.index');
                 default:
                     return redirect()->route('home');
             }
