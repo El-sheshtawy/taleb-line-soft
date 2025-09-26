@@ -126,19 +126,19 @@ Route::middleware('auth')->group(function(){
     Route::prefix('school')->middleware('user.role:school,teacher,مراقب,مشرف', 'school.subscribed')->name("school.")->group(function () {
 
         Route::get('/', [SchoolController::class, 'index'])->name('index');
-        Route::put('/{schoolAccount}', [SchoolController::class, 'update'])->name('update');
-        Route::post('/{schoolAccount}', [SchoolController::class, 'deleteImage'])->name('delete-image');
+        Route::put('/{schoolAccount}', [SchoolController::class, 'update'])->name('update')->middleware('check.action');
+        Route::post('/{schoolAccount}', [SchoolController::class, 'deleteImage'])->name('delete-image')->middleware('check.action');
 
         Route::resource('classes', ClassRoomController::class)
-            ->only(['update', 'destroy']);
-        Route::post('classes/store', [ClassRoomController::class, 'store'])->name('classes.store');
+            ->only(['update', 'destroy'])->middleware('check.action');
+        Route::post('classes/store', [ClassRoomController::class, 'store'])->name('classes.store')->middleware('check.action');
 
         Route::resource('students', StudentController::class)
-            ->only(['update', 'destroy']);
-        Route::post('students/store', [StudentController::class, 'store'])->name('students.store');
-        Route::get('students/delete/selected', [StudentController::class, 'deleteSelected'])->name('students.delete');
+            ->only(['update', 'destroy'])->middleware('check.action');
+        Route::post('students/store', [StudentController::class, 'store'])->name('students.store')->middleware('check.action');
+        Route::get('students/delete/selected', [StudentController::class, 'deleteSelected'])->name('students.delete')->middleware('check.action');
 
-        Route::post('students/import', [StudentController::class, 'import'])->name('students.import');
+        Route::post('students/import', [StudentController::class, 'import'])->name('students.import')->middleware('check.action');
 
         Route::resource('teachers', SchoolTeacherController::class)
             ->only(['update', 'destroy'])->middleware('check.action');
