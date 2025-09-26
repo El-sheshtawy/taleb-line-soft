@@ -17,7 +17,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $schoolAccounts = SchoolAccount::with(['subscription', 'followUp', 'level'])->orderBy('school_name')->get();
+        $schoolAccounts = SchoolAccount::with(['subscription', 'followUp', 'level'])->withCount('students')->orderBy('school_name')->get();
         $grades = Grade::all();
         $levels = Level::all();
         $followUps = FollowUp::with('items')->get();

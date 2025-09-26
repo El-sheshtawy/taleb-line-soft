@@ -7,6 +7,7 @@
                 <th class="p-1 text-center">المدرسة</th>
                 <th class="p-1 text-center">المرحلة</th>
                 <th class="p-1 text-center">المنطقة </th>
+                <th class="p-1 text-center">عدد الطلاب</th>
                 <th class="p-1 text-center">الحالة</th>
             </tr>
         </thead>
@@ -25,7 +26,10 @@
                         </a>
                     </td>
                     <td class="p-1">{{$schoolAccount->level->name ?? ''}}</td>
-                    <td class="p-1">{{$schoolAccount->edu_region}}</td>	
+                    <td class="p-1">{{$schoolAccount->edu_region}}</td>
+                    <td class="p-1 text-center">
+                        <span class="badge bg-info">{{$schoolAccount->students_count}}</span>
+                    </td>	
                     <td class="p-1 text-center">
                         <b class="text-{{$schoolAccount->subscription_state == 'active' ? 'success' : 'danger'}}">{{$schoolAccount->subscription_state == 'active' ? 'نشط' : 'غير نشط'}}</b>
                     </td>	

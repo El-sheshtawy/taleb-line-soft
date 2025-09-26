@@ -211,3 +211,7 @@ Route::get('/test-classes/{school_id}/{grade_id}', function($school_id, $grade_i
 
 
 // this is the same code
+
+// 1- same row
+
+//print pdf
