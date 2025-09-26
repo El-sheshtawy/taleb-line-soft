@@ -14,7 +14,6 @@ $(document).ready(function() {
         {
           text: 'طباعة pdf',
           action: function(e, dt, node, config) {
-              console.log('PDF button clicked');
               const activeTable = document.querySelector('.tab-pane.active .myTable, .myTable');
               if (!activeTable) {
                 alert('لم يتم العثور على جدول لتصديره');
