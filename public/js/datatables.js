@@ -14,7 +14,32 @@ $(document).ready(function() {
         {
           text: 'طباعة pdf',
           action: function(e, dt, node, config) {
-              printTable();
+              const table = dt.table().node();
+              const title = $(table).closest('.tab-pane').find('h5').text() || 'تقرير';
+              
+              const printWindow = window.open('', '_blank');
+              printWindow.document.write(`
+                <!DOCTYPE html>
+                <html dir="rtl">
+                <head>
+                  <meta charset="UTF-8">
+                  <title>${title}</title>
+                  <style>
+                    body { font-family: Arial; margin: 20px; direction: rtl; }
+                    h1 { text-align: center; margin-bottom: 20px; }
+                    table { width: 100%; border-collapse: collapse; }
+                    th, td { border: 1px solid #000; padding: 5px; text-align: center; }
+                    th { background: #f0f0f0; }
+                  </style>
+                </head>
+                <body>
+                  <h1>${title}</h1>
+                  ${table.outerHTML}
+                  <script>window.print(); window.close();</script>
+                </body>
+                </html>
+              `);
+              printWindow.document.close();
           },
           className: 'print-pdf'
         }
@@ -48,53 +73,5 @@ $(document).ready(function() {
   
   
   
-  function printTable() {
-    // Get the active table
-    const activeTable = document.querySelector('.tab-pane.active .myTable, .myTable');
-    if (!activeTable) {
-      alert('لم يتم العثور على جدول للطباعة');
-      return;
-    }
 
-    // Get current tab title
-    const activeTabTitle = document.querySelector('.tab-pane.active h5, h5')?.textContent || 'تقرير';
-    
-    // Create print window
-    const printWindow = window.open('', '_blank');
-    const printContent = `
-      <!DOCTYPE html>
-      <html dir="rtl" lang="ar">
-      <head>
-        <meta charset="UTF-8">
-        <title>${activeTabTitle}</title>
-        <style>
-          body { font-family: Arial, sans-serif; margin: 20px; direction: rtl; }
-          h1 { text-align: center; color: #333; margin-bottom: 30px; }
-          table { width: 100%; border-collapse: collapse; margin: 0 auto; }
-          th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
-          th { background-color: #f2f2f2; font-weight: bold; }
-          tr:nth-child(even) { background-color: #f9f9f9; }
-          @media print {
-            body { margin: 0; }
-            table { page-break-inside: auto; }
-            tr { page-break-inside: avoid; page-break-after: auto; }
-          }
-        </style>
-      </head>
-      <body>
-        <h1>${activeTabTitle}</h1>
-        ${activeTable.outerHTML}
-      </body>
-      </html>
-    `;
-    
-    printWindow.document.write(printContent);
-    printWindow.document.close();
-    
-    // Wait for content to load then print
-    printWindow.onload = function() {
-      printWindow.print();
-      printWindow.close();
-    };
-  }
 });
