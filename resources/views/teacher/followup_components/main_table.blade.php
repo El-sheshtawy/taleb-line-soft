@@ -97,7 +97,19 @@
                         <div class="collapse-inner bg-light p-2">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p><strong>الاسم الكامل:</strong> <span class="text-{{$student->gender ? 'danger' : 'primary'}}">{{ $student->name }}</span></p>
+                                    <p><strong>الاسم الكامل:</strong> 
+                                        <a href="#" class="text-{{$student->gender ? 'danger' : 'primary'}} view-student-btn" 
+                                           data-bs-toggle="modal" data-bs-target="#studentDetailsModal"
+                                           data-student-name="{{ $student->name }}"
+                                           data-student-passport="{{ $student->passport_id }}"
+                                           data-student-phone="{{ $student->phone_number }}"
+                                           data-student-gender="{{ $student->gender ? 'ذكر' : 'أنثى' }}"
+                                           data-student-grade="{{ $student->grade->name ?? '' }}"
+                                           data-student-class="{{ $student->classRoom->name ?? '' }}"
+                                           data-student-note="{{ $student->note ?? 'لا توجد ملاحظات' }}">
+                                            {{ $student->name }}
+                                        </a>
+                                    </p>
                                     <p><strong>الرقم المدني :</strong> {{ $student->passport_id }}</p>
                                     <p><strong>الملاحظة :</strong> <span class="text-secondary">{{ $student->note}}</span></p>
                                 </div>
@@ -254,6 +266,8 @@
 }
 </style>
 
+@include('teacher.followup_components.student_details_modal')
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         // toggle student info
@@ -338,6 +352,21 @@
                 } else {
                     container.style.display = 'none';
                 }
+            });
+        });
+        
+        // Handle student details modal
+        document.querySelectorAll('.view-student-btn').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.getElementById('modal_student_name').textContent = this.getAttribute('data-student-name');
+                document.getElementById('modal_student_passport').textContent = this.getAttribute('data-student-passport');
+                document.getElementById('modal_student_phone').textContent = this.getAttribute('data-student-phone');
+                document.getElementById('modal_student_gender').textContent = this.getAttribute('data-student-gender');
+                document.getElementById('modal_student_grade').textContent = this.getAttribute('data-student-grade');
+                document.getElementById('modal_student_class').textContent = this.getAttribute('data-student-class');
+                document.getElementById('modal_student_note').textContent = this.getAttribute('data-student-note');
             });
         });
     });
