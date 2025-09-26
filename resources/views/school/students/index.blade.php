@@ -3,10 +3,12 @@
         الطلاب
         <span class="badge bg-primary text-light">{{ count($students) }}</span>
     </span>
+    @if(auth()->user()->user_type !== 'مراقب')
     <a class="badge bg-danger text-white" onclick="return confirm('هل انت متاكد من حذف الطلاب؟')" 
         href="{{ route('school.students.delete', ['grade_id' => request()->grade_id, 'class_id' => request()->class_id]) }}">
         حذف الطلاب
     </a>
+    @endif
 </h5>
 <div class="row g-3 mt-1 mb-1">
     <div class="col-6 d-flex gap-1 align-items-center mt-1">
@@ -53,15 +55,21 @@
                     data-class="{{ $student->class_id }}">
                     <td class="p-1">{{$loop->iteration}}</td>
                     <td class="p-1 text-end responsive-cell">
-                        <a href="#"
-                            class="edit-student-btn cell-link
-                            text-{{ $student->gender ? 'primary' : 'danger' }} text-{{ $student->note ? 'danger' : '' }}"
-                            data-bs-toggle="modal" data-bs-target="#editStudentModal"
-                            data-student="{{ json_encode($student) }}"
-                            data-edit-action="{{ route('school.students.update', $student->id) }}"
-                            data-delete-action="{{ route('school.students.destroy', $student->id) }}">
-                            {{ $student->name }}
-                        </a>
+                        @if(auth()->user()->user_type === 'مراقب')
+                            <span class="text-{{ $student->gender ? 'primary' : 'danger' }} text-{{ $student->note ? 'danger' : '' }}">
+                                {{ $student->name }}
+                            </span>
+                        @else
+                            <a href="#"
+                                class="edit-student-btn cell-link
+                                text-{{ $student->gender ? 'primary' : 'danger' }} text-{{ $student->note ? 'danger' : '' }}"
+                                data-bs-toggle="modal" data-bs-target="#editStudentModal"
+                                data-student="{{ json_encode($student) }}"
+                                data-edit-action="{{ route('school.students.update', $student->id) }}"
+                                data-delete-action="{{ route('school.students.destroy', $student->id) }}">
+                                {{ $student->name }}
+                            </a>
+                        @endif
                     </td>
                     <td class="p-1">{{$student->passport_id}}</td>
                     <td class="p-1">{{$student->phone_number}}</td>
@@ -72,6 +80,7 @@
 </div>
 
 
+@if(auth()->user()->user_type !== 'مراقب')
 <div class="row g-2 my-1">
     <div class="col-12 col-md-4">
         <button type="button" class="btn btn-primary w-100 text-center" data-bs-toggle="modal" data-bs-target="#createStudentModal">
@@ -96,6 +105,15 @@
         </button>
     </div>
 </div>
+@else
+<div class="row g-2 my-1">
+    <div class="col-12">
+        <button type="button" class="btn btn-danger w-100 text-center" onclick="exportSchoolPDF()">
+            طباعة PDF <i class="fas fa-file-pdf"></i>
+        </button>
+    </div>
+</div>
+@endif
 
 
 

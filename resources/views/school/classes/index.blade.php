@@ -30,14 +30,18 @@
                 <td class="p-1 text-center">{{$loop->iteration}}</td>
                 <td class="p-1 text-center">{{$class->grade->name}}</td>
                 <td class="p-1 text-center">
-                    <a href="#" class="edit-class-btn" 
-                        data-bs-toggle="modal" 
-                        data-bs-target="#editClassModal" 
-                        data-class="{{ json_encode($class) }}"
-                        data-edit-action="{{ route('school.classes.update', $class->id) }}"
-                        data-delete-action="{{ route('school.classes.destroy', $class->id) }}">
+                    @if(auth()->user()->user_type === 'مراقب')
                         {{$class->name}}
-                    </a>
+                    @else
+                        <a href="#" class="edit-class-btn" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#editClassModal" 
+                            data-class="{{ json_encode($class) }}"
+                            data-edit-action="{{ route('school.classes.update', $class->id) }}"
+                            data-delete-action="{{ route('school.classes.destroy', $class->id) }}">
+                            {{$class->name}}
+                        </a>
+                    @endif
                 </td>
                 <td class="p-1 text-center">
                     @if(!empty($class->meeting_room_link))
@@ -51,7 +55,9 @@
     </tbody>
 </table>
 
+@if(auth()->user()->user_type !== 'مراقب')
 <button  type="button" class="block btn btn-primary w-100 my-4 text-center" data-bs-toggle="modal" data-bs-target="#createClassModal">إنشاء فصل </button>
+@endif
 
 
 @include('school.classes.create')
