@@ -14,32 +14,10 @@ $(document).ready(function() {
         {
           text: 'طباعة pdf',
           action: function(e, dt, node, config) {
-              const table = dt.table().node();
-              const title = $(table).closest('.tab-pane').find('h5').text() || 'تقرير';
-              
-              const printWindow = window.open('', '_blank');
-              printWindow.document.write(`
-                <!DOCTYPE html>
-                <html dir="rtl">
-                <head>
-                  <meta charset="UTF-8">
-                  <title>${title}</title>
-                  <style>
-                    body { font-family: Arial; margin: 20px; direction: rtl; }
-                    h1 { text-align: center; margin-bottom: 20px; }
-                    table { width: 100%; border-collapse: collapse; }
-                    th, td { border: 1px solid #000; padding: 5px; text-align: center; }
-                    th { background: #f0f0f0; }
-                  </style>
-                </head>
-                <body>
-                  <h1>${title}</h1>
-                  ${table.outerHTML}
-                  <script>window.print(); window.close();</script>
-                </body>
-                </html>
-              `);
-              printWindow.document.close();
+              node.prop('disabled', true).html('<i class="fas fa-spinner fa-spin"></i> جاري التصدير...');
+              exportToPDF().finally(() => {
+                node.prop('disabled', false).text('طباعة pdf');
+              });
           },
           className: 'print-pdf'
         }
@@ -72,6 +50,43 @@ $(document).ready(function() {
   });
   
   
-  
+  async function exportToPDF() {
+    const activeTable = document.querySelector('.tab-pane.active .myTable, .myTable');
+    if (!activeTable) {
+      alert('لم يتم العثور على جدول لتصديره');
+      return;
+    }
+
+    const activeTabTitle = document.querySelector('.tab-pane.active h5, h5')?.textContent || 'تقرير';
+    const tableHTML = activeTable.outerHTML;
+    
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/admin/export-pdf';
+    form.target = '_blank';
+    
+    const csrfInput = document.createElement('input');
+    csrfInput.type = 'hidden';
+    csrfInput.name = '_token';
+    csrfInput.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    
+    const titleInput = document.createElement('input');
+    titleInput.type = 'hidden';
+    titleInput.name = 'title';
+    titleInput.value = activeTabTitle;
+    
+    const tableInput = document.createElement('input');
+    tableInput.type = 'hidden';
+    tableInput.name = 'tableData';
+    tableInput.value = tableHTML;
+    
+    form.appendChild(csrfInput);
+    form.appendChild(titleInput);
+    form.appendChild(tableInput);
+    
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+  }
 
 });
