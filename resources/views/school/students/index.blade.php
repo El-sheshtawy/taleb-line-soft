@@ -83,11 +83,16 @@
             إستيراد طلاب <i class="fas fa-upload"></i>
         </button>
     </div>
-    <div class="col-12 col-md-4">
+    <div class="col-12 col-md-3">
         <button class="btn btn-success w-100 text-center">
             <a href="{{ asset('templates/الطلاب.xlsx') }}" class="text-white w-100 h-100" download>
                 تحميل قالب الطلاب <i class="fas fa-download"></i>
             </a>
+        </button>
+    </div>
+    <div class="col-12 col-md-3">
+        <button type="button" class="btn btn-danger w-100 text-center" onclick="exportSchoolPDF()">
+            طباعة PDF <i class="fas fa-file-pdf"></i>
         </button>
     </div>
 </div>
@@ -212,5 +217,44 @@ function getGradeClasses(gradeId, classId, callback = null) {
             classSelect.innerHTML = '<option value="">حدث خطأ أثناء التحميل</option>';
             if (callback) callback();
         });
+}
+
+function exportSchoolPDF() {
+    const activeTable = document.querySelector('.myTable');
+    if (!activeTable) {
+        alert('لم يتم العثور على جدول لتصديره');
+        return;
+    }
+
+    const title = 'قائمة الطلاب';
+    const tableHTML = activeTable.outerHTML;
+    
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '/school/export-pdf';
+    form.target = '_blank';
+    
+    const csrfInput = document.createElement('input');
+    csrfInput.type = 'hidden';
+    csrfInput.name = '_token';
+    csrfInput.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    
+    const titleInput = document.createElement('input');
+    titleInput.type = 'hidden';
+    titleInput.name = 'title';
+    titleInput.value = title;
+    
+    const tableInput = document.createElement('input');
+    tableInput.type = 'hidden';
+    tableInput.name = 'tableData';
+    tableInput.value = tableHTML;
+    
+    form.appendChild(csrfInput);
+    form.appendChild(titleInput);
+    form.appendChild(tableInput);
+    
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
 }
 </script>
