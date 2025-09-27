@@ -45,8 +45,15 @@ class PdfExportController extends Controller
             }
         }
         
-        // Get school data
-        $school = auth()->user()->schoolAccount ?? null;
+        // Get school data based on user type
+        $school = null;
+        $user = auth()->user();
+        
+        if ($user->user_type === 'school') {
+            $school = $user->schoolAccount;
+        } elseif ($user->user_type === 'teacher') {
+            $school = $user->teacher?->schoolAccount;
+        }
         
         $html = view('admin.pdf.table', compact('headers', 'rows', 'title', 'school'))->render();
         

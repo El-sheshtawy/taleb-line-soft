@@ -39,10 +39,15 @@
 </head>
 <body>
     <div class="header">
-        @if(isset($school) && $school->school_banner_url)
-            <img src="{{ $school->school_banner_url }}" alt="School Banner" style="width: 300px; margin-bottom: 20px;" />
+        @if(isset($school) && $school)
+            @if($school->school_banner_url)
+                <img src="{{ $school->school_banner_url }}" alt="School Banner" style="width: 300px; margin-bottom: 20px;" />
+            @endif
+            <h2>{{ $school->school_name }}</h2>
+        @else
+            <img src="{{ asset('storage/school_logos/taleblogo.png') }}" alt="Logo" style="width: 150px; margin-bottom: 20px;" />
+            <h2>منصة طالب</h2>
         @endif
-        <h2>{{ $school->school_name ?? 'اسم المدرسة' }}</h2>
         <p>تاريخ التقرير: {{ now()->format('Y/m/d') }}</p>
     </div>
     
