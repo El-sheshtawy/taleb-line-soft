@@ -39,8 +39,10 @@
 </head>
 <body>
     <div class="header">
-        <img src="{{ asset('storage/school_logos/taleblogo.png') }}" alt="Logo" style="width: 150px; margin-bottom: 20px;" />
-        <h2>منصة طالب</h2>
+        @if(isset($school) && $school->banner_image)
+            <img src="{{ asset('storage/school_banners/' . $school->banner_image) }}" alt="School Banner" style="width: 300px; margin-bottom: 20px;" />
+        @endif
+        <h2>{{ $school->name ?? 'اسم المدرسة' }}</h2>
         <p>تاريخ التقرير: {{ now()->format('Y/m/d') }}</p>
     </div>
     

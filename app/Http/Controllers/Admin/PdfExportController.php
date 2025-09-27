@@ -45,7 +45,10 @@ class PdfExportController extends Controller
             }
         }
         
-        $html = view('admin.pdf.table', compact('headers', 'rows', 'title'))->render();
+        // Get school data
+        $school = auth()->user()->schoolAccount ?? null;
+        
+        $html = view('admin.pdf.table', compact('headers', 'rows', 'title', 'school'))->render();
         
         // Clean the title for header
         $cleanTitle = preg_replace('/[^\w\s\x{0600}-\x{06FF}]/u', '', $title);
