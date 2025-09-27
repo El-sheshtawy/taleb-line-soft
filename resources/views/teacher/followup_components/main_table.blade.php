@@ -11,7 +11,7 @@
                             foreach($students as $student) {
                                 if($today != $date){
                                     // Only allow supervisors to edit old sessions
-                                    if (!($teacher && $teacher->supervisor == 1)) {
+                                    if (auth()->user()->user_type != 'مشرف') {
                                         $sessionHasData = true;
                                     }
                                 }else{
@@ -61,7 +61,7 @@
                             if(auth()->user()->user_type != 'school'){
                                 if($today != $date){
                                     // Only allow supervisors to edit old sessions
-                                    if (!($teacher && $teacher->supervisor == 1)) {
+                                    if (auth()->user()->user_type != 'مشرف') {
                                         $sessionHasData = true;
                                     }
                                 }else{
@@ -73,7 +73,7 @@
                                         }
                                     }
                                 }
-                                if ($teacher && $teacher->supervisor == 1) {
+                                if (auth()->user()->user_type == 'مشرف') {
                                     $sessionHasData = false;
                                 }
                             }
