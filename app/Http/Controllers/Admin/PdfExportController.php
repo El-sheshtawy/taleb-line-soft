@@ -47,8 +47,12 @@ class PdfExportController extends Controller
         
         $html = view('admin.pdf.table', compact('headers', 'rows', 'title'))->render();
         
+        // Clean the title for header
+        $cleanTitle = preg_replace('/[^\w\s\u0600-\u06FF]/', '', $title);
+        $cleanTitle = str_replace(["\n", "\r", "\t"], '', $cleanTitle);
+        
         return response($html)
             ->header('Content-Type', 'text/html; charset=utf-8')
-            ->header('Content-Disposition', 'inline; filename="' . $title . '.html"');
+            ->header('Content-Disposition', 'inline; filename="' . $cleanTitle . '.html"');
     }
 }
