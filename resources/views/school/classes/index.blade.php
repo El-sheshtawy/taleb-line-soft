@@ -45,7 +45,7 @@
                     @endif
                 </td>
                 <td class="p-1 text-center">
-                    <span class="badge bg-info">{{ $class->students_count ?? 0 }}</span>
+                    <span class="badge bg-info text-dark">{{ $class->students_count ?? 0 }}</span>
                 </td>
                 <td class="p-1 text-center">
                     @if(!empty($class->meeting_room_link))
