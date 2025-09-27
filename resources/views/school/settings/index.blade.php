@@ -171,7 +171,7 @@
                 value="{{ $school->teachers_default_password }}" name="teachers_default_password" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
         </div>
 
-        <div class="col-md-6 mb-1">
+        <div class="col-md-12 mb-1">
             <label for="students_default_password" class="form-label">كلمة مرور الطلاب الافتراضية</label>
             <input type="text" class="form-control" id="students_default_password"
                 value="{{ $school->students_default_password }}" name="students_default_password" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
