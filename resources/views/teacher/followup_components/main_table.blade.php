@@ -3,7 +3,7 @@
         <thead>
             <tr class="text-center align-middle">
                 <th class="p-1" style="width: 30px; max-width: 30px;">#</th>
-                <th class="p-1 text-end" style="width: 120px; max-width: 120px;">الطالب</th>
+                <th class="p-1 text-end sticky-col" style="width: 120px; max-width: 120px;">الطالب</th>
                 @for ($i = 1; $i <= 7; $i++)
                     <?php 
                         $sessionHasData = false;
@@ -42,7 +42,7 @@
             @foreach($students as $student)
                 <tr class="text-center">
                     <td class="p-1" style="background-color: #15336a; color:#ffd400; width: 30px; max-width: 30px;">{{ $loop->iteration }}</td>
-                    <td class="p-1 text-end responsive-cell" style="width: 120px; max-width: 120px; word-wrap: break-word; white-space: normal;">
+                    <td class="p-1 text-end responsive-cell sticky-col" style="width: 120px; max-width: 120px; word-wrap: break-word; white-space: normal;">
                         <a href="#student-details-{{ $student->id }}" 
                            class="student-name-toggle cell-link d-flex align-items-center justify-content-start
                                 text-{{$student->gender ? 'primary' : 'danger'}} text-{{ $student->note ? 'danger' : '' }}" 
@@ -236,7 +236,16 @@
     }
 
 .table-responsive {
-    overflow-x: visible;
+    overflow-x: auto;
+    position: relative;
+}
+
+.sticky-col {
+    position: sticky;
+    right: 0;
+    background-color: white;
+    z-index: 10;
+    border-right: 2px solid #dee2e6;
 }
 
 .table th:not(:nth-child(2)), 
@@ -259,7 +268,11 @@
         scroll-behavior: smooth !important;
     }
     .table-responsive table {
-        min-width: 400px !important;
+        min-width: 600px !important;
+    }
+    .sticky-col {
+        min-width: 120px;
+        max-width: 120px;
     }
     .table-responsive::-webkit-scrollbar {
         height: 6px;
