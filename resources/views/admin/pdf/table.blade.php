@@ -41,7 +41,6 @@
     <div class="header">
         <img src="{{ asset('storage/school_logos/taleblogo.png') }}" alt="Logo" style="width: 150px; margin-bottom: 20px;" />
         <h2>منصة طالب</h2>
-        <h3>{{ $title }}</h3>
         <p>تاريخ التقرير: {{ now()->format('Y/m/d') }}</p>
     </div>
     
