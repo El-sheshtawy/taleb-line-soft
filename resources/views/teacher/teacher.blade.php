@@ -371,7 +371,8 @@
                 try {
                     const savePromises = [];
                     const teacherId = document.getElementById('teacher-select').value;
-                    if (!teacherId) {
+                    const userType = '{{ auth()->user()->user_type }}';
+                    if (!teacherId && userType !== 'مشرف') {
                         showError('الرجاء اختيار المعلم قبل الحفظ');
                         return;
                     }
@@ -556,11 +557,12 @@
                 try {
                     const formData = new FormData(this);
                     const teacherId = document.getElementById('teacher-select').value;
-                    if (!teacherId) {
+                    const userType = '{{ auth()->user()->user_type }}';
+                    if (!teacherId && userType !== 'مشرف') {
                         showError('الرجاء اختيار المعلم قبل الحفظ');
                         return;
                     }
-                    formData.append('teacher_id', teacherId);
+                    if (teacherId) formData.append('teacher_id', teacherId);
 
                     const response = await fetch(this.action, {
                         method: 'POST',
