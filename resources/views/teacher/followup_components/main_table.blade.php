@@ -10,7 +10,10 @@
                         if(auth()->user()->user_type != 'school'){
                             foreach($students as $student) {
                                 if($today != $date){
-                                    $sessionHasData = true;
+                                    // Only allow supervisors to edit old sessions
+                                    if (!($teacher && $teacher->supervisor == 1)) {
+                                        $sessionHasData = true;
+                                    }
                                 }else{
                                     $studentSessions = $sessions[$student->id] ?? collect();
                                     if($studentSessions->where('session_number', $i)->isNotEmpty()) {
@@ -57,7 +60,10 @@
                             $sessionHasData = false;
                             if(auth()->user()->user_type != 'school'){
                                 if($today != $date){
-                                    $sessionHasData = true;
+                                    // Only allow supervisors to edit old sessions
+                                    if (!($teacher && $teacher->supervisor == 1)) {
+                                        $sessionHasData = true;
+                                    }
                                 }else{
                                     foreach($students as $s) {
                                         $sSessions = $sessions[$s->id] ?? collect();
