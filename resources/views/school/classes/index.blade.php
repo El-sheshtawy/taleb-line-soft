@@ -21,6 +21,7 @@
             <th class="p-1 text-center">م</th>
             <th class="p-1 text-center">الصف</th>
             <th class="p-1 text-center">الفصل</th>
+            <th class="p-1 text-center">الطلاب</th>
             <th class="p-1 text-center">رابط الغرفة</th>
         </tr>
     </thead>
@@ -42,6 +43,9 @@
                             {{$class->name}}
                         </a>
                     @endif
+                </td>
+                <td class="p-1 text-center">
+                    <span class="badge bg-info">{{ $class->students_count ?? 0 }}</span>
                 </td>
                 <td class="p-1 text-center">
                     @if(!empty($class->meeting_room_link))

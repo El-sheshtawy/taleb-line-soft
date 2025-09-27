@@ -28,7 +28,7 @@ class SchoolController extends Controller
         $school = $user->getSchool();
         if (!$school) return back()->with('error', 'لا يوجد مدارس في السيستم');
 
-        $classes = ClassRoom::with('grade')->where('school_id', $school->id)->get();
+        $classes = ClassRoom::with('grade')->withCount('students')->where('school_id', $school->id)->get();
         $grades = Grade::where('level_id', $school->level_id)->get();
         $nationalities = Nationality::all();
         $academicYears = AcademicYear::where('status', 'active')->get();
