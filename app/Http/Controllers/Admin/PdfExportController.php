@@ -48,7 +48,7 @@ class PdfExportController extends Controller
         $html = view('admin.pdf.table', compact('headers', 'rows', 'title'))->render();
         
         // Clean the title for header
-        $cleanTitle = preg_replace('/[^\w\s\u0600-\u06FF]/', '', $title);
+        $cleanTitle = preg_replace('/[^\w\s\x{0600}-\x{06FF}]/u', '', $title);
         $cleanTitle = str_replace(["\n", "\r", "\t"], '', $cleanTitle);
         
         return response($html)
