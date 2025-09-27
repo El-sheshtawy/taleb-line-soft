@@ -135,8 +135,8 @@
                                                     ?>
                                                     <tr class="text-center">
                                                         <th class="p-1">{{$i}}</td>
-                                                        <td>{{$session ? \Illuminate\Support\Str::limit($session->teacher->name, 12) : '-'}}</td>
-                                                        <td>{{$session ? $session->teacher->subject : '-'}}</td>
+                                                        <td>{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 12) : '-'}}</td>
+                                                        <td>{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
                                                         <td style="@if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
                                                             @if($session && $session->followUpItem)
                                                                 {{ $session->followUpItem->letter ?? '' }}
