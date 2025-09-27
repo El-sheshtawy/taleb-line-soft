@@ -23,8 +23,14 @@ $(document).ready(function() {
                 return;
               }
 
-              // Get title from current tab
-              const activeTabTitle = currentContainer.find('h5').text() || 'تقرير';
+              // Get clean title from current tab
+              const titleElement = currentContainer.find('h5').first();
+              let activeTabTitle = 'تقرير';
+              if (titleElement.length > 0) {
+                // Extract only the main text, remove badge numbers and extra text
+                const titleText = titleElement.clone().children().remove().end().text().trim();
+                activeTabTitle = titleText || titleElement.text().split(' ')[0] || 'تقرير';
+              }
               
               // Get only visible/filtered rows from DataTable
               const visibleData = dt.rows({ search: 'applied' }).data().toArray();
@@ -84,7 +90,7 @@ $(document).ready(function() {
               const url = '/admin/export-pdf';
               const params = new URLSearchParams();
               params.append('_token', $('meta[name="csrf-token"]').attr('content') || document.querySelector('input[name="_token"]')?.value || '');
-              params.append('title', titleInput.value);
+              params.append('title', activeTabTitle);
               params.append('tableData', filteredTableHTML);
               
               fetch(url, {
