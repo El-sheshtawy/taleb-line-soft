@@ -182,12 +182,12 @@
                 <div class="col-6">
                     <label for="viewer_username" class="form-label">اسم المراقب</label>
                     <input type="text" class="form-control" id="viewer_username" placeholder="m123"
-                        name="viewer_username" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
+                        name="viewer_username" value="{{ $school->viewer_username }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
                 </div>
                 <div class="col-6">
                     <label for="viewer_password" class="form-label">كلمة مرور المراقب</label>
                     <input type="text" class="form-control" id="viewer_password" placeholder="12345678"
-                        name="viewer_password" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
+                        name="viewer_password" value="{{ $school->viewer_password }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
                 </div>
             </div>
         </div>
@@ -197,12 +197,12 @@
                 <div class="col-6">
                     <label for="supervisor_username" class="form-label">اسم المشرف</label>
                     <input type="text" class="form-control" id="supervisor_username" placeholder="s123"
-                        name="supervisor_username" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
+                        name="supervisor_username" value="{{ $school->supervisor_username }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
                 </div>
                 <div class="col-6">
                     <label for="supervisor_password" class="form-label">كلمة مرور المشرف</label>
                     <input type="text" class="form-control" id="supervisor_password" placeholder=""
-                        name="supervisor_password" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
+                        name="supervisor_password" value="{{ $school->supervisor_password }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
                 </div>
             </div>
         </div>

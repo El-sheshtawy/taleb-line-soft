@@ -209,14 +209,4 @@ Route::get('/test-classes/{school_id}/{grade_id}', function($school_id, $grade_i
     $classes = App\Models\ClassRoom::where('school_id', $school_id)->where('grade_id', $grade_id)->get(['id', 'name']);
     return response()->json($classes);
 });
-
-
-// teacher login
-
-//print pdf
-
-// superviser edir att
-
-// 1-7 
-
-// srudent coubr
+// this is the codeing wolso

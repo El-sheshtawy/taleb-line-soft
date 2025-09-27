@@ -82,6 +82,10 @@ class SchoolController extends Controller
             'teachers_default_password' => 'nullable|string|max:255',
             'students_default_password' => 'nullable|string|max:255',
             'absence_count' => 'nullable|integer|min:1|max:7',
+            'viewer_username' => 'nullable|string|max:255',
+            'viewer_password' => 'nullable|string|max:255',
+            'supervisor_username' => 'nullable|string|max:255', 
+            'supervisor_password' => 'nullable|string|max:255',
 
             'table_general' => 'nullable|file|mimes:pdf|max:10240',
             'table_classes' => 'nullable|file|mimes:pdf|max:10240',
