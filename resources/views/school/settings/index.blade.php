@@ -181,8 +181,8 @@
             <div class="row">
                 <div class="col-6">
                     <label for="viewer_username" class="form-label">اسم المراقب</label>
-                    <input type="text" class="form-control" id="viewer_username" placeholder="m123"
-                        name="viewer_username" value="{{ $school->viewer_username }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
+                    <input type="text" class="form-control" id="viewer_username" 
+                        name="viewer_username" value="{{ $school->viewer_name }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
                 </div>
                 <div class="col-6">
                     <label for="viewer_password" class="form-label">كلمة مرور المراقب</label>
@@ -197,7 +197,7 @@
                 <div class="col-6">
                     <label for="supervisor_username" class="form-label">اسم المشرف</label>
                     <input type="text" class="form-control" id="supervisor_username" placeholder="s123"
-                        name="supervisor_username" value="{{ $school->supervisor_username }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
+                        name="supervisor_username" value="{{ $school->supervisor_name }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
                 </div>
                 <div class="col-6">
                     <label for="supervisor_password" class="form-label">كلمة مرور المشرف</label>

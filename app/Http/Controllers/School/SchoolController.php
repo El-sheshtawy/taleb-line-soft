@@ -116,7 +116,18 @@ class SchoolController extends Controller
             //     ]);
             // }
 
-            $schoolAccount->update($validated);
+            // Map form fields to database columns
+            $updateData = $validated;
+            if (isset($validated['viewer_username'])) {
+                $updateData['viewer_name'] = $validated['viewer_username'];
+                unset($updateData['viewer_username']);
+            }
+            if (isset($validated['supervisor_username'])) {
+                $updateData['supervisor_name'] = $validated['supervisor_username'];
+                unset($updateData['supervisor_username']);
+            }
+            
+            $schoolAccount->update($updateData);
 
             if ($request->hasFile('school_logo_url')) {
                 if ($schoolAccount->school_logo_url) {
