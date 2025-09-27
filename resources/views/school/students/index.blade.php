@@ -44,6 +44,8 @@
             <tr class="text-center">
                 <th class="p-1 text-center">م</th>
                 <th class="p-1 text-center">الاسم</th>
+                <th class="p-1 text-center">الصف</th>
+                <th class="p-1 text-center">الفصل</th>
                 <th class="p-1 text-center">الرقم المدني</th>
                 <th class="p-1 text-center">الهاتف</th>
             </tr>
@@ -71,6 +73,8 @@
                             </a>
                         @endif
                     </td>
+                    <td class="p-1">{{$student->grade->name ?? '-'}}</td>
+                    <td class="p-1">{{$student->classRoom->name ?? '-'}}</td>
                     <td class="p-1">{{$student->passport_id}}</td>
                     <td class="p-1">{{$student->phone_number}}</td>
                 </tr>

@@ -263,30 +263,41 @@
 
 @media (max-width: 768px) {
     .table-responsive {
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important;
-        scroll-behavior: smooth !important;
+        overflow-x: hidden !important;
     }
     .table-responsive table {
-        min-width: 600px !important;
+        width: 100% !important;
+        min-width: unset !important;
+        table-layout: fixed;
     }
     .sticky-col {
-        min-width: 200px;
-        max-width: 200px;
+        width: 35% !important;
+        min-width: unset !important;
+        max-width: unset !important;
+        font-size: 10px !important;
+        padding: 2px !important;
     }
-    .table-responsive::-webkit-scrollbar {
-        height: 6px;
+    .table th:first-child,
+    .table td:first-child {
+        width: 8% !important;
+        font-size: 10px !important;
+        padding: 2px !important;
     }
-    .table-responsive::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
+    .table th:nth-child(n+3):nth-child(-n+9),
+    .table td:nth-child(n+3):nth-child(-n+9) {
+        width: 8% !important;
+        font-size: 10px !important;
+        padding: 1px !important;
     }
-    .table-responsive::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 3px;
+    .table th:last-child,
+    .table td:last-child {
+        width: 5% !important;
+        font-size: 10px !important;
+        padding: 2px !important;
     }
-    .table-responsive::-webkit-scrollbar-thumb:hover {
-        background: #555;
+    .session-btn {
+        font-size: 10px !important;
+        padding: 2px !important;
     }
 }
 </style>

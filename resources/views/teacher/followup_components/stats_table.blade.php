@@ -1,11 +1,11 @@
 <div class="table-responsive mb-1"> 
-    <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap">
+    <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap stats-table">
     <tbody>
         {{-- Session Numbers Row --}}
         <tr>
             <th class="p-1 text-center">الحصة</th>
             @for ($i = 1; $i <= 7; $i++)
-                <th class="p-1 text-center">{{ $i }}</td>
+                <th class="p-1 text-center">{{ $i }}</th>
             @endfor
         </tr>
         
@@ -107,3 +107,29 @@
     </tbody>
 </table>
 </div>
+
+<style>
+.stats-table th,
+.stats-table td {
+    font-size: inherit !important;
+}
+
+@media (max-width: 768px) {
+    .stats-table {
+        width: 100% !important;
+        table-layout: fixed;
+    }
+    .stats-table th:first-child,
+    .stats-table td:first-child {
+        width: 20% !important;
+        font-size: 10px !important;
+        padding: 2px !important;
+    }
+    .stats-table th:not(:first-child),
+    .stats-table td:not(:first-child) {
+        width: 11.4% !important;
+        font-size: 10px !important;
+        padding: 1px !important;
+    }
+}
+</style>
