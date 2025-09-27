@@ -16,16 +16,18 @@ class StudentSessionController extends Controller
     
     public function store(Request $request)
     {
+        $user = Auth::user();
+        $isSupervisor = $user->user_type === 'مشرف';
+        
         $validatedData = $request->validate([
             'date' => 'required|date',
             'session_number' => 'required|integer|between:1,7',
-            'teacher_id' => 'required|exists:teachers,id',
+            'teacher_id' => $isSupervisor ? 'nullable|exists:teachers,id' : 'required|exists:teachers,id',
             'students' => 'required|array',
             'students.*.follow_up_item_id' => 'nullable|exists:follow_up_items,id',
             'students.*.teacher_note' => 'nullable|string|max:255'
         ]);
         
-        $user = Auth::user();
         $teacher = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile : null;
         $school = $user->getSchool();
         
@@ -68,7 +70,7 @@ class StudentSessionController extends Controller
                     ]);
                 } else {
                     StudentSession::create([
-                        'teacher_id' => $teacher->id,
+                        'teacher_id' => $teacher ? $teacher->id : null,
                         'session_number' => $request->input('session_number'),
                         'follow_up_item_id' => $studentData['follow_up_item_id'],
                         'student_day_id' => $studentDay->id,
