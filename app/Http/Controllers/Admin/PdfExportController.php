@@ -16,6 +16,13 @@ class PdfExportController extends Controller
         $dom = new \DOMDocument();
         @$dom->loadHTML('<meta charset="UTF-8">' . $tableData);
         
+        // Remove buttons and action elements
+        $xpath = new \DOMXPath($dom);
+        $buttons = $xpath->query('//button | //a[@class] | //*[contains(@class, "btn")] | //*[contains(@class, "badge")]');
+        foreach ($buttons as $button) {
+            $button->parentNode->removeChild($button);
+        }
+        
         $headers = [];
         $rows = [];
         
