@@ -178,33 +178,27 @@
         </div>
         
         <div class="col-md-6 mb-1">
-            <div class="row">
-                <div class="col-6">
-                    <label for="viewer_username" class="form-label">اسم المراقب</label>
-                    <input type="text" class="form-control" id="viewer_username" 
-                        name="viewer_username" value="{{ $school->viewer_name }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
-                </div>
-                <div class="col-6">
-                    <label for="viewer_password" class="form-label">كلمة مرور المراقب</label>
-                    <input type="text" class="form-control" id="viewer_password" placeholder="12345678"
-                        name="viewer_password" value="{{ $school->viewer_password }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
-                </div>
-            </div>
+            <label for="viewer_username" class="form-label">اسم المراقب</label>
+            <input type="text" class="form-control" id="viewer_username" 
+                name="viewer_username" value="{{ $school->viewer_name }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
         </div>
         
         <div class="col-md-6 mb-1">
-            <div class="row">
-                <div class="col-6">
-                    <label for="supervisor_username" class="form-label">اسم المشرف</label>
-                    <input type="text" class="form-control" id="supervisor_username" placeholder="s123"
-                        name="supervisor_username" value="{{ $school->supervisor_name }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
-                </div>
-                <div class="col-6">
-                    <label for="supervisor_password" class="form-label">كلمة مرور المشرف</label>
-                    <input type="text" class="form-control" id="supervisor_password" placeholder=""
-                        name="supervisor_password" value="{{ $school->supervisor_password }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
-                </div>
-            </div>
+            <label for="viewer_password" class="form-label">كلمة مرور المراقب</label>
+            <input type="text" class="form-control" id="viewer_password" 
+                name="viewer_password" value="{{ $school->viewer_password }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
+        </div>
+        
+        <div class="col-md-6 mb-1">
+            <label for="supervisor_username" class="form-label">اسم المشرف</label>
+            <input type="text" class="form-control" id="supervisor_username" 
+                name="supervisor_username" value="{{ $school->supervisor_name }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
+        </div>
+        
+        <div class="col-md-6 mb-1">
+            <label for="supervisor_password" class="form-label">كلمة مرور المشرف</label>
+            <input type="text" class="form-control" id="supervisor_password" 
+                name="supervisor_password" value="{{ $school->supervisor_password }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
         </div>
     </div>
 
