@@ -39,7 +39,7 @@
 </head>
 <body>
     <div class="header">
-        @if(isset($school) && $school)
+        @if($school)
             @if($school->school_banner_url)
                 <img src="{{ $school->school_banner_url }}" alt="School Banner" style="width: 300px; margin-bottom: 20px;" />
             @endif

@@ -50,7 +50,7 @@ class PdfExportController extends Controller
         $user = auth()->user();
         
         if ($user->user_type === 'school') {
-            $school = $user->schoolAccount;
+            $school = \App\Models\SchoolAccount::where('user_id', $user->id)->first();
         } elseif ($user->user_type === 'teacher') {
             $school = $user->teacher?->schoolAccount;
         }
