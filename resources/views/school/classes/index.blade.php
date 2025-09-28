@@ -58,6 +58,9 @@
         @endforeach
     </tbody>
 </table>
+<div class="mt-2 p-2 bg-light border rounded text-center">
+    <strong>إجمالي عدد الطلاب في المدرسة: <span class="badge bg-success">{{ $classes->sum('students_count') }}</span></strong>
+</div>
 
 @if(!in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
 <button  type="button" class="block btn btn-primary w-100 my-4 text-center" data-bs-toggle="modal" data-bs-target="#createClassModal">إنشاء فصل </button>
