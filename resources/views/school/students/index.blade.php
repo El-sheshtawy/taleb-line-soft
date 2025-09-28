@@ -10,11 +10,11 @@
     </a>
     @endif
 </h5>
-<div class="row g-3 mt-1 mb-1">
-    <div class="col-6 d-flex gap-1 align-items-center mt-1">
-        <label for="search_grade_id" class="fw-bold text-primary">الصف:</label>
-        <select name="grade_id" class="form-control" id="search_grade_id" 
-                style="font-size:16px;background:#ffd400;border-radius:5px;position: unset;" 
+<div class="row g-2 mt-2 mb-3 p-2 bg-light border rounded">
+    <div class="col-12 col-md-6 mb-2">
+        <label for="search_grade_id" class="form-label fw-bold text-primary mb-1">الصف:</label>
+        <select name="grade_id" class="form-select" id="search_grade_id" 
+                style="font-size:14px;background:#ffd400;border-radius:5px;" 
                 onchange="handleGradeChange(this.value)">
             <option selected value="all">الكل</option>
             @foreach($grades as $grade)
@@ -23,10 +23,10 @@
         </select>
     </div>
 
-    <div class="col-6 d-flex gap-1 align-items-center mt-1">
-        <label for="search_class_id" class="fw-bold text-primary">الفصل:</label>
-        <select name="class_id" class="form-control" id="search_class_id" 
-                style="font-size:16px;background:#ffd400;border-radius:5px;position: unset;" 
+    <div class="col-12 col-md-6 mb-2">
+        <label for="search_class_id" class="form-label fw-bold text-primary mb-1">الفصل:</label>
+        <select name="class_id" class="form-select" id="search_class_id" 
+                style="font-size:14px;background:#ffd400;border-radius:5px;" 
                 onchange="handleClassChange(this.value)">
             <option selected value="all">الكل</option>
             @if(request('grade_id') && is_numeric(request('grade_id')))
