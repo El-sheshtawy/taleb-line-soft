@@ -649,7 +649,7 @@
             
             const form = document.createElement('form');
             form.method = 'POST';
-            form.action = '/admin/export-pdf';
+            form.action = '/teacher/export-pdf';
             form.target = '_blank';
             
             const csrfInput = document.createElement('input');
@@ -674,15 +674,6 @@
             document.body.appendChild(form);
             form.submit();
             document.body.removeChild(form);
-            
-            printWindow.document.write(printContent);
-            printWindow.document.close();
-            
-            // Wait for content to load then print
-            printWindow.onload = function() {
-                printWindow.print();
-                printWindow.close();
-            };
         }
 
         document.getElementById('settingsSelector').addEventListener('change', function() {
