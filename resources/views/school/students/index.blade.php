@@ -86,6 +86,55 @@
     </div>
 </div>
 
+<style>
+.dataTables_wrapper .dataTables_filter {
+    float: none !important;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+    margin-left: 0.5em;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+    width: 200px;
+}
+
+.dataTables_wrapper .dataTables_length {
+    float: none !important;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.dataTables_wrapper .dataTables_length select {
+    margin: 0 5px;
+    padding: 3px 8px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background: #ffd400;
+    font-size: 14px;
+}
+
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_paginate {
+    text-align: center;
+    margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+    .dataTables_wrapper .dataTables_filter {
+        float: right !important;
+        text-align: right;
+    }
+    
+    .dataTables_wrapper .dataTables_length {
+        float: left !important;
+        text-align: left;
+    }
+}
+</style>
 
 @if(!in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
 <div class="row g-2 my-1">
