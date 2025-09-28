@@ -72,11 +72,12 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const currentUrl = window.location.href;
+        const currentPath = window.location.pathname;
         const links = document.querySelectorAll('.navbar-bottom a');
 
         links.forEach(link => {
-            if (link.href === currentUrl) {
+            const linkPath = new URL(link.href).pathname;
+            if (linkPath === currentPath) {
                 link.classList.add('bg-danger', 'text-white');
 
                 const icon = link.querySelector('i');
