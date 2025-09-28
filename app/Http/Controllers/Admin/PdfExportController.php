@@ -14,13 +14,16 @@ class PdfExportController extends Controller
         
         // Parse table data to extract text content
         $dom = new \DOMDocument();
-        @$dom->loadHTML('<meta charset="UTF-8">' . $tableData);
+        libxml_use_internal_errors(true);
+        @$dom->loadHTML('<?xml encoding="UTF-8">' . $tableData, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         
         // Remove buttons and action elements
         $xpath = new \DOMXPath($dom);
-        $buttons = $xpath->query('//button | //a[@class] | //*[contains(@class, "btn")] | //*[contains(@class, "badge")]');
-        foreach ($buttons as $button) {
-            $button->parentNode->removeChild($button);
+        $elementsToRemove = $xpath->query('//button | //a[contains(@class, "btn")] | //*[contains(@class, "btn")] | //*[contains(@class, "badge")] | //script | //style');
+        foreach ($elementsToRemove as $element) {
+            if ($element->parentNode) {
+                $element->parentNode->removeChild($element);
+            }
         }
         
         $headers = [];
@@ -29,7 +32,10 @@ class PdfExportController extends Controller
         // Extract headers
         $headerNodes = $dom->getElementsByTagName('th');
         foreach ($headerNodes as $header) {
-            $headers[] = trim($header->textContent);
+            $headerText = trim(preg_replace('/\s+/', ' ', $header->textContent));
+            if (!empty($headerText)) {
+                $headers[] = $headerText;
+            }
         }
         
         // Extract rows
@@ -39,9 +45,12 @@ class PdfExportController extends Controller
             if ($cells->length > 0) {
                 $rowData = [];
                 foreach ($cells as $cell) {
-                    $rowData[] = trim($cell->textContent);
+                    $cellText = trim(preg_replace('/\s+/', ' ', $cell->textContent));
+                    $rowData[] = $cellText;
                 }
-                $rows[] = $rowData;
+                if (array_filter($rowData)) { // Only add non-empty rows
+                    $rows[] = $rowData;
+                }
             }
         }
         
