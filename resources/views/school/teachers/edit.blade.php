@@ -36,7 +36,23 @@
                     
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="edit_teacher_subject">المادة: <i class="text-danger">*</i></label>
-                        <input type="text" name="subject" id="edit_teacher_subject" class="form-control" required>
+                        <select name="subject" id="edit_teacher_subject" class="form-control" required>
+                            <option value="">اختر المادة</option>
+                            <option value="اللغة العربية">اللغة العربية</option>
+                            <option value="اللغة الإنجليزية">اللغة الإنجليزية</option>
+                            <option value="الرياضيات">الرياضيات</option>
+                            <option value="العلوم">العلوم</option>
+                            <option value="التربية الإسلامية">التربية الإسلامية</option>
+                            <option value="التربية البدنية">التربية البدنية</option>
+                            <option value="التربية الفنية">التربية الفنية</option>
+                            <option value="التربية الموسيقية">التربية الموسيقية</option>
+                            <option value="التاريخ">التاريخ</option>
+                            <option value="الجغرافيا">الجغرافيا</option>
+                            <option value="الحاسوب">الحاسوب</option>
+                            <option value="الفيزياء">الفيزياء</option>
+                            <option value="الكيمياء">الكيمياء</option>
+                            <option value="الأحياء">الأحياء</option>
+                        </select>
                     </div>
                     
                     

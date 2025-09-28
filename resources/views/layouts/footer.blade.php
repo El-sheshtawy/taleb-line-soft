@@ -77,12 +77,17 @@
 
         links.forEach(link => {
             const linkPath = new URL(link.href).pathname;
+            const icon = link.querySelector('i');
+            
             if (linkPath === currentPath) {
                 link.classList.add('bg-danger', 'text-white');
-
-                const icon = link.querySelector('i');
                 if (icon) {
                     icon.style.color = '#fff';
+                }
+            } else {
+                link.classList.remove('bg-danger', 'text-white');
+                if (icon) {
+                    icon.style.color = '#0d6efd';
                 }
             }
         });
