@@ -27,13 +27,20 @@
         }
         th, td { 
             border: 1px solid #ddd; 
-            padding: 8px; 
+            padding: 4px; 
             text-align: center; 
-            font-size: 10px;
+            font-size: 9px;
+            word-wrap: break-word;
+            max-width: 80px;
+            overflow: hidden;
         }
         th { 
             background-color: #f8f9fa; 
             font-weight: bold;
+            font-size: 10px;
+        }
+        .header img {
+            max-height: 120px;
         }
     </style>
 </head>

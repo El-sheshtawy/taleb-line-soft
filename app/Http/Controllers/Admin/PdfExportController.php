@@ -17,12 +17,20 @@ class PdfExportController extends Controller
         libxml_use_internal_errors(true);
         @$dom->loadHTML('<?xml encoding="UTF-8">' . $tableData, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
         
-        // Remove buttons and action elements
+        // Remove unwanted elements
         $xpath = new \DOMXPath($dom);
-        $elementsToRemove = $xpath->query('//button | //a[contains(@class, "btn")] | //*[contains(@class, "btn")] | //*[contains(@class, "badge")] | //script | //style');
+        $elementsToRemove = $xpath->query('//button | //a[contains(@class, "btn")] | //*[contains(@class, "btn")] | //*[contains(@class, "badge")] | //script | //style | //*[contains(@class, "collapse")] | //*[@style="display: none"]');
         foreach ($elementsToRemove as $element) {
             if ($element->parentNode) {
                 $element->parentNode->removeChild($element);
+            }
+        }
+        
+        // Remove empty rows
+        $emptyRows = $xpath->query('//tr[not(td[normalize-space()]) and not(th[normalize-space()])]');
+        foreach ($emptyRows as $row) {
+            if ($row->parentNode) {
+                $row->parentNode->removeChild($row);
             }
         }
         
@@ -46,9 +54,21 @@ class PdfExportController extends Controller
                 $rowData = [];
                 foreach ($cells as $cell) {
                     $cellText = trim(preg_replace('/\s+/', ' ', $cell->textContent));
+                    // Limit long text and remove empty cells
+                    if (strlen($cellText) > 50) {
+                        $cellText = substr($cellText, 0, 47) . '...';
+                    }
                     $rowData[] = $cellText;
                 }
-                if (array_filter($rowData)) { // Only add non-empty rows
+                // Only add rows that have meaningful content
+                $hasContent = false;
+                foreach ($rowData as $cell) {
+                    if (!empty($cell) && $cell !== '...' && strlen($cell) > 1) {
+                        $hasContent = true;
+                        break;
+                    }
+                }
+                if ($hasContent) {
                     $rows[] = $rowData;
                 }
             }
