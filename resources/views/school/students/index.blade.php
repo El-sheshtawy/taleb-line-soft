@@ -81,6 +81,9 @@
             @endforeach
         </tbody>
     </table>
+    <div class="mt-2 p-2 bg-light border rounded text-center">
+        <strong>إجمالي عدد الطلاب: <span class="badge bg-success">{{ $students->count() }}</span></strong>
+    </div>
 </div>
 
 

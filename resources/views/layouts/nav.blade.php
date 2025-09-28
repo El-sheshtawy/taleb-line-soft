@@ -28,7 +28,7 @@
                     @csrf
                     <button type="submit" class="btn btn-danger">تسجيل الخروج</button>
                 </form>
-                <small style="color: #fff; margin-top: 5px; display: block;">{{ auth()->user()->username }}</small>
+                <div style="background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 15px; margin-top: 8px; font-size: 12px; color: #fff; font-weight: bold;">{{ auth()->user()->username }}</div>
             </div>
         </div>
     </div>
@@ -62,7 +62,7 @@
                     @csrf
                     <button type="submit" class="btn btn-danger">تسجيل الخروج</button>
                 </form>
-                <small style="color: #fff; margin-top: 5px; display: block;">{{ auth()->user()->username }}</small>
+                <div style="background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 15px; margin-top: 8px; font-size: 12px; color: #fff; font-weight: bold;">{{ auth()->user()->username }}</div>
             </div>
         </div>
     </div>
@@ -96,7 +96,7 @@
                     @csrf
                     <button type="submit" class="btn btn-danger">تسجيل الخروج</button>
                 </form>
-                <small style="color: #fff; margin-top: 5px; display: block;">{{ auth()->user()->username }}</small>
+                <div style="background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 15px; margin-top: 8px; font-size: 12px; color: #fff; font-weight: bold;">{{ auth()->user()->username }}</div>
             </div>
         </div>
     </div>

@@ -44,8 +44,8 @@
                     <td class="p-1" style="background-color: #15336a; color:#ffd400; width: 30px; max-width: 30px;">{{ $loop->iteration }}</td>
                     <td class="p-1 text-end responsive-cell sticky-col" style="width: 200px; max-width: 200px; word-wrap: break-word; white-space: normal;">
                         <a href="#student-details-{{ $student->id }}" 
-                           class="student-name-toggle cell-link d-flex align-items-center justify-content-start
-                                text-{{$student->gender ? 'primary' : 'danger'}} text-{{ $student->note ? 'danger' : '' }}" 
+                           class="student-name-toggle cell-link d-flex align-items-center justify-content-start" 
+                           style="color: #000 !important; text-decoration: none;"
                            data-bs-toggle="collapse"
                            aria-expanded="false"
                            aria-controls="student-details-{{ $student->id }}">

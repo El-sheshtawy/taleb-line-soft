@@ -183,7 +183,9 @@
 
 
         document.addEventListener("DOMContentLoaded", function() {
-            const activeTab = localStorage.getItem('schoolActiveTab') || 'settings-tab';
+            const urlParams = new URLSearchParams(window.location.search);
+            const activeTab = urlParams.get('tab') || 'settings-tab';
+            
             document.querySelectorAll(".tab-pane").forEach(tab => {
                 tab.classList.remove("active", "show");
             });
@@ -192,9 +194,13 @@
                 targetTab.classList.add("active", "show");
             }
             document.getElementById("settingsSelector").value = activeTab;
+            
             document.getElementById("settingsSelector").addEventListener("change", function() {
                 const selectedTab = this.value;
-                localStorage.setItem('schoolActiveTab', selectedTab);
+                const url = new URL(window.location);
+                url.searchParams.set('tab', selectedTab);
+                window.history.replaceState({}, '', url);
+                
                 document.querySelectorAll(".tab-pane").forEach(tab => {
                     tab.classList.remove("active", "show");
                 });
