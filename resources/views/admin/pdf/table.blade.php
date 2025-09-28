@@ -41,7 +41,7 @@
     <div class="header">
         @if($school)
             @if($school->school_banner_url)
-                <img src="{{ $school->school_banner_url }}" alt="School Banner" style="width: 100%; margin-bottom: 20px;" />
+                <img src="{{ $school->school_banner_url }}" alt="School Banner" style="width: 300px; margin-bottom: 20px;" />
             @endif
             <h2>{{ $school->school_name }}</h2>
         @else
