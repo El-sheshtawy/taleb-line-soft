@@ -237,57 +237,55 @@
     }
 
 .table-responsive {
-    overflow-x: auto;
-    position: relative;
+    overflow-x: visible;
 }
 
-.sticky-col {
-    position: sticky;
-    right: 0;
-    background-color: white;
-    z-index: 10;
-    border-right: 2px solid #dee2e6;
+.table {
+    width: 100%;
+    table-layout: fixed;
 }
 
-.table th:not(:nth-child(2)), 
-.table td:not(:nth-child(2)) {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+.table th, .table td {
+    padding: 0.25rem;
+    font-size: 11px;
+    text-align: center;
 }
 
-.table th:nth-child(2), 
-.table td:nth-child(2) {
-    font-size: 12px;
-    line-height: 1.2;
+.table th:nth-child(2), .table td:nth-child(2) {
+    width: 35%;
+    text-align: right;
+    font-size: 10px;
+    line-height: 1.1;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.table th:first-child, .table td:first-child {
+    width: 4%;
+}
+
+.table th:nth-child(n+3):nth-child(-n+9), .table td:nth-child(n+3):nth-child(-n+9) {
+    width: 7%;
+}
+
+.table th:last-child, .table td:last-child {
+    width: 4%;
 }
 
 @media (max-width: 768px) {
-    .table-responsive {
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important;
-        scroll-behavior: smooth !important;
+    .table th, .table td {
+        padding: 0.15rem;
+        font-size: 9px;
     }
-    .table-responsive table {
-        min-width: 700px !important;
+    
+    .table th:nth-child(2), .table td:nth-child(2) {
+        font-size: 8px;
+        line-height: 1.0;
     }
-    .sticky-col {
-        min-width: 200px;
-        max-width: 200px;
-    }
-    .table-responsive::-webkit-scrollbar {
-        height: 6px;
-    }
-    .table-responsive::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
-    }
-    .table-responsive::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 3px;
-    }
-    .table-responsive::-webkit-scrollbar-thumb:hover {
-        background: #555;
+    
+    .session-btn {
+        font-size: 8px !important;
+        padding: 0.1rem !important;
     }
 }
 </style>
