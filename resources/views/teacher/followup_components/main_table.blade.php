@@ -272,6 +272,21 @@
     width: 4%;
 }
 
+.student-details-table {
+    table-layout: auto !important;
+    width: 100% !important;
+}
+
+.student-details-table .teacher-col {
+    width: auto !important;
+    max-width: none !important;
+    font-size: inherit !important;
+    padding: inherit !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    white-space: normal !important;
+}
+
 @media (max-width: 768px) {
     .table th, .table td {
         padding: 0.15rem;
