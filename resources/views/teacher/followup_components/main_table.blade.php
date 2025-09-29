@@ -45,8 +45,8 @@
                     <td class="p-1 text-end responsive-cell sticky-col" style="width: 200px; max-width: 200px; word-wrap: break-word; white-space: normal;">
                         <a href="#student-details-{{ $student->id }}" 
                            class="student-name-toggle cell-link d-flex align-items-center justify-content-start
-                                {{ $student->note ? 'text-danger' : '' }}" 
-                           style="color: {{ $student->note ? '#dc3545' : '#000' }} !important; text-decoration: none;"
+                                {{ $student->note ? 'text-danger' : ($student->gender ? '' : 'text-danger') }}" 
+                           style="color: {{ $student->note ? '#dc3545' : ($student->gender ? '#000' : '#dc3545') }} !important; text-decoration: none;"
                            data-bs-toggle="collapse"
                            aria-expanded="false"
                            aria-controls="student-details-{{ $student->id }}">
@@ -125,14 +125,14 @@
                                         @csrf
                                         <input type="hidden" name="student_id" value="{{$student->id}}">
                                         <input type="hidden" name="date" value="{{$date}}">
-                                        <table class="table table-bordered align-middle mb-0 student-details-table">
+                                        <table class="table table-bordered align-middle mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th class="p-1 text-center session-col">الحصة</th>
-                                                    <th class="p-1 text-center teacher-col">المعلم</th>
-                                                    <th class="p-1 text-center subject-col">المادة</th>
-                                                    <th class="p-1 text-center status-col">الحالة</th>
-                                                    <th class="p-1 text-center notes-col">الملاحظات</th>
+                                                    <th class="p-1 text-center">الحصة</th>
+                                                    <th class="p-1 text-center" style="min-width:60px">المعلم</th>
+                                                    <th class="p-1 text-center">المادة</th>
+                                                    <th class="p-1 text-center">الحالة</th>
+                                                    <th class="p-1 text-center">الملاحظات</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -142,7 +142,7 @@
                                                     ?>
                                                     <tr class="text-center">
                                                         <th class="p-1">{{$i}}</td>
-                                                        <td class="teacher-col">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
+                                                        <td>{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 12) : '-'}}</td>
                                                         <td>{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
                                                         <td style="@if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
                                                             @if($session && $session->followUpItem)
@@ -254,57 +254,51 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    width: 50px;
-    min-width: 50px;
-    max-width: 50px;
-    height: 50px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 14px;
 }
 
 .table th:nth-child(2), 
 .table td:nth-child(2) {
-    font-size: 14px;
+    font-size: 12px;
     line-height: 1.2;
-    width: 200px;
-    min-width: 200px;
-    max-width: 200px;
-}
-
-.session-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 14px;
-    font-weight: bold;
 }
 
 @media (max-width: 768px) {
     .table-responsive {
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important;
-        scroll-behavior: smooth !important;
+        overflow-x: hidden !important;
     }
     .table-responsive table {
-        min-width: 700px !important;
+        width: 100% !important;
+        min-width: unset !important;
+        table-layout: fixed;
     }
     .sticky-col {
-        min-width: 200px;
-        max-width: 200px;
+        width: 35% !important;
+        min-width: unset !important;
+        max-width: unset !important;
+        font-size: 10px !important;
+        padding: 2px !important;
     }
-    .table-responsive::-webkit-scrollbar {
-        height: 6px;
+    .table th:first-child,
+    .table td:first-child {
+        width: 8% !important;
+        font-size: 10px !important;
+        padding: 2px !important;
     }
-    .table-responsive::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
+    .table th:nth-child(n+3):nth-child(-n+9),
+    .table td:nth-child(n+3):nth-child(-n+9) {
+        width: 8% !important;
+        font-size: 10px !important;
+        padding: 1px !important;
     }
-    .table-responsive::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 3px;
+    .table th:last-child,
+    .table td:last-child {
+        width: 5% !important;
+        font-size: 10px !important;
+        padding: 2px !important;
     }
-    .table-responsive::-webkit-scrollbar-thumb:hover {
-        background: #555;
+    .session-btn {
+        font-size: 10px !important;
+        padding: 2px !important;
     }
 }
 </style>
