@@ -1,5 +1,5 @@
-<div class="table-responsive mb-1 main-table-container"> 
-    <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap main-students-table">
+<div class="table-responsive mb-1"> 
+    <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap">
         <thead>
             <tr class="text-center align-middle">
                 <th class="p-1" style="width: 30px; max-width: 30px;">#</th>
@@ -125,17 +125,16 @@
                                         @csrf
                                         <input type="hidden" name="student_id" value="{{$student->id}}">
                                         <input type="hidden" name="date" value="{{$date}}">
-                                        <div class="table-responsive student-details-scroll">
-                                            <table class="table table-bordered align-middle mb-0 student-details-table">
-                                                <thead>
-                                                    <tr>
-                                                        <th class="p-1 text-center">الحصة</th>
-                                                        <th class="p-1 text-center teacher-col-inner">المعلم</th>
-                                                        <th class="p-1 text-center">المادة</th>
-                                                        <th class="p-1 text-center">الحالة</th>
-                                                        <th class="p-1 text-center">الملاحظات</th>
-                                                    </tr>
-                                                </thead>
+                                        <table class="table table-bordered align-middle mb-0">
+                                            <thead>
+                                                <tr>
+                                                    <th class="p-1 text-center">الحصة</th>
+                                                    <th class="p-1 text-center" style="min-width:60px">المعلم</th>
+                                                    <th class="p-1 text-center">المادة</th>
+                                                    <th class="p-1 text-center">الحالة</th>
+                                                    <th class="p-1 text-center">الملاحظات</th>
+                                                </tr>
+                                            </thead>
                                             <tbody>
                                                 @for ($i = 1; $i <= 7; $i++)
                                                     <?php
@@ -143,7 +142,7 @@
                                                     ?>
                                                     <tr class="text-center">
                                                         <th class="p-1">{{$i}}</td>
-                                                        <td class="teacher-col-inner">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
+                                                        <td>{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 12) : '-'}}</td>
                                                         <td>{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
                                                         <td style="@if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
                                                             @if($session && $session->followUpItem)
@@ -153,9 +152,8 @@
                                                         <td><input type="text" class="form-control" name="notes[{{$i}}]" value="{{ $session->teacher_note ?? '' }}"></td>
                                                     </tr>
                                                 @endfor
-                                                </tbody>
-                                            </table>
-                                        </div>
+                                            </tbody>
+                                        </table>
                                         @if(!in_array(auth()->user()->user_type, ['مراقب']))
                                         <button type="submit" class="btn btn-success mt-2 mb-4">حفظ</button>
                                         @endif
@@ -238,13 +236,12 @@
         text-decoration: none;
     }
 
-/* Main Students Table */
-.main-table-container {
+.table-responsive {
     overflow-x: auto;
     position: relative;
 }
 
-.main-students-table .sticky-col {
+.sticky-col {
     position: sticky;
     right: 0;
     background-color: white;
@@ -252,76 +249,17 @@
     border-right: 2px solid #dee2e6;
 }
 
-.main-students-table th:not(:nth-child(2)), 
-.main-students-table td:not(:nth-child(2)) {
+.table th:not(:nth-child(2)), 
+.table td:not(:nth-child(2)) {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    width: 50px;
-    min-width: 50px;
-    max-width: 50px;
-    height: 50px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 14px;
 }
 
-.main-students-table th:nth-child(2), 
-.main-students-table td:nth-child(2) {
-    font-size: 14px;
-    line-height: 1.2;
-    width: 200px;
-    min-width: 200px;
-    max-width: 200px;
-}
-
-/* Student Details Table */
-.student-details-scroll {
-    overflow-x: auto;
-    max-width: 100%;
-}
-
-.student-details-table {
-    table-layout: fixed;
-    width: 600px;
-    min-width: 600px;
-}
-
-.student-details-table th,
-.student-details-table td {
-    padding: 8px;
+.table th:nth-child(2), 
+.table td:nth-child(2) {
     font-size: 12px;
-    text-align: center;
-    vertical-align: middle;
-}
-
-.student-details-table th:nth-child(1),
-.student-details-table td:nth-child(1) {
-    width: 60px;
-}
-
-.student-details-table th:nth-child(2),
-.student-details-table td:nth-child(2) {
-    width: 100px;
-    font-size: 10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.student-details-table th:nth-child(3),
-.student-details-table td:nth-child(3) {
-    width: 120px;
-}
-
-.student-details-table th:nth-child(4),
-.student-details-table td:nth-child(4) {
-    width: 80px;
-}
-
-.student-details-table th:nth-child(5),
-.student-details-table td:nth-child(5) {
-    width: 240px;
+    line-height: 1.2;
 }
 
 @media (max-width: 768px) {
@@ -361,45 +299,6 @@
     .session-btn {
         font-size: 10px !important;
         padding: 2px !important;
-    }
-}
-
-@media (max-width: 768px) {
-    .main-table-container {
-        overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important;
-        scroll-behavior: smooth !important;
-    }
-    .main-students-table {
-        min-width: 700px !important;
-    }
-    .main-students-table .sticky-col {
-        min-width: 200px;
-        max-width: 200px;
-    }
-    .main-table-container::-webkit-scrollbar {
-        height: 6px;
-    }
-    .main-table-container::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 3px;
-    }
-    .main-table-container::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 3px;
-    }
-    .main-table-container::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
-    
-    .student-details-scroll {
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .student-details-table th:nth-child(2),
-    .student-details-table td:nth-child(2) {
-        width: 80px;
-        font-size: 9px;
     }
 }
 </style>

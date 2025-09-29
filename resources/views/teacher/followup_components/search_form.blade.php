@@ -1,7 +1,21 @@
 <form action="{{ route('teacher.index') }}" method="GET" id="dateForm">
     <div class="row g-2 align-items-center justify-content-center w-100">
         <div class="col-md-4 d-flex align-items-center gap-2">
-            <label for="date" class="fw-bold text-primary">التاريخ:</label>
+            <label for="date" class="fw-bold text-primary">
+                @php
+                    $dayNames = [
+                        'Sunday' => 'الأحد',
+                        'Monday' => 'الإثنين',
+                        'Tuesday' => 'الثلاثاء',
+                        'Wednesday' => 'الأربعاء',
+                        'Thursday' => 'الخميس',
+                        'Friday' => 'الجمعة',
+                        'Saturday' => 'السبت'
+                    ];
+                    $currentDay = $dayNames[\Carbon\Carbon::parse(request('date', $date))->format('l')] ?? 'التاريخ';
+                @endphp
+                {{ $currentDay }}:
+            </label>
             <input type="date" class="form-control" name="date" id="date" 
                    style="font-size:16px;background:#ffd400;border-radius:5px;position: unset;"
                    style="background-color: yellow;" 
