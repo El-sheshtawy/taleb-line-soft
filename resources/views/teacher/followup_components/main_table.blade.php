@@ -125,16 +125,17 @@
                                         @csrf
                                         <input type="hidden" name="student_id" value="{{$student->id}}">
                                         <input type="hidden" name="date" value="{{$date}}">
-                                        <table class="table table-bordered align-middle mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th class="p-1 text-center">الحصة</th>
-                                                    <th class="p-1 text-center" style="min-width:60px">المعلم</th>
-                                                    <th class="p-1 text-center">المادة</th>
-                                                    <th class="p-1 text-center">الحالة</th>
-                                                    <th class="p-1 text-center">الملاحظات</th>
-                                                </tr>
-                                            </thead>
+                                        <div class="table-responsive student-details-scroll">
+                                            <table class="table table-bordered align-middle mb-0 student-details-inner-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="p-1 text-center">الحصة</th>
+                                                        <th class="p-1 text-center teacher-col-inner">المعلم</th>
+                                                        <th class="p-1 text-center">المادة</th>
+                                                        <th class="p-1 text-center">الحالة</th>
+                                                        <th class="p-1 text-center">الملاحظات</th>
+                                                    </tr>
+                                                </thead>
                                             <tbody>
                                                 @for ($i = 1; $i <= 7; $i++)
                                                     <?php
@@ -142,7 +143,7 @@
                                                     ?>
                                                     <tr class="text-center">
                                                         <th class="p-1">{{$i}}</td>
-                                                        <td>{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 12) : '-'}}</td>
+                                                        <td class="teacher-col-inner">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
                                                         <td>{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
                                                         <td style="@if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
                                                             @if($session && $session->followUpItem)
@@ -152,8 +153,9 @@
                                                         <td><input type="text" class="form-control" name="notes[{{$i}}]" value="{{ $session->teacher_note ?? '' }}"></td>
                                                     </tr>
                                                 @endfor
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                         @if(!in_array(auth()->user()->user_type, ['مراقب']))
                                         <button type="submit" class="btn btn-success mt-2 mb-4">حفظ</button>
                                         @endif
@@ -299,6 +301,35 @@
     .session-btn {
         font-size: 10px !important;
         padding: 2px !important;
+    }
+}
+
+.student-details-scroll {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.student-details-inner-table {
+    min-width: 500px;
+}
+
+.teacher-col-inner {
+    width: 80px;
+    max-width: 80px;
+    font-size: 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+    .student-details-scroll {
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .teacher-col-inner {
+        width: 60px;
+        max-width: 60px;
+        font-size: 9px;
     }
 }
 </style>
