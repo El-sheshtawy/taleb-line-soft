@@ -1,5 +1,5 @@
-<div class="table-responsive mb-1"> 
-    <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap">
+<div class="table-responsive mb-1 main-table-container"> 
+    <table class="table table-secondary table-bordered align-middle mb-0 text-nowrap main-students-table">
         <thead>
             <tr class="text-center align-middle">
                 <th class="p-1" style="width: 30px; max-width: 30px;">#</th>
@@ -126,7 +126,7 @@
                                         <input type="hidden" name="student_id" value="{{$student->id}}">
                                         <input type="hidden" name="date" value="{{$date}}">
                                         <div class="table-responsive student-details-scroll">
-                                            <table class="table table-bordered align-middle mb-0 student-details-inner-table">
+                                            <table class="table table-bordered align-middle mb-0 student-details-table">
                                                 <thead>
                                                     <tr>
                                                         <th class="p-1 text-center">الحصة</th>
@@ -238,12 +238,13 @@
         text-decoration: none;
     }
 
-.table-responsive {
+/* Main Students Table */
+.main-table-container {
     overflow-x: auto;
     position: relative;
 }
 
-.sticky-col {
+.main-students-table .sticky-col {
     position: sticky;
     right: 0;
     background-color: white;
@@ -251,17 +252,76 @@
     border-right: 2px solid #dee2e6;
 }
 
-.table th:not(:nth-child(2)), 
-.table td:not(:nth-child(2)) {
+.main-students-table th:not(:nth-child(2)), 
+.main-students-table td:not(:nth-child(2)) {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
 }
 
-.table th:nth-child(2), 
-.table td:nth-child(2) {
-    font-size: 12px;
+.main-students-table th:nth-child(2), 
+.main-students-table td:nth-child(2) {
+    font-size: 14px;
     line-height: 1.2;
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
+}
+
+/* Student Details Table */
+.student-details-scroll {
+    overflow-x: auto;
+    max-width: 100%;
+}
+
+.student-details-table {
+    table-layout: fixed;
+    width: 600px;
+    min-width: 600px;
+}
+
+.student-details-table th,
+.student-details-table td {
+    padding: 8px;
+    font-size: 12px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.student-details-table th:nth-child(1),
+.student-details-table td:nth-child(1) {
+    width: 60px;
+}
+
+.student-details-table th:nth-child(2),
+.student-details-table td:nth-child(2) {
+    width: 100px;
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.student-details-table th:nth-child(3),
+.student-details-table td:nth-child(3) {
+    width: 120px;
+}
+
+.student-details-table th:nth-child(4),
+.student-details-table td:nth-child(4) {
+    width: 80px;
+}
+
+.student-details-table th:nth-child(5),
+.student-details-table td:nth-child(5) {
+    width: 240px;
 }
 
 @media (max-width: 768px) {
@@ -304,54 +364,41 @@
     }
 }
 
-.student-details-scroll {
-    overflow-x: auto;
-    max-width: 100%;
-}
-
-.student-details-inner-table {
-    min-width: 500px;
-    table-layout: fixed;
-    width: 100%;
-}
-
-.student-details-inner-table th:nth-child(1),
-.student-details-inner-table td:nth-child(1) {
-    width: 60px;
-}
-
-.student-details-inner-table th:nth-child(2),
-.student-details-inner-table td:nth-child(2) {
-    width: 80px;
-    font-size: 9px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.student-details-inner-table th:nth-child(3),
-.student-details-inner-table td:nth-child(3) {
-    width: 100px;
-}
-
-.student-details-inner-table th:nth-child(4),
-.student-details-inner-table td:nth-child(4) {
-    width: 80px;
-}
-
-.student-details-inner-table th:nth-child(5),
-.student-details-inner-table td:nth-child(5) {
-    width: 180px;
-}
-
 @media (max-width: 768px) {
+    .main-table-container {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-behavior: smooth !important;
+    }
+    .main-students-table {
+        min-width: 700px !important;
+    }
+    .main-students-table .sticky-col {
+        min-width: 200px;
+        max-width: 200px;
+    }
+    .main-table-container::-webkit-scrollbar {
+        height: 6px;
+    }
+    .main-table-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+    .main-table-container::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+    }
+    .main-table-container::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    
     .student-details-scroll {
         -webkit-overflow-scrolling: touch;
     }
     
-    .teacher-col-inner {
-        width: 60px;
-        max-width: 60px;
+    .student-details-table th:nth-child(2),
+    .student-details-table td:nth-child(2) {
+        width: 80px;
         font-size: 9px;
     }
 }
