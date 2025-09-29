@@ -125,14 +125,14 @@
                                         @csrf
                                         <input type="hidden" name="student_id" value="{{$student->id}}">
                                         <input type="hidden" name="date" value="{{$date}}">
-                                        <table class="table table-bordered align-middle mb-0">
+                                        <table class="table table-bordered align-middle mb-0 student-details-table">
                                             <thead>
                                                 <tr>
-                                                    <th class="p-1 text-center">الحصة</th>
-                                                    <th class="p-1 text-center" style="width:80px;max-width:80px;">المعلم</th>
-                                                    <th class="p-1 text-center">المادة</th>
-                                                    <th class="p-1 text-center">الحالة</th>
-                                                    <th class="p-1 text-center">الملاحظات</th>
+                                                    <th class="p-1 text-center session-col">الحصة</th>
+                                                    <th class="p-1 text-center teacher-col">المعلم</th>
+                                                    <th class="p-1 text-center subject-col">المادة</th>
+                                                    <th class="p-1 text-center status-col">الحالة</th>
+                                                    <th class="p-1 text-center notes-col">الملاحظات</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -142,7 +142,7 @@
                                                     ?>
                                                     <tr class="text-center">
                                                         <th class="p-1">{{$i}}</td>
-                                                        <td style="width:80px;max-width:80px;word-wrap:break-word;font-size:10px;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
+                                                        <td class="teacher-col">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
                                                         <td>{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
                                                         <td style="@if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
                                                             @if($session && $session->followUpItem)
@@ -298,6 +298,20 @@
     }
     .session-btn {
         font-size: 10px !important;
+        padding: 2px !important;
+    }
+    
+    .student-details-table {
+        table-layout: fixed;
+        width: 100%;
+    }
+    
+    .student-details-table .teacher-col {
+        width: 60px !important;
+        max-width: 60px !important;
+        font-size: 8px !important;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
         padding: 2px !important;
     }
 }
