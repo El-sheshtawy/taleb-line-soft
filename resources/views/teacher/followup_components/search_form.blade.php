@@ -12,7 +12,7 @@
                         'Friday' => 'الجمعة',
                         'Saturday' => 'السبت'
                     ];
-                    $currentDay = $dayNames[\Carbon\Carbon::now()->format('l')] ?? 'التاريخ';
+                    $currentDay = $dayNames[\Carbon\Carbon::parse(request('date', $date))->format('l')] ?? 'التاريخ';
                 @endphp
                 {{ $currentDay }}:
             </label>
