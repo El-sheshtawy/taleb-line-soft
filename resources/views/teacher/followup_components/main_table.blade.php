@@ -307,12 +307,21 @@
     }
     
     .student-details-table .teacher-col {
-        width: 60px !important;
-        max-width: 60px !important;
-        font-size: 8px !important;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
-        padding: 2px !important;
+        width: 40px !important;
+        max-width: 40px !important;
+        font-size: 7px !important;
+        padding: 1px !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    .student-details-table .teacher-col::after {
+        content: "م";
+    }
+    
+    .student-details-table .teacher-col * {
+        display: none;
     }
 }
 </style>
