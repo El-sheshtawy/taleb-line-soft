@@ -237,70 +237,74 @@
     }
 
 .table-responsive {
-    overflow-x: visible;
+    overflow-x: auto;
+    position: relative;
 }
 
-.table {
-    width: 100%;
-    table-layout: fixed;
+.sticky-col {
+    position: sticky;
+    right: 0;
+    background-color: white;
+    z-index: 10;
+    border-right: 2px solid #dee2e6;
 }
 
-.table th, .table td {
-    padding: 0.25rem;
-    font-size: 11px;
+.table th:not(:nth-child(2)), 
+.table td:not(:nth-child(2)) {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 50px;
+    min-width: 50px;
+    max-width: 50px;
+    height: 50px;
     text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
 }
 
-.table th:nth-child(2), .table td:nth-child(2) {
-    width: 35%;
-    text-align: right;
-    font-size: 10px;
-    line-height: 1.1;
-    word-wrap: break-word;
-    white-space: normal;
+.table th:nth-child(2), 
+.table td:nth-child(2) {
+    font-size: 14px;
+    line-height: 1.2;
+    width: 200px;
+    min-width: 200px;
+    max-width: 200px;
 }
 
-.table th:first-child, .table td:first-child {
-    width: 4%;
-}
-
-.table th:nth-child(n+3):nth-child(-n+9), .table td:nth-child(n+3):nth-child(-n+9) {
-    width: 7%;
-}
-
-.table th:last-child, .table td:last-child {
-    width: 4%;
-}
-
-.student-details-table {
-    table-layout: auto !important;
-    width: 100% !important;
-}
-
-.student-details-table .teacher-col {
-    width: auto !important;
-    max-width: none !important;
-    font-size: inherit !important;
-    padding: inherit !important;
-    overflow: visible !important;
-    text-overflow: unset !important;
-    white-space: normal !important;
+.session-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 @media (max-width: 768px) {
-    .table th, .table td {
-        padding: 0.15rem;
-        font-size: 9px;
+    .table-responsive {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scroll-behavior: smooth !important;
     }
-    
-    .table th:nth-child(2), .table td:nth-child(2) {
-        font-size: 8px;
-        line-height: 1.0;
+    .table-responsive table {
+        min-width: 700px !important;
     }
-    
-    .session-btn {
-        font-size: 8px !important;
-        padding: 0.1rem !important;
+    .sticky-col {
+        min-width: 200px;
+        max-width: 200px;
+    }
+    .table-responsive::-webkit-scrollbar {
+        height: 6px;
+    }
+    .table-responsive::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 3px;
+    }
+    .table-responsive::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+    }
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+        background: #555;
     }
 }
 </style>
