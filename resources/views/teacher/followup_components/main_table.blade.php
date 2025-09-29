@@ -311,14 +311,37 @@
 
 .student-details-inner-table {
     min-width: 500px;
+    table-layout: fixed;
+    width: 100%;
 }
 
-.teacher-col-inner {
+.student-details-inner-table th:nth-child(1),
+.student-details-inner-table td:nth-child(1) {
+    width: 60px;
+}
+
+.student-details-inner-table th:nth-child(2),
+.student-details-inner-table td:nth-child(2) {
     width: 80px;
-    max-width: 80px;
-    font-size: 10px;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    font-size: 9px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.student-details-inner-table th:nth-child(3),
+.student-details-inner-table td:nth-child(3) {
+    width: 100px;
+}
+
+.student-details-inner-table th:nth-child(4),
+.student-details-inner-table td:nth-child(4) {
+    width: 80px;
+}
+
+.student-details-inner-table th:nth-child(5),
+.student-details-inner-table td:nth-child(5) {
+    width: 180px;
 }
 
 @media (max-width: 768px) {
