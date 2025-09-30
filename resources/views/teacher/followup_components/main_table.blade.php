@@ -319,11 +319,11 @@
     
     /* Teacher column fix */
     .inner-table .teacher-col {
-        width: 18% !important;
-        max-width: 18% !important;
-        min-width: 18% !important;
+        width: 12% !important;
+        max-width: 12% !important;
+        min-width: 12% !important;
         font-size: 7px !important;
-        padding: 2px !important;
+        padding: 1px !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
@@ -331,7 +331,7 @@
     
     .inner-table th:nth-child(3),
     .inner-table td:nth-child(3) {
-        width: 20% !important;
+        width: 22% !important;
         font-size: 8px !important;
         padding: 2px !important;
     }
@@ -345,7 +345,7 @@
     
     .inner-table th:nth-child(5),
     .inner-table td:nth-child(5) {
-        width: 35% !important;
+        width: 39% !important;
         font-size: 8px !important;
         padding: 2px !important;
     }
