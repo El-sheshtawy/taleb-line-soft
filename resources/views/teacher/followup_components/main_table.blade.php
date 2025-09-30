@@ -125,16 +125,17 @@
                                         @csrf
                                         <input type="hidden" name="student_id" value="{{$student->id}}">
                                         <input type="hidden" name="date" value="{{$date}}">
-                                        <table class="table table-bordered align-middle mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th class="p-1 text-center">الحصة</th>
-                                                    <th class="p-1 text-center" style="min-width:60px">المعلم</th>
-                                                    <th class="p-1 text-center">المادة</th>
-                                                    <th class="p-1 text-center">الحالة</th>
-                                                    <th class="p-1 text-center">الملاحظات</th>
-                                                </tr>
-                                            </thead>
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered align-middle mb-0" style="min-width: 500px;">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="p-1 text-center" style="width: 60px;">الحصة</th>
+                                                        <th class="p-1 text-center" style="width: 80px; font-size: 10px;">المعلم</th>
+                                                        <th class="p-1 text-center" style="width: 100px;">المادة</th>
+                                                        <th class="p-1 text-center" style="width: 80px;">الحالة</th>
+                                                        <th class="p-1 text-center" style="width: 180px;">الملاحظات</th>
+                                                    </tr>
+                                                </thead>
                                             <tbody>
                                                 @for ($i = 1; $i <= 7; $i++)
                                                     <?php
@@ -142,7 +143,7 @@
                                                     ?>
                                                     <tr class="text-center">
                                                         <th class="p-1">{{$i}}</td>
-                                                        <td>{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 12) : '-'}}</td>
+                                                        <td style="width: 80px; font-size: 9px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
                                                         <td>{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
                                                         <td style="@if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
                                                             @if($session && $session->followUpItem)
@@ -152,8 +153,9 @@
                                                         <td><input type="text" class="form-control" name="notes[{{$i}}]" value="{{ $session->teacher_note ?? '' }}"></td>
                                                     </tr>
                                                 @endfor
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                         @if(!in_array(auth()->user()->user_type, ['مراقب']))
                                         <button type="submit" class="btn btn-success mt-2 mb-4">حفظ</button>
                                         @endif
