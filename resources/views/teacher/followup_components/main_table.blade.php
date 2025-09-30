@@ -126,11 +126,11 @@
                                         <input type="hidden" name="student_id" value="{{$student->id}}">
                                         <input type="hidden" name="date" value="{{$date}}">
                                         <div class="table-responsive">
-                                            <table class="table table-bordered align-middle mb-0" style="min-width: 500px;">
+                                            <table class="table table-bordered align-middle mb-0 inner-table" style="min-width: 500px;">
                                                 <thead>
                                                     <tr>
                                                         <th class="p-1 text-center" style="width: 60px;">الحصة</th>
-                                                        <th class="p-1 text-center" style="width: 80px; font-size: 10px;">المعلم</th>
+                                                        <th class="p-1 text-center teacher-col" style="width: 80px; font-size: 10px;">المعلم</th>
                                                         <th class="p-1 text-center" style="width: 100px;">المادة</th>
                                                         <th class="p-1 text-center" style="width: 80px;">الحالة</th>
                                                         <th class="p-1 text-center" style="width: 180px;">الملاحظات</th>
@@ -143,7 +143,7 @@
                                                     ?>
                                                     <tr class="text-center">
                                                         <th class="p-1">{{$i}}</td>
-                                                        <td style="width: 80px; font-size: 9px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
+                                                        <td class="teacher-col" style="width: 80px; font-size: 9px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
                                                         <td>{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
                                                         <td style="@if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
                                                             @if($session && $session->followUpItem)
@@ -303,22 +303,57 @@
         padding: 2px !important;
     }
     
-    /* Fix for teacher column in collapsed student details */
-    .student-details-row td table td:nth-child(2) {
-        width: 60px !important;
-        max-width: 60px !important;
-        font-size: 8px !important;
+    /* Fix for inner table (student details) */
+    .inner-table {
+        min-width: 100% !important;
+        width: 100% !important;
+        table-layout: fixed !important;
+    }
+    
+    .inner-table th:first-child,
+    .inner-table td:first-child {
+        width: 12% !important;
+        font-size: 9px !important;
+        padding: 2px !important;
+    }
+    
+    /* Teacher column fix */
+    .inner-table .teacher-col {
+        width: 18% !important;
+        max-width: 18% !important;
+        min-width: 18% !important;
+        font-size: 7px !important;
         padding: 2px !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
     
-    .student-details-row td table th:nth-child(2) {
-        width: 60px !important;
-        max-width: 60px !important;
-        font-size: 9px !important;
+    .inner-table th:nth-child(3),
+    .inner-table td:nth-child(3) {
+        width: 20% !important;
+        font-size: 8px !important;
         padding: 2px !important;
+    }
+    
+    .inner-table th:nth-child(4),
+    .inner-table td:nth-child(4) {
+        width: 15% !important;
+        font-size: 8px !important;
+        padding: 2px !important;
+    }
+    
+    .inner-table th:nth-child(5),
+    .inner-table td:nth-child(5) {
+        width: 35% !important;
+        font-size: 8px !important;
+        padding: 2px !important;
+    }
+    
+    .inner-table td:nth-child(5) input {
+        font-size: 8px !important;
+        padding: 2px 4px !important;
+        height: auto !important;
     }
 }
 </style>
