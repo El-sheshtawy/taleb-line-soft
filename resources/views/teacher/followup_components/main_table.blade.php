@@ -302,6 +302,24 @@
         font-size: 10px !important;
         padding: 2px !important;
     }
+    
+    /* Fix for teacher column in collapsed student details */
+    .student-details-row td table td:nth-child(2) {
+        width: 60px !important;
+        max-width: 60px !important;
+        font-size: 8px !important;
+        padding: 2px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+    
+    .student-details-row td table th:nth-child(2) {
+        width: 60px !important;
+        max-width: 60px !important;
+        font-size: 9px !important;
+        padding: 2px !important;
+    }
 }
 </style>
 
