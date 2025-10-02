@@ -175,7 +175,7 @@
     	            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
     	                <div class="teacher-selection-section w-100">
     	                   <div class="row g-2 align-items-end">
-            				    @if(auth()->user()->user_type == 'school')
+            				    @if(in_array(auth()->user()->user_type, ['school', 'مشرف']))
                 				    <div class="col-md-4 d-flex flex-row flex-sm-column align-items-center align-items-sm-start gap-1">
             				            <label class="form-label fw-bold text-muted">اسم المعلم</label>
                                         <select id="teacher-select" class="form-control d-inline-block d-sm-block" style="font-size:16px;background:#ffd400;border-radius:5px;position: unset;" name="teacher_id_select" onchange="changeTeacherSubjectSelection('teacher-select', 'subject_id_show');">
