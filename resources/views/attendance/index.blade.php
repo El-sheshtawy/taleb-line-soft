@@ -21,6 +21,13 @@
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
 
     <style>
+        .myTable th:nth-child(2),
+        .myTable td:nth-child(2) {
+            width: 250px;
+            min-width: 250px;
+            max-width: 250px;
+        }
+        
         .myTable th:nth-child(4),
         .myTable td:nth-child(4) {
             width: 300px;
