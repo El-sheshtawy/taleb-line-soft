@@ -76,6 +76,10 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("edit_viewer_password").value = schoolData.viewer_password || "";
             document.getElementById("edit_supervisor_name").value = schoolData.supervisor_name || "";
             document.getElementById("edit_supervisor_password").value = schoolData.supervisor_password || "";
+            
+            document.getElementById("edit_hide_passport_id").checked = schoolData.hide_passport_id == 1;
+            document.getElementById("edit_hide_phone1").checked = schoolData.hide_phone1 == 1;
+            document.getElementById("edit_hide_phone2").checked = schoolData.hide_phone2 == 1;
         });
     });
 });
