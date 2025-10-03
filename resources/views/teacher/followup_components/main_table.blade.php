@@ -124,22 +124,15 @@
                                         @csrf
                                         <input type="hidden" name="student_id" value="{{$student->id}}">
                                         <input type="hidden" name="date" value="{{$date}}">
-                                        <div class="table-responsive" style="overflow-x: auto;">
+                                        <div class="table-responsive" style="overflow-x: hidden;">
                                             <table class="table table-bordered align-middle mb-0 mobile-inner-table">
-                                                <colgroup>
-                                                    <col class="col-session">
-                                                    <col class="col-teacher">
-                                                    <col class="col-subject">
-                                                    <col class="col-status">
-                                                    <col class="col-notes">
-                                                </colgroup>
                                                 <thead>
                                                     <tr>
-                                                        <th class="p-1 text-center" style="font-size: 10px;">الحصة</th>
-                                                        <th class="p-1 text-center" style="font-size: 9px;">المعلم</th>
-                                                        <th class="p-1 text-center" style="font-size: 10px;">المادة</th>
-                                                        <th class="p-1 text-center" style="font-size: 10px;">الحالة</th>
-                                                        <th class="p-1 text-center" style="font-size: 10px;">الملاحظات</th>
+                                                        <th class="p-1 text-center" style="width: 8%; font-size: 9px; padding: 2px;">الحصة</th>
+                                                        <th class="p-1 text-center" style="width: 15%; font-size: 8px; padding: 2px;">المعلم</th>
+                                                        <th class="p-1 text-center" style="width: 20%; font-size: 8px; padding: 2px;">المادة</th>
+                                                        <th class="p-1 text-center" style="width: 12%; font-size: 8px; padding: 2px;">الحالة</th>
+                                                        <th class="p-1 text-center" style="width: 45%; font-size: 8px; padding: 2px;">الملاحظات</th>
                                                     </tr>
                                                 </thead>
                                             <tbody>
@@ -148,15 +141,20 @@
                                                         $session = ($sessions[$student->id] ?? collect())->where('session_number', $i)->first();
                                                     ?>
                                                     <tr class="text-center">
-                                                        <th class="p-1" style="font-size: 9px;">{{$i}}</th>
-                                                        <td style="font-size: 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 2px;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
-                                                        <td style="font-size: 8px; padding: 2px;">{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
-                                                        <td style="font-size: 9px; padding: 2px; @if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
+                                                        <th class="p-1" style="width: 8%; font-size: 9px; padding: 2px;">{{$i}}</th>
+                                                        <td style="width: 15%; font-size: 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 2px;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 6) : '-'}}</td>
+                                                        <td style="width: 20%; font-size: 8px; padding: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
+                                                        <td style="width: 12%; font-size: 9px; padding: 2px; @if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
                                                             @if($session && $session->followUpItem)
                                                                 {{ $session->followUpItem->letter ?? '' }}
                                                             @endif
                                                         </td>
-                                                        <td style="padding: 2px;"><input type="text" class="form-control" style="font-size: 10px; padding: 4px; height: 28px;" name="notes[{{$i}}]" value="{{ $session->teacher_note ?? '' }}"></td>
+                                                        <td style="width: 45%; padding: 2px;">
+                                                            <input type="text" class="form-control notes-input" 
+                                                                   style="font-size: 9px; padding: 3px; height: 26px; width: 100%; overflow-x: auto; white-space: nowrap;" 
+                                                                   name="notes[{{$i}}]" 
+                                                                   value="{{ $session->teacher_note ?? '' }}">
+                                                        </td>
                                                     </tr>
                                                 @endfor
                                                 </tbody>
@@ -267,19 +265,24 @@
     line-height: 1.2;
 }
 
-/* Desktop default - use min-width for proper sizing */
 .mobile-inner-table {
-    min-width: 600px;
-    table-layout: auto;
+    width: 100% !important;
+    table-layout: fixed !important;
 }
 
-.col-session { width: 60px; }
-.col-teacher { width: 80px; }
-.col-subject { width: 100px; }
-.col-status { width: 80px; }
-.col-notes { width: 280px; }
+.notes-input::-webkit-scrollbar {
+    height: 3px;
+}
 
-/* CRITICAL MOBILE STYLES - Maximum priority */
+.notes-input::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.notes-input::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 2px;
+}
+
 @media screen and (max-width: 768px) {
     .table-responsive {
         overflow-x: hidden !important;
@@ -323,56 +326,6 @@
     .session-btn {
         font-size: 10px !important;
         padding: 2px !important;
-    }
-    
-    /* MOBILE INNER TABLE - FORCED LAYOUT */
-    .mobile-inner-table {
-        min-width: 100% !important;
-        max-width: 100% !important;
-        width: 100% !important;
-        table-layout: fixed !important;
-    }
-    
-    .mobile-inner-table colgroup .col-session {
-        width: 5% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-teacher {
-        width: 10% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-subject {
-        width: 15% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-status {
-        width: 5% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-notes {
-        width: 65% !important;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .mobile-inner-table colgroup .col-session {
-        width: 4% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-teacher {
-        width: 8% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-subject {
-        width: 13% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-status {
-        width: 4% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-notes {
-        width: 71% !important;
     }
 }
 </style>
