@@ -121,6 +121,8 @@ Route::middleware('auth')->group(function(){
                 
         Route::resource('special-users', \App\Http\Controllers\Admin\SpecialUserController::class)
                 ->only(['store', 'update', 'destroy']);
+                
+        Route::put('system-access', [\App\Http\Controllers\Admin\SystemAccessController::class, 'update'])->name('system-access.update');
     });
     
     

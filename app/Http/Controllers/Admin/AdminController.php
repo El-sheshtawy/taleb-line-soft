@@ -12,6 +12,7 @@ use App\Models\SchoolAccountSubscription;
 use App\Models\AcademicYear;
 use App\Models\User;
 use App\Models\Nationality;
+use App\Models\SystemAccessSetting;
 
 class AdminController extends Controller
 {
@@ -26,7 +27,8 @@ class AdminController extends Controller
         $admins = User::where('user_type', 'admin')->get();
         $specialUsers = User::whereIn('user_type', ['مراقب', 'مشرف'])->get();
         $nationalities = Nationality::all();
+        $settings = SystemAccessSetting::first();
         
-        return view('admin.admin', compact('schoolAccounts', 'grades', 'levels', 'followUps', 'schoolAccountSubscriptions', 'academicYears', 'admins', 'specialUsers', 'nationalities'));
+        return view('admin.admin', compact('schoolAccounts', 'grades', 'levels', 'followUps', 'schoolAccountSubscriptions', 'academicYears', 'admins', 'specialUsers', 'nationalities', 'settings'));
     }
 }
