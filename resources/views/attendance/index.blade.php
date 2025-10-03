@@ -53,6 +53,31 @@
         .myTable td:nth-child(4)::-webkit-scrollbar-thumb:hover {
             background: #555;
         }
+        
+        @media (max-width: 768px) {
+            .table-responsive {
+                overflow-x: auto !important;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .myTable {
+                min-width: 600px;
+            }
+            
+            .myTable th:nth-child(2),
+            .myTable td:nth-child(2) {
+                width: 180px;
+                min-width: 180px;
+                max-width: 180px;
+            }
+            
+            .myTable th:nth-child(4),
+            .myTable td:nth-child(4) {
+                width: 200px;
+                min-width: 200px;
+                max-width: 200px;
+            }
+        }
     </style>
 
 </head>
