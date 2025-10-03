@@ -175,7 +175,7 @@
     	            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
     	                <div class="teacher-selection-section w-100">
     	                   <div class="row g-2 align-items-end">
-            				    @if(in_array(auth()->user()->user_type, ['school', 'مشرف']))
+            				    @if(auth()->user()->user_type == 'school')
                 				    <div class="col-md-4 d-flex flex-row flex-sm-column align-items-center align-items-sm-start gap-1">
             				            <label class="form-label fw-bold text-muted">اسم المعلم</label>
                                         <select id="teacher-select" class="form-control d-inline-block d-sm-block" style="font-size:16px;background:#ffd400;border-radius:5px;position: unset;" name="teacher_id_select" onchange="changeTeacherSubjectSelection('teacher-select', 'subject_id_show');">
@@ -312,16 +312,18 @@
     
     .inner-table th:first-child,
     .inner-table td:first-child {
-        width: 8% !important;
-        font-size: 9px !important;
+        width: 6% !important;
+        min-width: 6% !important;
+        max-width: 6% !important;
+        font-size: 8px !important;
         padding: 1px !important;
     }
     
     /* Teacher column fix */
     .inner-table .teacher-col {
-        width: 15% !important;
-        max-width: 15% !important;
-        min-width: 15% !important;
+        width: 12% !important;
+        max-width: 12% !important;
+        min-width: 12% !important;
         font-size: 7px !important;
         padding: 1px !important;
         overflow: hidden !important;
@@ -331,53 +333,32 @@
     
     .inner-table th:nth-child(3),
     .inner-table td:nth-child(3) {
-        width: 20% !important;
+        width: 18% !important;
         font-size: 8px !important;
-        padding: 2px !important;
+        padding: 1px !important;
     }
     
     .inner-table th:nth-child(4),
     .inner-table td:nth-child(4) {
-        width: 10% !important;
+        width: 6% !important;
+        min-width: 6% !important;
+        max-width: 6% !important;
         font-size: 8px !important;
         padding: 1px !important;
     }
     
     .inner-table th:nth-child(5),
     .inner-table td:nth-child(5) {
-        width: 47% !important;
-        font-size: 8px !important;
+        width: 58% !important;
+        font-size: 9px !important;
         padding: 2px !important;
     }
     
     .inner-table td:nth-child(5) input {
-        font-size: 8px !important;
-        padding: 2px 4px !important;
+        font-size: 9px !important;
+        padding: 3px 5px !important;
         height: auto !important;
         width: 100% !important;
-    }
-}
-
-/* Additional mobile-specific rules */
-@media (max-width: 480px) {
-    .inner-table th:first-child,
-    .inner-table td:first-child {
-        width: 6% !important;
-        min-width: 6% !important;
-        max-width: 6% !important;
-    }
-    
-    .inner-table th:nth-child(4),
-    .inner-table td:nth-child(4) {
-        width: 8% !important;
-        min-width: 8% !important;
-        max-width: 8% !important;
-    }
-    
-    .inner-table th:nth-child(5),
-    .inner-table td:nth-child(5) {
-        width: 50% !important;
-        min-width: 50% !important;
     }
 }
 </style>
