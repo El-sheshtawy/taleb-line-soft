@@ -84,6 +84,9 @@ class SchoolAccountController extends Controller
                 'viewer_password' => $validated['viewer_password'],
                 'supervisor_name' => $validated['supervisor_name'],
                 'supervisor_password' => $validated['supervisor_password'],
+                'hide_passport_id' => $request->has('hide_passport_id'),
+                'hide_phone1' => $request->has('hide_phone1'),
+                'hide_phone2' => $request->has('hide_phone2'),
             ]);
             
             // Create viewer user
@@ -161,6 +164,10 @@ class SchoolAccountController extends Controller
                 ]);
 	        }
     	    
+            $validated['hide_passport_id'] = $request->has('hide_passport_id');
+            $validated['hide_phone1'] = $request->has('hide_phone1');
+            $validated['hide_phone2'] = $request->has('hide_phone2');
+            
             $schoolAccount->update($validated);
             
             // Create or update viewer user
