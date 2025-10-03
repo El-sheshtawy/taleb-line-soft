@@ -58,6 +58,7 @@
                         <option value="page_data">بيانات الصفحة</option>
                         <option value="images">الصور</option>
                         <option value="banners">شريط الاخبار</option>
+                        <option value="system-access">إعدادات الوصول</option>
                     </select>
 
                     <select id="accountsSelector" class="tabs-selector"
@@ -90,6 +91,7 @@
                     <div class="tab-pane fade" id="school-subscriptions"> @include('admin.school_subscriptions.index') </div>
                     <div class="tab-pane fade" id="follow-up-systems"> @include('admin.followup_systems.index') </div>
                     <div class="tab-pane fade" id="special-users"> @include('admin.special_users.index') </div>
+                    <div class="tab-pane fade" id="system-access"> @include('admin.system_access.index') </div>
                 </div>
             </div>
 
