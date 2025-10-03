@@ -75,21 +75,36 @@
         const currentPath = window.location.pathname;
         const links = document.querySelectorAll('.navbar-bottom a');
 
+        // Remove active state from all links first
         links.forEach(link => {
-            const linkPath = new URL(link.href).pathname;
             const icon = link.querySelector('i');
-            
-            if (linkPath === currentPath) {
-                link.classList.add('bg-danger', 'text-white');
-                if (icon) {
-                    icon.style.color = '#fff';
-                }
-            } else {
-                link.classList.remove('bg-danger', 'text-white');
-                if (icon) {
-                    icon.style.color = '#0d6efd';
-                }
+            link.classList.remove('bg-danger', 'text-white');
+            if (icon) {
+                icon.style.color = '#0d6efd';
             }
         });
+
+        // Find the best matching link based on base path
+        let bestMatch = null;
+        let bestMatchLength = 0;
+
+        links.forEach(link => {
+            const linkPath = new URL(link.href).pathname;
+            
+            // Check if current path starts with link path (for nested routes)
+            if (currentPath.startsWith(linkPath) && linkPath.length > bestMatchLength) {
+                bestMatch = link;
+                bestMatchLength = linkPath.length;
+            }
+        });
+
+        // Apply active state to the best match only
+        if (bestMatch) {
+            const icon = bestMatch.querySelector('i');
+            bestMatch.classList.add('bg-danger', 'text-white');
+            if (icon) {
+                icon.style.color = '#fff';
+            }
+        }
     });
 </script>
