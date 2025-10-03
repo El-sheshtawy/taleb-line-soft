@@ -29,6 +29,9 @@ class SchoolAccount extends Model
         'viewer_password',
         'supervisor_name',
         'supervisor_password',
+        'hide_passport_id',
+        'hide_phone1',
+        'hide_phone2',
     ];
 
     public function getSchoolLogoUrlAttribute($value)

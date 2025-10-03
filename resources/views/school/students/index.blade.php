@@ -46,8 +46,12 @@
                 <th class="p-1 text-center">الاسم</th>
                 <th class="p-1 text-center">الصف</th>
                 <th class="p-1 text-center">الفصل</th>
-                <th class="p-1 text-center">الرقم المدني</th>
-                <th class="p-1 text-center">الهاتف</th>
+                @if(auth()->user()->user_type == 'school' || !$school->hide_passport_id)
+                    <th class="p-1 text-center">الرقم المدني</th>
+                @endif
+                @if(auth()->user()->user_type == 'school' || !$school->hide_phone1)
+                    <th class="p-1 text-center">الهاتف</th>
+                @endif
             </tr>
         </thead>
         <tbody id="studentTableBody">
@@ -75,8 +79,12 @@
                     </td>
                     <td class="p-1">{{$student->grade->name ?? '-'}}</td>
                     <td class="p-1">{{$student->classRoom->name ?? '-'}}</td>
-                    <td class="p-1">{{$student->passport_id}}</td>
-                    <td class="p-1">{{$student->phone_number}}</td>
+                    @if(auth()->user()->user_type == 'school' || !$school->hide_passport_id)
+                        <td class="p-1">{{$student->passport_id}}</td>
+                    @endif
+                    @if(auth()->user()->user_type == 'school' || !$school->hide_phone1)
+                        <td class="p-1">{{$student->phone_number}}</td>
+                    @endif
                 </tr>
             @endforeach
         </tbody>
