@@ -114,7 +114,9 @@
                                             {{ $student->name }}
                                         </a>
                                     </p>
-                                    <p><strong>الرقم المدني :</strong> {{ $student->passport_id }}</p>
+                                    @if(auth()->user()->user_type == 'school' || !$school->hide_passport_id)
+                                        <p><strong>الرقم المدني :</strong> {{ $student->passport_id }}</p>
+                                    @endif
                                     <p><strong>الملاحظة :</strong> <span class="text-secondary">{{ $student->note}}</span></p>
                                 </div>
                                 <div class="col-md-12 mt-2">
