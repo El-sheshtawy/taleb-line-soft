@@ -354,6 +354,30 @@
         font-size: 8px !important;
         padding: 2px 4px !important;
         height: auto !important;
+        width: 100% !important;
+    }
+}
+
+/* Additional mobile-specific rules */
+@media (max-width: 480px) {
+    .inner-table th:first-child,
+    .inner-table td:first-child {
+        width: 6% !important;
+        min-width: 6% !important;
+        max-width: 6% !important;
+    }
+    
+    .inner-table th:nth-child(4),
+    .inner-table td:nth-child(4) {
+        width: 8% !important;
+        min-width: 8% !important;
+        max-width: 8% !important;
+    }
+    
+    .inner-table th:nth-child(5),
+    .inner-table td:nth-child(5) {
+        width: 50% !important;
+        min-width: 50% !important;
     }
 }
 </style>
