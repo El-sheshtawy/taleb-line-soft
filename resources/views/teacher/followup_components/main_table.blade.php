@@ -336,98 +336,143 @@
     .inner-table {
         min-width: 100% !important;
         width: 100% !important;
+        max-width: 100% !important;
+        table-layout: fixed !important;
+        display: table !important;
+    }
+    
+    .inner-table thead,
+    .inner-table tbody,
+    .inner-table tr {
+        width: 100% !important;
+        display: table !important;
         table-layout: fixed !important;
     }
     
     /* Session column - VERY SMALL */
     .session-col-header,
-    .session-col-data {
-        width: 6% !important;
-        min-width: 6% !important;
-        max-width: 6% !important;
-        font-size: 8px !important;
-        padding: 1px !important;
+    .session-col-data,
+    .inner-table th:nth-child(1),
+    .inner-table td:nth-child(1) {
+        width: 5% !important;
+        min-width: 5% !important;
+        max-width: 5% !important;
+        font-size: 7px !important;
+        padding: 1px 0px !important;
+        box-sizing: border-box !important;
     }
     
     /* Teacher column - SMALL */
     .teacher-col-header,
-    .teacher-col-data {
-        width: 12% !important;
-        max-width: 12% !important;
-        min-width: 12% !important;
-        font-size: 7px !important;
+    .teacher-col-data,
+    .inner-table th:nth-child(2),
+    .inner-table td:nth-child(2) {
+        width: 10% !important;
+        max-width: 10% !important;
+        min-width: 10% !important;
+        font-size: 6px !important;
         padding: 1px !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
+        box-sizing: border-box !important;
     }
     
     /* Subject column */
     .subject-col-header,
-    .subject-col-data {
-        width: 18% !important;
-        font-size: 8px !important;
+    .subject-col-data,
+    .inner-table th:nth-child(3),
+    .inner-table td:nth-child(3) {
+        width: 15% !important;
+        max-width: 15% !important;
+        min-width: 15% !important;
+        font-size: 7px !important;
         padding: 1px !important;
+        box-sizing: border-box !important;
     }
     
     /* Status column - VERY SMALL */
     .status-col-header,
-    .status-col-data {
-        width: 6% !important;
-        min-width: 6% !important;
-        max-width: 6% !important;
-        font-size: 8px !important;
-        padding: 1px !important;
+    .status-col-data,
+    .inner-table th:nth-child(4),
+    .inner-table td:nth-child(4) {
+        width: 5% !important;
+        min-width: 5% !important;
+        max-width: 5% !important;
+        font-size: 7px !important;
+        padding: 1px 0px !important;
+        box-sizing: border-box !important;
     }
     
     /* Notes column - VERY LARGE */
     .notes-col-header,
-    .notes-col-data {
-        width: 58% !important;
-        font-size: 9px !important;
+    .notes-col-data,
+    .inner-table th:nth-child(5),
+    .inner-table td:nth-child(5) {
+        width: 65% !important;
+        max-width: 65% !important;
+        min-width: 65% !important;
+        font-size: 10px !important;
         padding: 2px !important;
+        box-sizing: border-box !important;
     }
     
-    .notes-input {
-        font-size: 9px !important;
-        padding: 3px 5px !important;
-        height: auto !important;
+    .notes-input,
+    .inner-table input[type="text"],
+    .inner-table .form-control {
+        font-size: 10px !important;
+        padding: 4px 6px !important;
+        height: 28px !important;
         width: 100% !important;
+        box-sizing: border-box !important;
     }
 }
 
 /* Extra small mobile devices */
 @media (max-width: 480px) {
     .session-col-header,
-    .session-col-data {
-        width: 5% !important;
-        min-width: 5% !important;
-        max-width: 5% !important;
+    .session-col-data,
+    .inner-table th:nth-child(1),
+    .inner-table td:nth-child(1) {
+        width: 4% !important;
+        min-width: 4% !important;
+        max-width: 4% !important;
     }
     
     .teacher-col-header,
-    .teacher-col-data {
-        width: 11% !important;
-        max-width: 11% !important;
-        min-width: 11% !important;
+    .teacher-col-data,
+    .inner-table th:nth-child(2),
+    .inner-table td:nth-child(2) {
+        width: 9% !important;
+        max-width: 9% !important;
+        min-width: 9% !important;
     }
     
     .subject-col-header,
-    .subject-col-data {
-        width: 16% !important;
+    .subject-col-data,
+    .inner-table th:nth-child(3),
+    .inner-table td:nth-child(3) {
+        width: 13% !important;
+        max-width: 13% !important;
+        min-width: 13% !important;
     }
     
     .status-col-header,
-    .status-col-data {
-        width: 5% !important;
-        min-width: 5% !important;
-        max-width: 5% !important;
+    .status-col-data,
+    .inner-table th:nth-child(4),
+    .inner-table td:nth-child(4) {
+        width: 4% !important;
+        min-width: 4% !important;
+        max-width: 4% !important;
     }
     
     .notes-col-header,
-    .notes-col-data {
-        width: 63% !important;
-        min-width: 63% !important;
+    .notes-col-data,
+    .inner-table th:nth-child(5),
+    .inner-table td:nth-child(5) {
+        width: 70% !important;
+        min-width: 70% !important;
+        max-width: 70% !important;
     }
 }
 </style>
