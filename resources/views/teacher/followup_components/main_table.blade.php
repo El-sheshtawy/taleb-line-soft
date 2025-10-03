@@ -130,7 +130,7 @@
                                                         <th class="p-1 text-center teacher-col-header">المعلم</th>
                                                         <th class="p-1 text-center subject-col-header">المادة</th>
                                                         <th class="p-1 text-center status-col-header">الحالة</th>
-                                                        <th class="p-1 text-center notes-col-header">الملاحظات</th>
+                                                        <th class="p-1 text-center notes-col-header">0</th>
                                                     </tr>
                                                 </thead>
                                             <tbody>
