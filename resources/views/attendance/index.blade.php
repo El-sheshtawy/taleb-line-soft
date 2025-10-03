@@ -20,6 +20,58 @@
     <link href="{{ asset('css/responsive_min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
 
+    <style>
+        .myTable {
+            table-layout: fixed;
+        }
+        
+        .myTable th:nth-child(1),
+        .myTable td:nth-child(1) {
+            width: 60px;
+        }
+        
+        .myTable th:nth-child(2),
+        .myTable td:nth-child(2) {
+            width: 200px !important;
+            min-width: 200px !important;
+            max-width: 200px !important;
+        }
+        
+        .myTable th:nth-child(3),
+        .myTable td:nth-child(3) {
+            width: 80px;
+        }
+        
+        .myTable th:nth-child(4),
+        .myTable td:nth-child(4) {
+            width: auto;
+            max-width: 300px;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        
+        .myTable td:nth-child(4) {
+            position: relative;
+        }
+        
+        .myTable td:nth-child(4)::-webkit-scrollbar {
+            height: 4px;
+        }
+        
+        .myTable td:nth-child(4)::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        .myTable td:nth-child(4)::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 2px;
+        }
+        
+        .myTable td:nth-child(4)::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+
 </head>
 
 <body>
