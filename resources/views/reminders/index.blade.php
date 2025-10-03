@@ -199,11 +199,11 @@
         @include('layouts.footer')
 
     </div>
+    @include('reminders.show')
     @if (auth()->user()->user_type == 'school')
         @include('reminders.create')
         @include('reminders.edit')
         @include('reminders.delete')
-        @include('reminders.show')
     @endif
 
     <!-- JS Files -->
@@ -218,6 +218,19 @@
     <script src="{{ asset('js/jszip.min.js') }}"></script>
     <script src="{{ asset('js/datatables.js') }}"></script>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll(".show-reminder-btn").forEach(button => {
+                button.addEventListener("click", function() {
+                    document.querySelector("#showReminderModal #edit_reminder_title").value = this
+                        .getAttribute("data-title");
+                    document.querySelector("#showReminderModal #edit_reminder_content").value = this
+                        .getAttribute("data-content");
+                });
+            });
+        });
+    </script>
+    
     @if (auth()->user()->user_type == 'school')
         <script>
             document.addEventListener("DOMContentLoaded", function() {
@@ -235,17 +248,6 @@
                     document.getElementById("edit_reminder_content").value = this.getAttribute("data-content");
                     document.getElementById("updateReminderForm").action = this.getAttribute(
                         "data-update-action");
-                });
-            });
-
-            document.addEventListener("DOMContentLoaded", function() {
-                document.querySelectorAll(".show-reminder-btn").forEach(button => {
-                    button.addEventListener("click", function() {
-                        document.querySelector("#showReminderModal #edit_reminder_title").value = this
-                            .getAttribute("data-title");
-                        document.querySelector("#showReminderModal #edit_reminder_content").value = this
-                            .getAttribute("data-content");
-                    });
                 });
             });
         </script>
