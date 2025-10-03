@@ -312,16 +312,16 @@
     
     .inner-table th:first-child,
     .inner-table td:first-child {
-        width: 12% !important;
+        width: 8% !important;
         font-size: 9px !important;
-        padding: 2px !important;
+        padding: 1px !important;
     }
     
     /* Teacher column fix */
     .inner-table .teacher-col {
-        width: 12% !important;
-        max-width: 12% !important;
-        min-width: 12% !important;
+        width: 15% !important;
+        max-width: 15% !important;
+        min-width: 15% !important;
         font-size: 7px !important;
         padding: 1px !important;
         overflow: hidden !important;
@@ -331,21 +331,21 @@
     
     .inner-table th:nth-child(3),
     .inner-table td:nth-child(3) {
-        width: 22% !important;
+        width: 20% !important;
         font-size: 8px !important;
         padding: 2px !important;
     }
     
     .inner-table th:nth-child(4),
     .inner-table td:nth-child(4) {
-        width: 15% !important;
+        width: 10% !important;
         font-size: 8px !important;
-        padding: 2px !important;
+        padding: 1px !important;
     }
     
     .inner-table th:nth-child(5),
     .inner-table td:nth-child(5) {
-        width: 39% !important;
+        width: 47% !important;
         font-size: 8px !important;
         padding: 2px !important;
     }
