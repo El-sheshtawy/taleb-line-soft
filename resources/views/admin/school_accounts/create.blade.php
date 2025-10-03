@@ -110,6 +110,37 @@
                             <label for="absence_count" class="form-label">نصاب الغياب</label>
                             <input type="number" class="form-control" id="absence_count" name="absence_count">
                         </div>
+                        
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">إعدادات الخصوصية (إخفاء البيانات عن المعلمين والمشرفين والمراقبين)</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="hide_passport_id" name="hide_passport_id" value="1">
+                                        <label class="form-check-label" for="hide_passport_id">
+                                            إخفاء الرقم المدني
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="hide_phone1" name="hide_phone1" value="1">
+                                        <label class="form-check-label" for="hide_phone1">
+                                            إخفاء الهاتف الأول
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="hide_phone2" name="hide_phone2" value="1">
+                                        <label class="form-check-label" for="hide_phone2">
+                                            إخفاء الهاتف الثاني
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
 
                     <!-- Modal Footer -->

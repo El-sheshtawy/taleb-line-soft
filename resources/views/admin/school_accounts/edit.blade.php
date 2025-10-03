@@ -114,6 +114,36 @@
                             <input type="number" class="form-control" id="edit_absence_count" name="absence_count">
                         </div>
                         
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label">إعدادات الخصوصية (إخفاء البيانات عن المعلمين والمشرفين والمراقبين)</label>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="edit_hide_passport_id" name="hide_passport_id" value="1">
+                                        <label class="form-check-label" for="edit_hide_passport_id">
+                                            إخفاء الرقم المدني
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="edit_hide_phone1" name="hide_phone1" value="1">
+                                        <label class="form-check-label" for="edit_hide_phone1">
+                                            إخفاء الهاتف الأول
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="edit_hide_phone2" name="hide_phone2" value="1">
+                                        <label class="form-check-label" for="edit_hide_phone2">
+                                            إخفاء الهاتف الثاني
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
 
                     <div class="modal-footer">
