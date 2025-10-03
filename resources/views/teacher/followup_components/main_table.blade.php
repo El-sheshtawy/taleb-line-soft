@@ -128,11 +128,11 @@
                                             <table class="table table-bordered align-middle mb-0 mobile-inner-table" style="table-layout: fixed; width: 100%;">
                                                 <thead>
                                                     <tr>
-                                                        <th class="p-1 text-center" style="font-size: 9px; width: 10%;">الحصة</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 5%;">م</th>
                                                         <th class="p-1 text-center" style="font-size: 9px; width: 15%;">المعلم</th>
                                                         <th class="p-1 text-center" style="font-size: 9px; width: 20%;">المادة</th>
                                                         <th class="p-1 text-center" style="font-size: 9px; width: 15%;">الحالة</th>
-                                                        <th class="p-1 text-center" style="font-size: 9px; width: 40%;">الملاحظات</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 45%;">الملاحظات</th>
                                                     </tr>
                                                 </thead>
                                             <tbody>
