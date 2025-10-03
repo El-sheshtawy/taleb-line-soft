@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
+use App\Models\SystemAccessSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 class AuthController extends Controller
 {
@@ -19,6 +21,27 @@ class AuthController extends Controller
     public function loginAction(LoginRequest $request)
     {
         $user = User::where('username', $request->username)->first();
+        
+        // Check system access for restricted user types
+        if ($user && in_array($user->user_type, ['teacher', 'مراقب', 'مشرف'])) {
+            $settings = SystemAccessSetting::first();
+            if ($settings) {
+                $today = strtolower(Carbon::now()->format('l')); // Get current day in English
+                $dayMapping = [
+                    'sunday' => 'sunday',
+                    'monday' => 'monday', 
+                    'tuesday' => 'tuesday',
+                    'wednesday' => 'wednesday',
+                    'thursday' => 'thursday',
+                    'friday' => 'friday',
+                    'saturday' => 'saturday'
+                ];
+                
+                if (isset($dayMapping[$today]) && !$settings->{$dayMapping[$today]}) {
+                    return back()->withErrors(['access' => 'المنصة غير متاحة حاليا']);
+                }
+            }
+        }
         
         // If no user found by username, try teacher login with passport_id
         if (!$user) {
