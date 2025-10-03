@@ -56,26 +56,38 @@
         
         @media (max-width: 768px) {
             .table-responsive {
-                overflow-x: auto !important;
-                -webkit-overflow-scrolling: touch;
+                overflow-x: hidden !important;
             }
             
             .myTable {
-                min-width: 600px;
+                width: 100% !important;
+                table-layout: fixed;
+            }
+            
+            .myTable th:nth-child(1),
+            .myTable td:nth-child(1) {
+                width: 8% !important;
+                font-size: 12px;
+                padding: 2px !important;
             }
             
             .myTable th:nth-child(2),
             .myTable td:nth-child(2) {
-                width: 180px;
-                min-width: 180px;
-                max-width: 180px;
+                width: 42% !important;
+                font-size: 12px;
+            }
+            
+            .myTable th:nth-child(3),
+            .myTable td:nth-child(3) {
+                width: 10% !important;
+                font-size: 12px;
+                padding: 2px !important;
             }
             
             .myTable th:nth-child(4),
             .myTable td:nth-child(4) {
-                width: 200px;
-                min-width: 200px;
-                max-width: 200px;
+                width: 40% !important;
+                font-size: 12px;
             }
         }
     </style>
