@@ -21,37 +21,10 @@
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
 
     <style>
-        .myTable {
-            table-layout: fixed;
-        }
-        
-        .myTable th:nth-child(1),
-        .myTable td:nth-child(1) {
-            width: 60px;
-        }
-        
-        .myTable th:nth-child(2),
-        .myTable td:nth-child(2) {
-            width: 200px !important;
-            min-width: 200px !important;
-            max-width: 200px !important;
-        }
-        
-        .myTable th:nth-child(3),
-        .myTable td:nth-child(3) {
-            width: 80px;
-        }
-        
-        .myTable th:nth-child(4),
         .myTable td:nth-child(4) {
-            width: auto;
             max-width: 300px;
             overflow-x: auto;
             white-space: nowrap;
-        }
-        
-        .myTable td:nth-child(4) {
-            position: relative;
         }
         
         .myTable td:nth-child(4)::-webkit-scrollbar {
