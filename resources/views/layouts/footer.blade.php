@@ -84,24 +84,42 @@
             }
         });
 
-        // Find the best matching link based on base path
-        let bestMatch = null;
-        let bestMatchLength = 0;
+        // Find exact match first, then fallback to startsWith for nested routes
+        let activeLink = null;
 
+        // First try exact match (exclude placeholder links)
         links.forEach(link => {
-            const linkPath = new URL(link.href).pathname;
-            
-            // Check if current path starts with link path (for nested routes)
-            if (currentPath.startsWith(linkPath) && linkPath.length > bestMatchLength) {
-                bestMatch = link;
-                bestMatchLength = linkPath.length;
+            const href = link.getAttribute('href');
+            if (href && href !== '#!' && !href.startsWith('#')) {
+                const linkPath = new URL(link.href).pathname;
+                if (linkPath === currentPath) {
+                    activeLink = link;
+                }
             }
         });
 
-        // Apply active state to the best match only
-        if (bestMatch) {
-            const icon = bestMatch.querySelector('i');
-            bestMatch.classList.add('bg-danger', 'text-white');
+        // If no exact match, try startsWith for nested routes (like /school/statistics)
+        if (!activeLink) {
+            let bestMatch = null;
+            let bestMatchLength = 0;
+
+            links.forEach(link => {
+                const href = link.getAttribute('href');
+                if (href && href !== '#!' && !href.startsWith('#')) {
+                    const linkPath = new URL(link.href).pathname;
+                    if (currentPath.startsWith(linkPath) && linkPath.length > bestMatchLength && linkPath !== '/') {
+                        bestMatch = link;
+                        bestMatchLength = linkPath.length;
+                    }
+                }
+            });
+            activeLink = bestMatch;
+        }
+
+        // Apply active state to the matched link only
+        if (activeLink) {
+            const icon = activeLink.querySelector('i');
+            activeLink.classList.add('bg-danger', 'text-white');
             if (icon) {
                 icon.style.color = '#fff';
             }
