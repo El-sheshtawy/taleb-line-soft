@@ -128,11 +128,11 @@
                                             <table class="table table-bordered align-middle mb-0 mobile-inner-table">
                                                 <thead>
                                                     <tr>
-                                                        <th class="p-1 text-center" style="width: 8%; font-size: 9px; padding: 2px;">الحصة</th>
-                                                        <th class="p-1 text-center" style="width: 15%; font-size: 8px; padding: 2px;">المعلم</th>
-                                                        <th class="p-1 text-center" style="width: 20%; font-size: 8px; padding: 2px;">المادة</th>
-                                                        <th class="p-1 text-center" style="width: 12%; font-size: 8px; padding: 2px;">الحالة</th>
-                                                        <th class="p-1 text-center" style="width: 45%; font-size: 8px; padding: 2px;">الملاحظات</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px;">الحصة</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px;">المعلم</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px;">المادة</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px;">الحالة</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px;">الملاحظات</th>
                                                     </tr>
                                                 </thead>
                                             <tbody>
@@ -141,17 +141,17 @@
                                                         $session = ($sessions[$student->id] ?? collect())->where('session_number', $i)->first();
                                                     ?>
                                                     <tr class="text-center">
-                                                        <th class="p-1" style="width: 8%; font-size: 9px; padding: 2px;">{{$i}}</th>
-                                                        <td style="width: 15%; font-size: 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 2px;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 6) : '-'}}</td>
-                                                        <td style="width: 20%; font-size: 8px; padding: 2px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
-                                                        <td style="width: 12%; font-size: 9px; padding: 2px; @if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
+                                                        <th class="p-1" style="font-size: 9px;">{{$i}}</th>
+                                                        <td style="font-size: 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 2px;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
+                                                        <td style="font-size: 8px; padding: 2px;">{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
+                                                        <td style="font-size: 9px; padding: 2px; @if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
                                                             @if($session && $session->followUpItem)
                                                                 {{ $session->followUpItem->letter ?? '' }}
                                                             @endif
                                                         </td>
-                                                        <td style="width: 45%; padding: 2px;">
+                                                        <td style="padding: 2px;">
                                                             <input type="text" class="form-control notes-input" 
-                                                                   style="font-size: 9px; padding: 3px; height: 26px; width: 100%; overflow-x: auto; white-space: nowrap;" 
+                                                                   style="font-size: 10px; padding: 4px; height: 28px; width: 85%; overflow-x: auto; white-space: nowrap;" 
                                                                    name="notes[{{$i}}]" 
                                                                    value="{{ $session->teacher_note ?? '' }}">
                                                         </td>
