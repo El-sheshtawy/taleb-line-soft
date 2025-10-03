@@ -10,7 +10,6 @@
                         if(auth()->user()->user_type != 'school'){
                             foreach($students as $student) {
                                 if($today != $date){
-                                    // Only allow supervisors to edit old sessions
                                     if (auth()->user()->user_type != 'مشرف') {
                                         $sessionHasData = true;
                                     }
@@ -61,7 +60,6 @@
                             $sessionHasData = false;
                             if(auth()->user()->user_type != 'school'){
                                 if($today != $date){
-                                    // Only allow supervisors to edit old sessions
                                     if (auth()->user()->user_type != 'مشرف') {
                                         $sessionHasData = true;
                                     }
@@ -78,7 +76,6 @@
                                     $sessionHasData = false;
                                 }
                             }
-                            
                         ?>
                         <td class="p-1 {{ $sessionHasData ? '' : 'follow-up-cell' }}" 
                             data-student-id="{{ $student->id }}" 
@@ -129,11 +126,11 @@
                                             <table class="table table-bordered align-middle mb-0 inner-table" style="min-width: 500px;">
                                                 <thead>
                                                     <tr>
-                                                        <th class="p-1 text-center" style="width: 60px;">الحصة</th>
-                                                        <th class="p-1 text-center teacher-col" style="width: 80px; font-size: 10px;">المعلم</th>
-                                                        <th class="p-1 text-center" style="width: 100px;">المادة</th>
-                                                        <th class="p-1 text-center" style="width: 80px;">الحالة</th>
-                                                        <th class="p-1 text-center" style="width: 180px;">الملاحظات</th>
+                                                        <th class="p-1 text-center session-col-header">الحصة</th>
+                                                        <th class="p-1 text-center teacher-col-header">المعلم</th>
+                                                        <th class="p-1 text-center subject-col-header">المادة</th>
+                                                        <th class="p-1 text-center status-col-header">الحالة</th>
+                                                        <th class="p-1 text-center notes-col-header">الملاحظات</th>
                                                     </tr>
                                                 </thead>
                                             <tbody>
@@ -142,15 +139,15 @@
                                                         $session = ($sessions[$student->id] ?? collect())->where('session_number', $i)->first();
                                                     ?>
                                                     <tr class="text-center">
-                                                        <th class="p-1">{{$i}}</td>
-                                                        <td class="teacher-col" style="width: 80px; font-size: 9px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
-                                                        <td>{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
-                                                        <td style="@if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
+                                                        <th class="p-1 session-col-data">{{$i}}</th>
+                                                        <td class="teacher-col-data">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
+                                                        <td class="subject-col-data">{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
+                                                        <td class="status-col-data" style="@if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
                                                             @if($session && $session->followUpItem)
                                                                 {{ $session->followUpItem->letter ?? '' }}
                                                             @endif
                                                         </td>
-                                                        <td><input type="text" class="form-control" name="notes[{{$i}}]" value="{{ $session->teacher_note ?? '' }}"></td>
+                                                        <td class="notes-col-data"><input type="text" class="form-control notes-input" name="notes[{{$i}}]" value="{{ $session->teacher_note ?? '' }}"></td>
                                                     </tr>
                                                 @endfor
                                                 </tbody>
@@ -160,7 +157,7 @@
                                         <button type="submit" class="btn btn-success mt-2 mb-4">حفظ</button>
                                         @endif
                                         <button type="button" class="btn btn-primary mt-2 mb-4 show-followup-btn" data-student-id="{{$student->id}}">عرض سجل المتابعة</button>
-                                        <div class="followup-table-container mt-2" id="followup-table-{{$student->id}}" style="display: none;"><!-- The table will be inserted here --></div>
+                                        <div class="followup-table-container mt-2" id="followup-table-{{$student->id}}" style="display: none;"></div>
                                     </form>
                                 </div>
                             </div>
@@ -175,7 +172,7 @@
     	            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
     	                <div class="teacher-selection-section w-100">
     	                   <div class="row g-2 align-items-end">
-            				    @if(auth()->user()->user_type == 'school')
+            				    @if(in_array(auth()->user()->user_type, ['school', 'مشرف']))
                 				    <div class="col-md-4 d-flex flex-row flex-sm-column align-items-center align-items-sm-start gap-1">
             				            <label class="form-label fw-bold text-muted">اسم المعلم</label>
                                         <select id="teacher-select" class="form-control d-inline-block d-sm-block" style="font-size:16px;background:#ffd400;border-radius:5px;position: unset;" name="teacher_id_select" onchange="changeTeacherSubjectSelection('teacher-select', 'subject_id_show');">
@@ -201,8 +198,7 @@
                 				@endif
             				    @if(!in_array(auth()->user()->user_type, ['مراقب']))
             				    <div class="col-6 col-md-4 col-sm-6">
-            				         <button type="button" id="saveSessionBtn" class="btn btn-primary" disabled>
-            		                            حفظ التغييرات</button>
+            				         <button type="button" id="saveSessionBtn" class="btn btn-primary" disabled>حفظ التغييرات</button>
             				    </div>
             				    @endif
             				</div>
@@ -215,28 +211,26 @@
 </div>
 
 <style>
-    /* Enhanced collapse animation */
-    .student-details-row .collapse-inner {
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-    
-    .student-details-row.collapsing .collapse-inner,
-    .student-details-row.show .collapse-inner {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    .student-details-row:not(.show) .collapse-inner {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    
-    /* Hover effect */
-    .student-name-toggle:hover {
-        color: #0d6efd;
-        text-decoration: none;
-    }
+.student-details-row .collapse-inner {
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.student-details-row.collapsing .collapse-inner,
+.student-details-row.show .collapse-inner {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.student-details-row:not(.show) .collapse-inner {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.student-name-toggle:hover {
+    color: #0d6efd;
+    text-decoration: none;
+}
 
 .table-responsive {
     overflow-x: auto;
@@ -264,15 +258,46 @@
     line-height: 1.2;
 }
 
+/* Desktop styles for inner table */
+.session-col-header, .session-col-data {
+    width: 60px;
+    font-size: 10px;
+}
+
+.teacher-col-header, .teacher-col-data {
+    width: 80px;
+    font-size: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.subject-col-header, .subject-col-data {
+    width: 100px;
+    font-size: 10px;
+}
+
+.status-col-header, .status-col-data {
+    width: 80px;
+    font-size: 10px;
+}
+
+.notes-col-header, .notes-col-data {
+    width: 180px;
+    font-size: 10px;
+}
+
 @media (max-width: 768px) {
     .table-responsive {
         overflow-x: hidden !important;
     }
+    
     .table-responsive table {
         width: 100% !important;
         min-width: unset !important;
         table-layout: fixed;
     }
+    
     .sticky-col {
         width: 35% !important;
         min-width: unset !important;
@@ -280,38 +305,43 @@
         font-size: 10px !important;
         padding: 2px !important;
     }
+    
     .table th:first-child,
     .table td:first-child {
         width: 8% !important;
         font-size: 10px !important;
         padding: 2px !important;
     }
+    
     .table th:nth-child(n+3):nth-child(-n+9),
     .table td:nth-child(n+3):nth-child(-n+9) {
         width: 8% !important;
         font-size: 10px !important;
         padding: 1px !important;
     }
+    
     .table th:last-child,
     .table td:last-child {
         width: 5% !important;
         font-size: 10px !important;
         padding: 2px !important;
     }
+    
     .session-btn {
         font-size: 10px !important;
         padding: 2px !important;
     }
     
-    /* Fix for inner table (student details) */
+    /* MOBILE OPTIMIZED INNER TABLE */
     .inner-table {
         min-width: 100% !important;
         width: 100% !important;
         table-layout: fixed !important;
     }
     
-    .inner-table th:first-child,
-    .inner-table td:first-child {
+    /* Session column - VERY SMALL */
+    .session-col-header,
+    .session-col-data {
         width: 6% !important;
         min-width: 6% !important;
         max-width: 6% !important;
@@ -319,8 +349,9 @@
         padding: 1px !important;
     }
     
-    /* Teacher column fix */
-    .inner-table .teacher-col {
+    /* Teacher column - SMALL */
+    .teacher-col-header,
+    .teacher-col-data {
         width: 12% !important;
         max-width: 12% !important;
         min-width: 12% !important;
@@ -331,15 +362,17 @@
         white-space: nowrap !important;
     }
     
-    .inner-table th:nth-child(3),
-    .inner-table td:nth-child(3) {
+    /* Subject column */
+    .subject-col-header,
+    .subject-col-data {
         width: 18% !important;
         font-size: 8px !important;
         padding: 1px !important;
     }
     
-    .inner-table th:nth-child(4),
-    .inner-table td:nth-child(4) {
+    /* Status column - VERY SMALL */
+    .status-col-header,
+    .status-col-data {
         width: 6% !important;
         min-width: 6% !important;
         max-width: 6% !important;
@@ -347,18 +380,54 @@
         padding: 1px !important;
     }
     
-    .inner-table th:nth-child(5),
-    .inner-table td:nth-child(5) {
+    /* Notes column - VERY LARGE */
+    .notes-col-header,
+    .notes-col-data {
         width: 58% !important;
         font-size: 9px !important;
         padding: 2px !important;
     }
     
-    .inner-table td:nth-child(5) input {
+    .notes-input {
         font-size: 9px !important;
         padding: 3px 5px !important;
         height: auto !important;
         width: 100% !important;
+    }
+}
+
+/* Extra small mobile devices */
+@media (max-width: 480px) {
+    .session-col-header,
+    .session-col-data {
+        width: 5% !important;
+        min-width: 5% !important;
+        max-width: 5% !important;
+    }
+    
+    .teacher-col-header,
+    .teacher-col-data {
+        width: 11% !important;
+        max-width: 11% !important;
+        min-width: 11% !important;
+    }
+    
+    .subject-col-header,
+    .subject-col-data {
+        width: 16% !important;
+    }
+    
+    .status-col-header,
+    .status-col-data {
+        width: 5% !important;
+        min-width: 5% !important;
+        max-width: 5% !important;
+    }
+    
+    .notes-col-header,
+    .notes-col-data {
+        width: 63% !important;
+        min-width: 63% !important;
     }
 }
 </style>
@@ -367,14 +436,12 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // toggle student info
         document.querySelectorAll('.student-name-toggle').forEach(toggle => {
             toggle.addEventListener('click', function() {
                 const targetId = this.getAttribute('href');
                 const isExpanding = !this.classList.contains('collapsed');
                 
                 if (isExpanding) {
-                    // Close any other open collapses
                     document.querySelectorAll('.student-name-toggle').forEach(otherToggle => {
                         if (otherToggle !== this && !otherToggle.classList.contains('collapsed')) {
                             const otherTarget = otherToggle.getAttribute('href');
@@ -385,7 +452,6 @@
             });
         });
         
-        // quick update student notes
         document.querySelectorAll('.quick-update-form').forEach(form => {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -434,7 +500,6 @@
             });
         });
         
-        // Handle follow-up record button click
         document.querySelectorAll('.show-followup-btn').forEach(button => {
             button.addEventListener('click', function() {
                 const studentId = this.getAttribute('data-student-id');
@@ -452,7 +517,6 @@
             });
         });
         
-        // Handle student details modal
         document.querySelectorAll('.view-student-btn').forEach(button => {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
