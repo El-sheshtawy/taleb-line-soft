@@ -21,7 +21,10 @@
     <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
 
     <style>
+        .myTable th:nth-child(4),
         .myTable td:nth-child(4) {
+            width: 300px;
+            min-width: 300px;
             max-width: 300px;
             overflow-x: auto;
             white-space: nowrap;
