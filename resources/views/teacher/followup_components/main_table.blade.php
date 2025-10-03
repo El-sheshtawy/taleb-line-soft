@@ -428,6 +428,21 @@
                 document.getElementById('modal_student_note').textContent = this.getAttribute('data-student-note');
             });
         });
+        
+        // Also handle clicks on student name links in collapsed details
+        document.querySelectorAll('a[data-bs-target="#studentDetailsModal"]').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                document.getElementById('modal_student_name').textContent = this.getAttribute('data-student-name');
+                document.getElementById('modal_student_passport').textContent = this.getAttribute('data-student-passport');
+                document.getElementById('modal_student_phone').textContent = this.getAttribute('data-student-phone');
+                document.getElementById('modal_student_gender').textContent = this.getAttribute('data-student-gender');
+                document.getElementById('modal_student_grade').textContent = this.getAttribute('data-student-grade');
+                document.getElementById('modal_student_class').textContent = this.getAttribute('data-student-class');
+                document.getElementById('modal_student_note').textContent = this.getAttribute('data-student-note');
+            });
+        });
     });
     
     function updateSessionUI(sessions) {
