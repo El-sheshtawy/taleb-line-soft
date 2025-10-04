@@ -61,7 +61,7 @@
                     data-class="{{ $student->class_id }}">
                     <td class="p-1">{{$loop->iteration}}</td>
                     <td class="p-1 text-end responsive-cell">
-                        @if(in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
+                        @if(auth()->user()->user_type == 'مراقب')
                             <span class="text-{{ $student->gender ? 'primary' : 'danger' }} text-{{ $student->note ? 'danger' : '' }}">
                                 {{ $student->name }}
                             </span>
