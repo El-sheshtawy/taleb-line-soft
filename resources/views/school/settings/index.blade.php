@@ -177,29 +177,33 @@
                 value="{{ $school->students_default_password }}" name="students_default_password" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
         </div>
         
+        @if(in_array(auth()->user()->user_type, ['school', 'مراقب']))
         <div class="col-md-6 mb-1">
             <label for="viewer_username" class="form-label">اسم المراقب</label>
             <input type="text" class="form-control" id="viewer_username" 
-                name="viewer_username" value="{{ $school->viewer_name }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
+                name="viewer_username" value="{{ $school->viewer_name }}" {{ auth()->user()->user_type === 'مراقب' ? 'readonly' : '' }}>
         </div>
         
         <div class="col-md-6 mb-1">
             <label for="viewer_password" class="form-label">كلمة مرور المراقب</label>
             <input type="text" class="form-control" id="viewer_password" 
-                name="viewer_password" value="{{ $school->viewer_password }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
+                name="viewer_password" value="{{ $school->viewer_password }}" {{ auth()->user()->user_type === 'مراقب' ? 'readonly' : '' }}>
         </div>
+        @endif
         
+        @if(in_array(auth()->user()->user_type, ['school', 'مشرف']))
         <div class="col-md-6 mb-1">
             <label for="supervisor_username" class="form-label">اسم المشرف</label>
             <input type="text" class="form-control" id="supervisor_username" 
-                name="supervisor_username" value="{{ $school->supervisor_name }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
+                name="supervisor_username" value="{{ $school->supervisor_name }}" {{ auth()->user()->user_type === 'مشرف' ? 'readonly' : '' }}>
         </div>
         
         <div class="col-md-6 mb-1">
             <label for="supervisor_password" class="form-label">كلمة مرور المشرف</label>
             <input type="text" class="form-control" id="supervisor_password" 
-                name="supervisor_password" value="{{ $school->supervisor_password }}" {{ in_array(auth()->user()->user_type, ['مراقب', 'مشرف']) ? 'readonly' : '' }}>
+                name="supervisor_password" value="{{ $school->supervisor_password }}" {{ auth()->user()->user_type === 'مشرف' ? 'readonly' : '' }}>
         </div>
+        @endif
     </div>
 
     @if(!in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))

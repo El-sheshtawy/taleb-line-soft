@@ -183,8 +183,19 @@
                                     @foreach ($students as $index => $student)
                                         <tr>
                                             <td class="p-1 text-center">{{ $loop->iteration }}</td>
-                                            <td class="p-1 responsive-cell"><a
-                                                    class="text-{{ $student->gender ? 'primary' : 'danger' }} text-{{ $student->note ? 'danger' : '' }} cell-link">{{ $student->name }}</a>
+                                            <td class="p-1 responsive-cell">
+                                                <a href="#" class="text-{{ $student->gender ? 'primary' : 'danger' }} text-{{ $student->note ? 'danger' : '' }} cell-link view-student-btn" 
+                                                   data-bs-toggle="modal" data-bs-target="#studentDetailsModal"
+                                                   data-student-name="{{ $student->name }}"
+                                                   data-student-passport="{{ $student->passport_id }}"
+                                                   data-student-phone="{{ $student->phone_number }}"
+                                                   data-student-gender="{{ $student->gender ? 'ذكر' : 'أنثى' }}"
+                                                   data-student-grade="{{ $student->grade->name ?? '' }}"
+                                                   data-student-class="{{ $student->classRoom->name ?? '' }}"
+                                                   data-student-note="{{ $student->note ?? 'لا توجد ملاحظات' }}"
+                                                   data-student-absences="{{ $student->absences_count }}">
+                                                    {{ $student->name }}
+                                                </a>
                                             </td>
                                             <td
                                                 class="p-1 text-center {{ $student->absences_count > 0 ? 'text-danger fw-bold' : '' }}">
@@ -219,6 +230,59 @@
 
 
     </div>
+    </div>
+
+    <!-- Student Details Modal -->
+    <div class="modal fade" id="studentDetailsModal" tabindex="-1" aria-labelledby="studentDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="studentDetailsModalLabel">تفاصيل الطالب</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <strong>الاسم:</strong>
+                            <span id="modal_student_name"></span>
+                        </div>
+                        @if(!in_array(auth()->user()->user_type, ['مراقب']))
+                        <div class="col-md-6 mb-2">
+                            <strong>الرقم المدني:</strong>
+                            <span id="modal_student_passport"></span>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <strong>رقم الهاتف:</strong>
+                            <span id="modal_student_phone"></span>
+                        </div>
+                        @endif
+                        <div class="col-md-6 mb-2">
+                            <strong>الجنس:</strong>
+                            <span id="modal_student_gender"></span>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <strong>الصف:</strong>
+                            <span id="modal_student_grade"></span>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <strong>الفصل:</strong>
+                            <span id="modal_student_class"></span>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <strong>عدد أيام الغياب:</strong>
+                            <span id="modal_student_absences" class="text-danger fw-bold"></span>
+                        </div>
+                        <div class="col-12 mb-2">
+                            <strong>الملاحظات:</strong>
+                            <p id="modal_student_note" class="text-muted"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                </div>
+            </div>
+        </div>
     </div>
 
 
@@ -270,6 +334,24 @@
                     confirmButtonText: 'حسناً'
                 });
             @endif
+            
+            // Handle student details modal
+            document.querySelectorAll('.view-student-btn').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    document.getElementById('modal_student_name').textContent = this.getAttribute('data-student-name');
+                    @if(!in_array(auth()->user()->user_type, ['مراقب']))
+                    document.getElementById('modal_student_passport').textContent = this.getAttribute('data-student-passport');
+                    document.getElementById('modal_student_phone').textContent = this.getAttribute('data-student-phone');
+                    @endif
+                    document.getElementById('modal_student_gender').textContent = this.getAttribute('data-student-gender');
+                    document.getElementById('modal_student_grade').textContent = this.getAttribute('data-student-grade');
+                    document.getElementById('modal_student_class').textContent = this.getAttribute('data-student-class');
+                    document.getElementById('modal_student_absences').textContent = this.getAttribute('data-student-absences');
+                    document.getElementById('modal_student_note').textContent = this.getAttribute('data-student-note');
+                });
+            });
         });
     </script>
 
