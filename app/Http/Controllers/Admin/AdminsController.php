@@ -31,7 +31,8 @@ class AdminsController extends Controller
             $user = User::create([
                 'user_type' => 'admin',
                 'username' => $validated['username'],
-                'password' => Hash::make($validated['password'])
+                'password' => Hash::make($validated['password']),
+                'defualt_password' => $validated['password']
             ]);
             
             $admin = Admin::create([
@@ -71,6 +72,7 @@ class AdminsController extends Controller
                 $admin->user->update([
                     'username' => $request->username,
                     'password' => Hash::make($request->password),
+                    'defualt_password' => $request->password
                 ]);
 	        }
     	    

@@ -32,21 +32,25 @@ class User extends Authenticatable
     
     public function profile()
     {
-        if ($this->user_type === 'admin') {
-            return $this->hasOne(Admin::class, 'user_id');
-        }elseif ($this->user_type === 'student') {
-            return $this->hasOne(Student::class, 'user_id');
-        } elseif ($this->user_type === 'school') {
-            return $this->hasOne(SchoolAccount::class, 'user_id');
-        } elseif ($this->user_type === 'teacher') {
-            return $this->hasOne(Teacher::class, 'user_id');
-        } elseif ($this->user_type === 'مراقب') {
-            return $this->hasOne(Teacher::class, 'user_id');
-        } elseif ($this->user_type === 'مشرف') {
-            return $this->hasOne(Teacher::class, 'user_id');
+        switch ($this->user_type) {
+            case 'admin':
+                return $this->hasOne(Admin::class, 'user_id');
+            case 'student':
+                return $this->hasOne(Student::class, 'user_id');
+            case 'school':
+                return $this->hasOne(SchoolAccount::class, 'user_id');
+            case 'teacher':
+            case 'مراقب':
+            case 'مشرف':
+                return $this->hasOne(Teacher::class, 'user_id');
+            default:
+                return null;
         }
-        
-        return null;
+    }
+    
+    public function admin()
+    {
+        return $this->hasOne(Admin::class, 'user_id');
     }
     
     public function canPerformActions($currentRoute = null)

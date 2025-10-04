@@ -114,7 +114,7 @@
                 <form method="get">
                     <div class="d-flex align-items-center justify-content-center gap-2  p-2 text-center"
                         style="background:#0E2550">
-                        @if (auth()->user()->user_type != 'school' && auth()->user()->user_type != 'teacher')
+                        @if (!in_array(auth()->user()->user_type, ['school', 'teacher', 'مراقب', 'مشرف']))
                             <div class="form-group">
                                 <label for="school_id" class="text-white">المدرسة</label>
                                 <select name="school_id" id="school_id"

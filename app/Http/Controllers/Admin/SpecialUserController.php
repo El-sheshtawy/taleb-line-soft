@@ -105,18 +105,18 @@ class SpecialUserController extends Controller
 
     public function destroy(User $user)
     {
-        if (!in_array($user->user_type, ['مراقب', 'مشرف'])) {
-            return redirect()->back()->with('error', 'غير مسموح بحذف هذا المستخدم');
-        }
-
         DB::beginTransaction();
 
         try {
-            $profile = $user->profile;
-            $user->delete();
-            if ($profile) {
-                $profile->delete();
+            // Delete associated teacher profile if exists
+            if (in_array($user->user_type, ['مراقب', 'مشرف'])) {
+                $teacher = Teacher::where('user_id', $user->id)->first();
+                if ($teacher) {
+                    $teacher->delete();
+                }
             }
+            
+            $user->delete();
 
             DB::commit();
             return redirect()->back()->with('success', 'تم حذف المستخدم بنجاح');

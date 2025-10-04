@@ -1,4 +1,4 @@
-<h5><span class="text-primary"> المشرفون <span class="badge bg-primary text-light">{{count($admins)}}</span> </span></h5>
+<h5><span class="text-primary"> مسؤولي النظام <span class="badge bg-primary text-light">{{count($admins)}}</span> </span></h5>
 <div class="table-responsive">
     <table class="table myTable table-secondary table-bordered table-striped align-middle text-nowrap">
         <thead id="tableHeaders">
@@ -6,6 +6,7 @@
                 <th class="p-1 text-center"><span class="badge text-warning text-center" style="width:100%;text-align:left;font-weight:bold;">م</span></th>
                 <th class="p-1 text-center">الاسم</th>
                 <th class="p-1 text-center">اسم المستخدم</th>
+                <th class="p-1 text-center">كلمة المرور</th>
             </tr>
         </thead>
         <tbody>
@@ -13,21 +14,22 @@
                 <tr class="text-center">
                     <td class="p-1 text-center">{{$loop->iteration}}</td>
                     <td class="p-1 text-center">
-                        @if(auth()->user()->profile->id <= $admin->id)
+                        @if(auth()->user()->admin->id <= $admin->id)
                             <a href="#" class="m-1 edit-admin-btn pe-auto" 
                                 data-bs-toggle="modal" 
                                 data-bs-target="#updateAdminModal" 
-                                data-admin="{{ json_encode($admin) }}"
-                                data-admin-name = "{{$admin->profile->name}}"
-                                data-edit-action="{{ route('admin.admins.update', $admin->profile) }}"
-                                data-delete-action="{{ route('admin.admins.destroy', $admin->profile) }}">
-                                {{$admin->profile->name}}
+                                data-admin="{{ json_encode($admin->admin) }}"
+                                data-admin-name = "{{$admin->admin->name}}"
+                                data-edit-action="{{ route('admin.admins.update', $admin->admin) }}"
+                                data-delete-action="{{ route('admin.admins.destroy', $admin->admin) }}">
+                                {{$admin->admin->name}}
                             </a>
                         @else
-                            {{$admin->profile->name}}
+                            {{$admin->admin->name}}
                         @endif
                     </td>
-                    <td class="p-1 text-center">{{$admin->username}}</td>
+                    <td class="p-1 text-center">{{$admin->admin->username}}</td>
+                    <td class="p-1 text-center">{{$admin->defualt_password}}</td>
                 </tr>
                 
             @endforeach
@@ -35,7 +37,7 @@
     </table>
 </div>
 
-<button  type="button" class="block btn btn-primary w-100 my-4 text-center" data-bs-toggle="modal" data-bs-target="#createAdminModal">إضافة مشرف</button>
+<button  type="button" class="block btn btn-primary w-100 my-4 text-center" data-bs-toggle="modal" data-bs-target="#createAdminModal">إضافة مسؤول نظام</button>
 
 
 @include('admin.admins.create')

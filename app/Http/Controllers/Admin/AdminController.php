@@ -24,7 +24,7 @@ class AdminController extends Controller
         $followUps = FollowUp::with('items')->get();
         $schoolAccountSubscriptions = SchoolAccountSubscription::with('schoolAccount')->get();
         $academicYears = AcademicYear::orderBy('created_at')->get();
-        $admins = User::where('user_type', 'admin')->get();
+        $admins = User::where('user_type', 'admin')->with('admin')->get();
         $specialUsers = User::whereIn('user_type', ['مراقب', 'مشرف'])->get();
         $nationalities = Nationality::all();
         $settings = SystemAccessSetting::first();

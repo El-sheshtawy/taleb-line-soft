@@ -65,7 +65,7 @@
                         style="font-size:16px;background:#ffd400;border-radius:5px;position: unset;">
                         <option disabled selected>الحسابات</option>
                         <option value="school-accounts">المدارس</option>
-                        <option value="admins">المشرفون</option>
+                        <option value="admins">مسؤولي النظام</option>
                         <option value="school-subscriptions">الاشتراكات</option>
                         <option value="follow-up-systems">نظم المتابعة</option>
                         <option value="special-users">المراقبون والمشرفون</option>
