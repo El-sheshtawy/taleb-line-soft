@@ -14,11 +14,14 @@
                         <input type="text" name="name" id="edit_student_name" class="form-control" required>
                     </div>
 
+                    @if(auth()->user()->user_type == 'school' || !$school->hide_passport_id)
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="edit_student_passport_id">الرقم المدني : <i class="text-danger">*</i></label>
                         <input type="text" name="passport_id" id="edit_student_passport_id" minlength="12" maxlength="12" class="form-control" required>
                     </div>
+                    @endif
                     
+                    @if(auth()->user()->user_type == 'school' || !$school->hide_phone1)
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="edit_student_phone_number">رقم الهاتف  : <i class="text-danger">*</i></label>
                         <input type="text" name="phone_number" id="edit_student_phone_number" minlength="8" maxlength="8"  class="form-control">
@@ -28,6 +31,7 @@
                         <label class="form-label" for="edit_student_phone_number_2">رقم هاتف إضافي</label>
                         <input type="text" name="phone_number_2" id="edit_student_phone_number_2" minlength="8" maxlength="8"  class="form-control">
                     </div>
+                    @endif
                     
                     <div class="mb-3 col-md-6">
                         <label class="form-label" for="edit_student_grade_id"> الصف  : <i class="text-danger">*</i></label>
