@@ -371,19 +371,19 @@
     }
     
     .mobile-inner-table colgroup .col-teacher {
-        width: 25% !important;
+        width: 18% !important;
     }
     
     .mobile-inner-table colgroup .col-subject {
-        width: 15% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-status {
         width: 12% !important;
     }
     
+    .mobile-inner-table colgroup .col-status {
+        width: 10% !important;
+    }
+    
     .mobile-inner-table colgroup .col-notes {
-        width: 40% !important;
+        width: 52% !important;
     }
 }
 </style>
