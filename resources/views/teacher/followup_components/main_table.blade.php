@@ -10,7 +10,6 @@
                         if(auth()->user()->user_type != 'school'){
                             foreach($students as $student) {
                                 if($today != $date){
-                                    // Only allow supervisors to edit old sessions
                                     if (auth()->user()->user_type != 'مشرف') {
                                         $sessionHasData = true;
                                     }
@@ -61,7 +60,6 @@
                             $sessionHasData = false;
                             if(auth()->user()->user_type != 'school'){
                                 if($today != $date){
-                                    // Only allow supervisors to edit old sessions
                                     if (auth()->user()->user_type != 'مشرف') {
                                         $sessionHasData = true;
                                     }
@@ -78,7 +76,6 @@
                                     $sessionHasData = false;
                                 }
                             }
-                            
                         ?>
                         <td class="p-1 {{ $sessionHasData ? '' : 'follow-up-cell' }}" 
                             data-student-id="{{ $student->id }}" 
@@ -117,7 +114,9 @@
                                             {{ $student->name }}
                                         </a>
                                     </p>
-                                    <p><strong>الرقم المدني :</strong> {{ $student->passport_id }}</p>
+                                    @if(auth()->user()->user_type == 'school' || !$school->hide_passport_id)
+                                        <p><strong>الرقم المدني :</strong> {{ $student->passport_id }}</p>
+                                    @endif
                                     <p><strong>الملاحظة :</strong> <span class="text-secondary">{{ $student->note}}</span></p>
                                 </div>
                                 <div class="col-md-12 mt-2">
@@ -125,15 +124,15 @@
                                         @csrf
                                         <input type="hidden" name="student_id" value="{{$student->id}}">
                                         <input type="hidden" name="date" value="{{$date}}">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered align-middle mb-0 inner-table" style="min-width: 500px;">
+                                        <div class="table-responsive" style="overflow-x: hidden;">
+                                            <table class="table table-bordered align-middle mb-0 mobile-inner-table" style="table-layout: fixed; width: 100%;">
                                                 <thead>
                                                     <tr>
-                                                        <th class="p-1 text-center" style="width: 60px;">الحصة</th>
-                                                        <th class="p-1 text-center teacher-col" style="width: 80px; font-size: 10px;">المعلم</th>
-                                                        <th class="p-1 text-center" style="width: 100px;">المادة</th>
-                                                        <th class="p-1 text-center" style="width: 80px;">الحالة</th>
-                                                        <th class="p-1 text-center" style="width: 180px;">الملاحظات</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 3%;">الحصة</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 10%;">المعلم</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 12%;">المادة</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 10%;">الحالة</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 65%;">الملاحظات</th>
                                                     </tr>
                                                 </thead>
                                             <tbody>
@@ -142,15 +141,20 @@
                                                         $session = ($sessions[$student->id] ?? collect())->where('session_number', $i)->first();
                                                     ?>
                                                     <tr class="text-center">
-                                                        <th class="p-1">{{$i}}</td>
-                                                        <td class="teacher-col" style="width: 80px; font-size: 9px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
-                                                        <td>{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
-                                                        <td style="@if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
+                                                        <th class="p-1" style="font-size: 9px;">{{$i}}</th>
+                                                        <td style="font-size: 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 2px;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
+                                                        <td style="font-size: 8px; padding: 2px;">{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
+                                                        <td style="font-size: 9px; padding: 2px; @if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
                                                             @if($session && $session->followUpItem)
                                                                 {{ $session->followUpItem->letter ?? '' }}
                                                             @endif
                                                         </td>
-                                                        <td><input type="text" class="form-control" name="notes[{{$i}}]" value="{{ $session->teacher_note ?? '' }}"></td>
+                                                        <td style="padding: 2px;">
+                                                            <input type="text" class="form-control notes-input" 
+                                                                   style="font-size: 10px; padding: 4px; height: 28px; width: 100%; overflow-x: auto; white-space: nowrap;" 
+                                                                   name="notes[{{$i}}]" 
+                                                                   value="{{ $session->teacher_note ?? '' }}">
+                                                        </td>
                                                     </tr>
                                                 @endfor
                                                 </tbody>
@@ -160,7 +164,7 @@
                                         <button type="submit" class="btn btn-success mt-2 mb-4">حفظ</button>
                                         @endif
                                         <button type="button" class="btn btn-primary mt-2 mb-4 show-followup-btn" data-student-id="{{$student->id}}">عرض سجل المتابعة</button>
-                                        <div class="followup-table-container mt-2" id="followup-table-{{$student->id}}" style="display: none;"><!-- The table will be inserted here --></div>
+                                        <div class="followup-table-container mt-2" id="followup-table-{{$student->id}}" style="display: none;"></div>
                                     </form>
                                 </div>
                             </div>
@@ -175,7 +179,7 @@
     	            <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
     	                <div class="teacher-selection-section w-100">
     	                   <div class="row g-2 align-items-end">
-            				    @if(auth()->user()->user_type == 'school')
+            				    @if(in_array(auth()->user()->user_type, ['school', 'مشرف']))
                 				    <div class="col-md-4 d-flex flex-row flex-sm-column align-items-center align-items-sm-start gap-1">
             				            <label class="form-label fw-bold text-muted">اسم المعلم</label>
                                         <select id="teacher-select" class="form-control d-inline-block d-sm-block" style="font-size:16px;background:#ffd400;border-radius:5px;position: unset;" name="teacher_id_select" onchange="changeTeacherSubjectSelection('teacher-select', 'subject_id_show');">
@@ -201,8 +205,7 @@
                 				@endif
             				    @if(!in_array(auth()->user()->user_type, ['مراقب']))
             				    <div class="col-6 col-md-4 col-sm-6">
-            				         <button type="button" id="saveSessionBtn" class="btn btn-primary" disabled>
-            		                            حفظ التغييرات</button>
+            				         <button type="button" id="saveSessionBtn" class="btn btn-primary" disabled>حفظ التغييرات</button>
             				    </div>
             				    @endif
             				</div>
@@ -215,28 +218,26 @@
 </div>
 
 <style>
-    /* Enhanced collapse animation */
-    .student-details-row .collapse-inner {
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-    
-    .student-details-row.collapsing .collapse-inner,
-    .student-details-row.show .collapse-inner {
-        opacity: 1;
-        transform: translateY(0);
-    }
-    
-    .student-details-row:not(.show) .collapse-inner {
-        opacity: 0;
-        transform: translateY(-10px);
-    }
-    
-    /* Hover effect */
-    .student-name-toggle:hover {
-        color: #0d6efd;
-        text-decoration: none;
-    }
+.student-details-row .collapse-inner {
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.student-details-row.collapsing .collapse-inner,
+.student-details-row.show .collapse-inner {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.student-details-row:not(.show) .collapse-inner {
+    opacity: 0;
+    transform: translateY(-10px);
+}
+
+.student-name-toggle:hover {
+    color: #0d6efd;
+    text-decoration: none;
+}
 
 .table-responsive {
     overflow-x: auto;
@@ -264,15 +265,35 @@
     line-height: 1.2;
 }
 
-@media (max-width: 768px) {
+.mobile-inner-table {
+    width: 100% !important;
+    table-layout: fixed !important;
+}
+
+.notes-input::-webkit-scrollbar {
+    height: 3px;
+}
+
+.notes-input::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.notes-input::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 2px;
+}
+
+@media screen and (max-width: 768px) {
     .table-responsive {
         overflow-x: hidden !important;
     }
-    .table-responsive table {
+    
+    .table-responsive table:not(.mobile-inner-table) {
         width: 100% !important;
         min-width: unset !important;
         table-layout: fixed;
     }
+    
     .sticky-col {
         width: 35% !important;
         min-width: unset !important;
@@ -280,80 +301,31 @@
         font-size: 10px !important;
         padding: 2px !important;
     }
+    
     .table th:first-child,
     .table td:first-child {
         width: 8% !important;
         font-size: 10px !important;
         padding: 2px !important;
     }
+    
     .table th:nth-child(n+3):nth-child(-n+9),
     .table td:nth-child(n+3):nth-child(-n+9) {
         width: 8% !important;
         font-size: 10px !important;
         padding: 1px !important;
     }
+    
     .table th:last-child,
     .table td:last-child {
         width: 5% !important;
         font-size: 10px !important;
         padding: 2px !important;
     }
+    
     .session-btn {
         font-size: 10px !important;
         padding: 2px !important;
-    }
-    
-    /* Fix for inner table (student details) */
-    .inner-table {
-        min-width: 100% !important;
-        width: 100% !important;
-        table-layout: fixed !important;
-    }
-    
-    .inner-table th:first-child,
-    .inner-table td:first-child {
-        width: 12% !important;
-        font-size: 9px !important;
-        padding: 2px !important;
-    }
-    
-    /* Teacher column fix */
-    .inner-table .teacher-col {
-        width: 12% !important;
-        max-width: 12% !important;
-        min-width: 12% !important;
-        font-size: 7px !important;
-        padding: 1px !important;
-        overflow: hidden !important;
-        text-overflow: ellipsis !important;
-        white-space: nowrap !important;
-    }
-    
-    .inner-table th:nth-child(3),
-    .inner-table td:nth-child(3) {
-        width: 22% !important;
-        font-size: 8px !important;
-        padding: 2px !important;
-    }
-    
-    .inner-table th:nth-child(4),
-    .inner-table td:nth-child(4) {
-        width: 15% !important;
-        font-size: 8px !important;
-        padding: 2px !important;
-    }
-    
-    .inner-table th:nth-child(5),
-    .inner-table td:nth-child(5) {
-        width: 39% !important;
-        font-size: 8px !important;
-        padding: 2px !important;
-    }
-    
-    .inner-table td:nth-child(5) input {
-        font-size: 8px !important;
-        padding: 2px 4px !important;
-        height: auto !important;
     }
 }
 </style>
@@ -362,14 +334,12 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // toggle student info
         document.querySelectorAll('.student-name-toggle').forEach(toggle => {
             toggle.addEventListener('click', function() {
                 const targetId = this.getAttribute('href');
                 const isExpanding = !this.classList.contains('collapsed');
                 
                 if (isExpanding) {
-                    // Close any other open collapses
                     document.querySelectorAll('.student-name-toggle').forEach(otherToggle => {
                         if (otherToggle !== this && !otherToggle.classList.contains('collapsed')) {
                             const otherTarget = otherToggle.getAttribute('href');
@@ -380,7 +350,6 @@
             });
         });
         
-        // quick update student notes
         document.querySelectorAll('.quick-update-form').forEach(form => {
             form.addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -429,7 +398,6 @@
             });
         });
         
-        // Handle follow-up record button click
         document.querySelectorAll('.show-followup-btn').forEach(button => {
             button.addEventListener('click', function() {
                 const studentId = this.getAttribute('data-student-id');
@@ -447,19 +415,22 @@
             });
         });
         
-        // Handle student details modal
-        document.querySelectorAll('.view-student-btn').forEach(button => {
-            button.addEventListener('click', function(e) {
+        // Handle all student detail modal triggers
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('.view-student-btn') || e.target.matches('a[data-bs-target="#studentDetailsModal"]')) {
                 e.preventDefault();
                 
-                document.getElementById('modal_student_name').textContent = this.getAttribute('data-student-name');
-                document.getElementById('modal_student_passport').textContent = this.getAttribute('data-student-passport');
-                document.getElementById('modal_student_phone').textContent = this.getAttribute('data-student-phone');
-                document.getElementById('modal_student_gender').textContent = this.getAttribute('data-student-gender');
-                document.getElementById('modal_student_grade').textContent = this.getAttribute('data-student-grade');
-                document.getElementById('modal_student_class').textContent = this.getAttribute('data-student-class');
-                document.getElementById('modal_student_note').textContent = this.getAttribute('data-student-note');
-            });
+                const element = e.target;
+                console.log('Student note:', element.getAttribute('data-student-note')); // Debug log
+                
+                document.getElementById('modal_student_name').textContent = element.getAttribute('data-student-name') || '';
+                document.getElementById('modal_student_passport').textContent = element.getAttribute('data-student-passport') || '';
+                document.getElementById('modal_student_phone').textContent = element.getAttribute('data-student-phone') || '';
+                document.getElementById('modal_student_gender').textContent = element.getAttribute('data-student-gender') || '';
+                document.getElementById('modal_student_grade').textContent = element.getAttribute('data-student-grade') || '';
+                document.getElementById('modal_student_class').textContent = element.getAttribute('data-student-class') || '';
+                document.getElementById('modal_student_note').textContent = element.getAttribute('data-student-note') || 'لا توجد ملاحظات';
+            }
         });
     });
     
