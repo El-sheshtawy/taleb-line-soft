@@ -187,8 +187,10 @@
                                                 <a href="#" class="text-{{ $student->gender ? 'primary' : 'danger' }} text-{{ $student->note ? 'danger' : '' }} cell-link view-student-btn" 
                                                    data-bs-toggle="modal" data-bs-target="#studentDetailsModal"
                                                    data-student-name="{{ $student->name }}"
+                                                   @if(!in_array(auth()->user()->user_type, ['مراقب']))
                                                    data-student-passport="{{ $student->passport_id }}"
                                                    data-student-phone="{{ $student->phone_number }}"
+                                                   @endif
                                                    data-student-gender="{{ $student->gender ? 'ذكر' : 'أنثى' }}"
                                                    data-student-grade="{{ $student->grade->name ?? '' }}"
                                                    data-student-class="{{ $student->classRoom->name ?? '' }}"
