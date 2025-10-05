@@ -285,7 +285,7 @@
 
 @media screen and (max-width: 768px) {
     .table-responsive {
-        overflow-x: hidden !important;
+        overflow-x: auto !important;
     }
     
     .table-responsive table:not(.mobile-inner-table) {
@@ -293,6 +293,17 @@
         min-width: unset !important;
         table-layout: fixed;
     }
+    
+    .mobile-inner-table {
+        min-width: 600px !important;
+        width: 600px !important;
+    }
+    
+    .mobile-inner-table th:nth-child(1) { width: 30px !important; }
+    .mobile-inner-table th:nth-child(2) { width: 60px !important; }
+    .mobile-inner-table th:nth-child(3) { width: 80px !important; }
+    .mobile-inner-table th:nth-child(4) { width: 40px !important; }
+    .mobile-inner-table th:nth-child(5) { width: 390px !important; }
     
     .sticky-col {
         width: 35% !important;
