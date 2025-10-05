@@ -103,8 +103,8 @@
 
 <style>
 @media (max-width: 768px) {
-    #search_grade_id option,
-    #search_class_id option {
+    #search_grade_id,
+    #search_class_id {
         font-size: 12px !important;
     }
 }
