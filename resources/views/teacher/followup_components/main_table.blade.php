@@ -297,13 +297,34 @@
     .mobile-inner-table {
         min-width: 600px !important;
         width: 600px !important;
+        table-layout: fixed !important;
     }
     
-    .mobile-inner-table th:nth-child(1), .mobile-inner-table td:nth-child(1) { width: 30px !important; }
-    .mobile-inner-table th:nth-child(2), .mobile-inner-table td:nth-child(2) { width: 50px !important; }
-    .mobile-inner-table th:nth-child(3), .mobile-inner-table td:nth-child(3) { width: 60px !important; }
-    .mobile-inner-table th:nth-child(4), .mobile-inner-table td:nth-child(4) { width: 40px !important; }
-    .mobile-inner-table th:nth-child(5), .mobile-inner-table td:nth-child(5) { width: 420px !important; }
+    .mobile-inner-table th:nth-child(1), .mobile-inner-table td:nth-child(1) { 
+        width: 30px !important; 
+        max-width: 30px !important;
+        min-width: 30px !important;
+    }
+    .mobile-inner-table th:nth-child(2), .mobile-inner-table td:nth-child(2) { 
+        width: 50px !important; 
+        max-width: 50px !important;
+        min-width: 50px !important;
+    }
+    .mobile-inner-table th:nth-child(3), .mobile-inner-table td:nth-child(3) { 
+        width: 60px !important; 
+        max-width: 60px !important;
+        min-width: 60px !important;
+    }
+    .mobile-inner-table th:nth-child(4), .mobile-inner-table td:nth-child(4) { 
+        width: 40px !important; 
+        max-width: 40px !important;
+        min-width: 40px !important;
+    }
+    .mobile-inner-table th:nth-child(5), .mobile-inner-table td:nth-child(5) { 
+        width: 420px !important; 
+        max-width: 420px !important;
+        min-width: 420px !important;
+    }
     
     .sticky-col {
         width: 35% !important;
