@@ -125,7 +125,7 @@
                                         <input type="hidden" name="student_id" value="{{$student->id}}">
                                         <input type="hidden" name="date" value="{{$date}}">
                                         <div class="table-responsive" style="overflow-x: hidden;">
-                                            <table class="table table-bordered align-middle mb-0 mobile-inner-table" style="table-layout: fixed; width: 100%; min-width: 800px;">
+                                            <table class="table table-bordered align-middle mb-0 mobile-inner-table" style="table-layout: fixed; width: 100%; min-width: 1000px;">
                                                 <thead>
                                                     <tr>
                                                         <th class="p-1 text-center" style="font-size: 9px; width: 40px;">الحصة</th>
