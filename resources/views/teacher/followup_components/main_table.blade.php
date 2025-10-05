@@ -367,23 +367,23 @@
 
 @media screen and (max-width: 480px) {
     .mobile-inner-table colgroup .col-session {
-        width: 4% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-teacher {
         width: 8% !important;
     }
     
+    .mobile-inner-table colgroup .col-teacher {
+        width: 25% !important;
+    }
+    
     .mobile-inner-table colgroup .col-subject {
-        width: 13% !important;
+        width: 15% !important;
     }
     
     .mobile-inner-table colgroup .col-status {
-        width: 4% !important;
+        width: 12% !important;
     }
     
     .mobile-inner-table colgroup .col-notes {
-        width: 71% !important;
+        width: 40% !important;
     }
 }
 </style>
