@@ -100,3 +100,12 @@
             });
     }
 </script>
+
+<style>
+@media (max-width: 768px) {
+    #search_grade_id option,
+    #search_class_id option {
+        font-size: 12px !important;
+    }
+}
+</style>
