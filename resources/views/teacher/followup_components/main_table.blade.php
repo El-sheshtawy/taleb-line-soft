@@ -371,7 +371,7 @@
     }
     
     .mobile-inner-table colgroup .col-teacher {
-        width: 18% !important;
+        width: 15% !important;
     }
     
     .mobile-inner-table colgroup .col-subject {
@@ -383,7 +383,7 @@
     }
     
     .mobile-inner-table colgroup .col-notes {
-        width: 52% !important;
+        width: 55% !important;
     }
 }
 </style>
