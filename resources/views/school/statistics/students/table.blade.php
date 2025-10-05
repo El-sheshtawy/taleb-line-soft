@@ -100,59 +100,61 @@
     <div class="modal fade" id="viewStudentModal" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">بيانات الطالب</h5>
-                    <button type="button" class="btn-close m-0" data-bs-dismiss="modal"></button>
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">تفاصيل الطالب</h5>
+                    <button type="button" class="btn-close btn-close-white m-0" data-bs-dismiss="modal"></button>
                 </div>
-                <div class="modal-body row">
+                <div class="modal-body row p-4">
                     <div class="mb-3 col-md-6">
-                        <label class="form-label">الاسم:</label>
-                        <div class="form-control bg-light">{{ $student->name }}</div>
+                        <label class="form-label fw-bold text-primary">الاسم:</label>
+                        <div class="form-control bg-light border-0 shadow-sm">{{ $student->name }}</div>
+                    </div>
+
+                    @if(!in_array(auth()->user()->user_type, ['مراقب']))
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label fw-bold text-primary">الرقم المدني:</label>
+                        <div class="form-control bg-light border-0 shadow-sm">{{ $student->passport_id }}</div>
                     </div>
 
                     <div class="mb-3 col-md-6">
-                        <label class="form-label">الرقم المدني:</label>
-                        <div class="form-control bg-light">{{ $student->passport_id }}</div>
+                        <label class="form-label fw-bold text-primary">رقم الهاتف:</label>
+                        <div class="form-control bg-light border-0 shadow-sm">{{ $student->phone_number }}</div>
                     </div>
 
                     <div class="mb-3 col-md-6">
-                        <label class="form-label">رقم الهاتف:</label>
-                        <div class="form-control bg-light">{{ $student->phone_number }}</div>
+                        <label class="form-label fw-bold text-primary">رقم هاتف إضافي:</label>
+                        <div class="form-control bg-light border-0 shadow-sm">{{ $student->phone_number_2 }}</div>
+                    </div>
+                    @endif
+
+                    <div class="mb-3 col-md-6">
+                        <label class="form-label fw-bold text-primary">الصف:</label>
+                        <div class="form-control bg-light border-0 shadow-sm">{{ $student->grade->name }}</div>
                     </div>
 
                     <div class="mb-3 col-md-6">
-                        <label class="form-label">رقم هاتف إضافي:</label>
-                        <div class="form-control bg-light">{{ $student->phone_number_2 }}</div>
+                        <label class="form-label fw-bold text-primary">الفصل:</label>
+                        <div class="form-control bg-light border-0 shadow-sm">{{ $student->classRoom->name }}</div>
                     </div>
 
                     <div class="mb-3 col-md-6">
-                        <label class="form-label">الصف:</label>
-                        <div class="form-control bg-light">{{ $student->grade->name }}</div>
+                        <label class="form-label fw-bold text-primary">الجنس:</label>
+                        <div class="form-control bg-light border-0 shadow-sm">{{ $student->gender ? 'ذكر' : 'أنثى' }}</div>
                     </div>
 
                     <div class="mb-3 col-md-6">
-                        <label class="form-label">الفصل:</label>
-                        <div class="form-control bg-light">{{ $student->classRoom->name }}</div>
-                    </div>
-
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label">الجنس:</label>
-                        <div class="form-control bg-light">{{ $student->gender ? 'ذكر' : 'أنثى' }}</div>
-                    </div>
-
-                    <div class="mb-3 col-md-6">
-                        <label class="form-label">الجنسية:</label>
-                        <div class="form-control bg-light">{{ $student->nationality?->name }}</div>
+                        <label class="form-label fw-bold text-primary">الجنسية:</label>
+                        <div class="form-control bg-light border-0 shadow-sm">{{ $student->nationality?->name }}</div>
                     </div>
 
                     <div class="mb-3 col-md-12">
-                        <label class="form-label">ملاحظة:</label>
-                        <div class="form-control bg-light" style="min-height: 100px">
+                        <label class="form-label fw-bold text-primary">الملاحظات:</label>
+                        <div class="form-control bg-light border-0 shadow-sm" style="min-height: 100px">
                             {{ $student->note ?? 'لا توجد ملاحظات' }}</div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">إغلاق</button>
                 </div>
             </div>
         </div>
