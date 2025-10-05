@@ -125,14 +125,14 @@
                                         <input type="hidden" name="student_id" value="{{$student->id}}">
                                         <input type="hidden" name="date" value="{{$date}}">
                                         <div class="table-responsive" style="overflow-x: hidden;">
-                                            <table class="table table-bordered align-middle mb-0 mobile-inner-table" style="table-layout: fixed; width: 100%;">
+                                            <table class="table table-bordered align-middle mb-0 mobile-inner-table" style="table-layout: fixed; width: 100%; min-width: 800px;">
                                                 <thead>
                                                     <tr>
-                                                        <th class="p-1 text-center" style="font-size: 9px; width: 3%;">الحصة</th>
-                                                        <th class="p-1 text-center" style="font-size: 9px; width: 10%;">المعلم</th>
-                                                        <th class="p-1 text-center" style="font-size: 9px; width: 12%;">المادة</th>
-                                                        <th class="p-1 text-center" style="font-size: 9px; width: 10%;">الحالة</th>
-                                                        <th class="p-1 text-center" style="font-size: 9px; width: 65%;">الملاحظات</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 40px;">الحصة</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 80px;">المعلم</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 100px;">المادة</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 60px;">الحالة</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px;">الملاحظات</th>
                                                     </tr>
                                                 </thead>
                                             <tbody>
@@ -149,9 +149,9 @@
                                                                 {{ $session->followUpItem->letter ?? '' }}
                                                             @endif
                                                         </td>
-                                                        <td style="padding: 2px;">
+                                                        <td style="padding: 2px; width: 65%;">
                                                             <input type="text" class="form-control notes-input" 
-                                                                   style="font-size: 10px; padding: 4px; height: 28px; width: 100%; overflow-x: auto; white-space: nowrap;" 
+                                                                   style="font-size: 10px; padding: 4px; height: 28px; width: 100%; min-width: 300px; overflow-x: auto; white-space: nowrap;" 
                                                                    name="notes[{{$i}}]" 
                                                                    value="{{ $session->teacher_note ?? '' }}">
                                                         </td>
