@@ -279,6 +279,17 @@
 .col-status { width: 80px; }
 .col-notes { width: 280px; }
 
+.mobile-inner-table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.mobile-inner-table td:last-child {
+    white-space: normal;
+    overflow: visible;
+}
+
 /* CRITICAL MOBILE STYLES - Maximum priority */
 @media screen and (max-width: 768px) {
     .table-responsive {
