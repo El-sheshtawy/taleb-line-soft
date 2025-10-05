@@ -187,7 +187,7 @@
                                                 <a href="#" class="text-{{ $student->gender ? 'primary' : 'danger' }} text-{{ $student->note ? 'danger' : '' }} cell-link view-student-btn" 
                                                    data-bs-toggle="modal" data-bs-target="#studentDetailsModal"
                                                    data-student-name="{{ $student->name }}"
-                                                   @if(!in_array(auth()->user()->user_type, ['مراقب']))
+                                                   @if(auth()->user()->user_type === 'school')
                                                    data-student-passport="{{ $student->passport_id }}"
                                                    data-student-phone="{{ $student->phone_number }}"
                                                    @endif
@@ -248,7 +248,7 @@
                             <label class="form-label fw-bold text-primary">الاسم:</label>
                             <div class="form-control bg-light border-0 shadow-sm" id="modal_student_name"></div>
                         </div>
-                        @if(!in_array(auth()->user()->user_type, ['مراقب']))
+                        @if(auth()->user()->user_type === 'school')
                         <div class="col-md-6 mb-3">
                             <label class="form-label fw-bold text-primary">الرقم المدني:</label>
                             <div class="form-control bg-light border-0 shadow-sm" id="modal_student_passport"></div>
@@ -343,7 +343,7 @@
                     e.preventDefault();
                     
                     document.getElementById('modal_student_name').textContent = this.getAttribute('data-student-name');
-                    @if(!in_array(auth()->user()->user_type, ['مراقب']))
+                    @if(auth()->user()->user_type === 'school')
                     document.getElementById('modal_student_passport').textContent = this.getAttribute('data-student-passport');
                     document.getElementById('modal_student_phone').textContent = this.getAttribute('data-student-phone');
                     @endif
