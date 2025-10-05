@@ -236,50 +236,50 @@
     <div class="modal fade" id="studentDetailsModal" tabindex="-1" aria-labelledby="studentDetailsModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-primary text-white">
                     <h5 class="modal-title" id="studentDetailsModalLabel">تفاصيل الطالب</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body p-4">
                     <div class="row">
-                        <div class="col-md-6 mb-2">
-                            <strong>الاسم:</strong>
-                            <span id="modal_student_name"></span>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-primary">الاسم:</label>
+                            <div class="form-control bg-light border-0 shadow-sm" id="modal_student_name"></div>
                         </div>
                         @if(!in_array(auth()->user()->user_type, ['مراقب']))
-                        <div class="col-md-6 mb-2">
-                            <strong>الرقم المدني:</strong>
-                            <span id="modal_student_passport"></span>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-primary">الرقم المدني:</label>
+                            <div class="form-control bg-light border-0 shadow-sm" id="modal_student_passport"></div>
                         </div>
-                        <div class="col-md-6 mb-2">
-                            <strong>رقم الهاتف:</strong>
-                            <span id="modal_student_phone"></span>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-primary">رقم الهاتف:</label>
+                            <div class="form-control bg-light border-0 shadow-sm" id="modal_student_phone"></div>
                         </div>
                         @endif
-                        <div class="col-md-6 mb-2">
-                            <strong>الجنس:</strong>
-                            <span id="modal_student_gender"></span>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-primary">الجنس:</label>
+                            <div class="form-control bg-light border-0 shadow-sm" id="modal_student_gender"></div>
                         </div>
-                        <div class="col-md-6 mb-2">
-                            <strong>الصف:</strong>
-                            <span id="modal_student_grade"></span>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-primary">الصف:</label>
+                            <div class="form-control bg-light border-0 shadow-sm" id="modal_student_grade"></div>
                         </div>
-                        <div class="col-md-6 mb-2">
-                            <strong>الفصل:</strong>
-                            <span id="modal_student_class"></span>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-primary">الفصل:</label>
+                            <div class="form-control bg-light border-0 shadow-sm" id="modal_student_class"></div>
                         </div>
-                        <div class="col-md-6 mb-2">
-                            <strong>عدد أيام الغياب:</strong>
-                            <span id="modal_student_absences" class="text-danger fw-bold"></span>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold text-primary">عدد أيام الغياب:</label>
+                            <div class="form-control bg-light border-0 shadow-sm text-danger fw-bold" id="modal_student_absences"></div>
                         </div>
-                        <div class="col-12 mb-2">
-                            <strong>الملاحظات:</strong>
-                            <p id="modal_student_note" class="text-muted"></p>
+                        <div class="col-12 mb-3">
+                            <label class="form-label fw-bold text-primary">الملاحظات:</label>
+                            <div class="form-control bg-light border-0 shadow-sm" style="min-height: 80px" id="modal_student_note"></div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-primary px-4" data-bs-dismiss="modal">إغلاق</button>
                 </div>
             </div>
         </div>
