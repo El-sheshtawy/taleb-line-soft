@@ -135,11 +135,11 @@
                                                 </colgroup>
                                                 <thead>
                                                     <tr>
-                                                        <th class="p-1 text-center" style="font-size: 10px;">الحصة</th>
-                                                        <th class="p-1 text-center" style="font-size: 9px;">المعلم</th>
-                                                        <th class="p-1 text-center" style="font-size: 10px;">المادة</th>
-                                                        <th class="p-1 text-center" style="font-size: 10px;">الحالة</th>
-                                                        <th class="p-1 text-center" style="font-size: 10px;">الملاحظات</th>
+                                                        <th class="p-1 text-center" style="font-size: 10px;">#</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px;">معلم</th>
+                                                        <th class="p-1 text-center" style="font-size: 10px;">مادة</th>
+                                                        <th class="p-1 text-center" style="font-size: 10px;">حالة</th>
+                                                        <th class="p-1 text-center" style="font-size: 10px;">ملاحظات</th>
                                                     </tr>
                                                 </thead>
                                             <tbody>
@@ -345,23 +345,23 @@
     }
     
     .mobile-inner-table colgroup .col-session {
-        width: 5% !important;
+        width: 8% !important;
     }
     
     .mobile-inner-table colgroup .col-teacher {
-        width: 10% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-subject {
         width: 15% !important;
     }
     
+    .mobile-inner-table colgroup .col-subject {
+        width: 12% !important;
+    }
+    
     .mobile-inner-table colgroup .col-status {
-        width: 5% !important;
+        width: 10% !important;
     }
     
     .mobile-inner-table colgroup .col-notes {
-        width: 65% !important;
+        width: 55% !important;
     }
 }
 
