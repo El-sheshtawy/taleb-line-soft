@@ -345,23 +345,23 @@
     }
     
     .mobile-inner-table colgroup .col-session {
-        width: 8% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-teacher {
-        width: 15% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-subject {
-        width: 12% !important;
-    }
-    
-    .mobile-inner-table colgroup .col-status {
         width: 10% !important;
     }
     
+    .mobile-inner-table colgroup .col-teacher {
+        width: 18% !important;
+    }
+    
+    .mobile-inner-table colgroup .col-subject {
+        width: 15% !important;
+    }
+    
+    .mobile-inner-table colgroup .col-status {
+        width: 12% !important;
+    }
+    
     .mobile-inner-table colgroup .col-notes {
-        width: 55% !important;
+        width: 45% !important;
     }
 }
 
