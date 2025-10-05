@@ -130,9 +130,9 @@
                                                     <tr>
                                                         <th class="p-1 text-center" style="font-size: 9px; width: 40px;">الحصة</th>
                                                         <th class="p-1 text-center" style="font-size: 9px;">الملاحظات</th>
-                                                        <th class="p-1 text-center" style="font-size: 9px; width: 100px;">المادة</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 80px;">المادة</th>
                                                         <th class="p-1 text-center" style="font-size: 9px; width: 60px;">الحالة</th>
-                                                        <th class="p-1 text-center" style="font-size: 9px; width: 80px;">المعلم</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 60px;">المعلم</th>
                                                     </tr>
                                                 </thead>
                                             <tbody>
