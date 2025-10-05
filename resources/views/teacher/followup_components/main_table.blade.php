@@ -129,10 +129,10 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="p-1 text-center" style="font-size: 9px; width: 40px;">الحصة</th>
-                                                        <th class="p-1 text-center" style="font-size: 9px; width: 80px;">المعلم</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px;">الملاحظات</th>
                                                         <th class="p-1 text-center" style="font-size: 9px; width: 100px;">المادة</th>
                                                         <th class="p-1 text-center" style="font-size: 9px; width: 60px;">الحالة</th>
-                                                        <th class="p-1 text-center" style="font-size: 9px;">الملاحظات</th>
+                                                        <th class="p-1 text-center" style="font-size: 9px; width: 80px;">المعلم</th>
                                                     </tr>
                                                 </thead>
                                             <tbody>
@@ -142,19 +142,19 @@
                                                     ?>
                                                     <tr class="text-center">
                                                         <th class="p-1" style="font-size: 9px;">{{$i}}</th>
-                                                        <td style="font-size: 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 2px;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
-                                                        <td style="font-size: 8px; padding: 2px;">{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
-                                                        <td style="font-size: 9px; padding: 2px; @if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
-                                                            @if($session && $session->followUpItem)
-                                                                {{ $session->followUpItem->letter ?? '' }}
-                                                            @endif
-                                                        </td>
                                                         <td style="padding: 2px; width: 65%;">
                                                             <input type="text" class="form-control notes-input" 
                                                                    style="font-size: 10px; padding: 4px; height: 28px; width: 100%; min-width: 300px; overflow-x: auto; white-space: nowrap;" 
                                                                    name="notes[{{$i}}]" 
                                                                    value="{{ $session->teacher_note ?? '' }}">
                                                         </td>
+                                                        <td style="font-size: 8px; padding: 2px;">{{$session && $session->teacher ? $session->teacher->subject : '-'}}</td>
+                                                        <td style="font-size: 9px; padding: 2px; @if($session) background-color: {{ $session->followUpItem->background_color ?? '' }}; color: {{ $session->followUpItem->text_color ?? 'transparent' }}; @endif">
+                                                            @if($session && $session->followUpItem)
+                                                                {{ $session->followUpItem->letter ?? '' }}
+                                                            @endif
+                                                        </td>
+                                                        <td style="font-size: 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 2px;">{{$session && $session->teacher ? \Illuminate\Support\Str::limit($session->teacher->name, 8) : '-'}}</td>
                                                     </tr>
                                                 @endfor
                                                 </tbody>
