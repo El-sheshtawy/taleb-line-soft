@@ -299,11 +299,11 @@
         width: 600px !important;
     }
     
-    .mobile-inner-table th:nth-child(1) { width: 30px !important; }
-    .mobile-inner-table th:nth-child(2) { width: 50px !important; }
-    .mobile-inner-table th:nth-child(3) { width: 60px !important; }
-    .mobile-inner-table th:nth-child(4) { width: 40px !important; }
-    .mobile-inner-table th:nth-child(5) { width: 420px !important; }
+    .mobile-inner-table th:nth-child(1), .mobile-inner-table td:nth-child(1) { width: 30px !important; }
+    .mobile-inner-table th:nth-child(2), .mobile-inner-table td:nth-child(2) { width: 50px !important; }
+    .mobile-inner-table th:nth-child(3), .mobile-inner-table td:nth-child(3) { width: 60px !important; }
+    .mobile-inner-table th:nth-child(4), .mobile-inner-table td:nth-child(4) { width: 40px !important; }
+    .mobile-inner-table th:nth-child(5), .mobile-inner-table td:nth-child(5) { width: 420px !important; }
     
     .sticky-col {
         width: 35% !important;
