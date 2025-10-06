@@ -103,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".edit-special-user-btn").forEach(button => {
         button.addEventListener("click", function () {
             let userData = JSON.parse(this.getAttribute("data-user"));
+            console.log('User Data:', userData);
             
             document.getElementById("updateSpecialUserForm").action = this.getAttribute("data-edit-action");
             document.getElementById("deleteSpecialUserForm").action = this.getAttribute("data-delete-action");

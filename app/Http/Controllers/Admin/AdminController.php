@@ -29,7 +29,7 @@ class AdminController extends Controller
         
         // Load school data for each user
         foreach($specialUsers as $user) {
-            $user->profile = $user->profile()->first();
+            $user->load('profile');
             if($user->school_id) {
                 $user->school = SchoolAccount::find($user->school_id);
             } elseif($user->profile && $user->profile->school_id) {
