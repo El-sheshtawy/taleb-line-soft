@@ -25,7 +25,7 @@
                 <i class="ri-parent-fill" style="color: #0d6efd;"></i>
                 احصائيات
             </a>
-            <a href="/abc"> <i class="ri-file-chart-fill" style="color: #0d6efd;"></i> تقارير </a>
+            <a href="{{ route('reports.index') }}"> <i class="ri-file-chart-fill" style="color: #0d6efd;"></i> تقارير </a>
             <a href="{{ route('files.index') }}"> <i class="ri-folder-fill" style="color: #0d6efd;"></i> الملفات </a>
             <a href="{{ route('reminders.index') }}"> <i class="ri-notification-3-fill" style="color: #0d6efd;"></i>
                 رسائل </a>
@@ -48,7 +48,7 @@
                 <i class="ri-bar-chart-fill" style="color: #0d6efd;"></i>
                 احصائيات
             </a>
-            <a href="/abc"> <i class="ri-file-chart-fill" style="color: #0d6efd;"></i> تقارير </a>
+            <a href="{{ route('reports.index') }}"> <i class="ri-file-chart-fill" style="color: #0d6efd;"></i> تقارير </a>
             <a href="{{ route('files.index') }}"> <i class="ri-folder-fill" style="color: #0d6efd;"></i> الملفات </a>
             <a href="{{ route('reminders.index') }}"> <i class="ri-notification-3-fill" style="color: #0d6efd;"></i>
                 رسائل </a>

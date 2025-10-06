@@ -34,7 +34,8 @@ class SpecialUserController extends Controller
                 'user_type' => $request->user_type,
                 'username' => $request->username,
                 'password' => Hash::make($request->password),
-                'defualt_password' => Hash::make($request->password)
+                'defualt_password' => Hash::make($request->password),
+                'school_id' => $request->school_id
             ]);
 
             Teacher::create([
@@ -77,6 +78,7 @@ class SpecialUserController extends Controller
             $updateData = [
                 'user_type' => $request->user_type,
                 'username' => $request->username,
+                'school_id' => $request->school_id,
             ];
 
             if ($request->filled('password')) {
