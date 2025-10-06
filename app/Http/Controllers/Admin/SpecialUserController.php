@@ -103,21 +103,9 @@ class SpecialUserController extends Controller
                 throw $e;
             }
             
-            // Update profile
+            // Update profile name
             if ($profile) {
-                $profileData = [
-                    'name' => $request->name,
-                    'phone_number' => $request->phone_number,
-                    'subject' => $request->subject ?? 'عام',
-                    'passport_id' => $request->passport_id,
-                    'school_id' => $request->school_id,
-                    'nationality_id' => $request->nationality_id,
-                ];
-                \Log::info('Updating profile with data: ', $profileData);
-                $profileUpdated = $profile->update($profileData);
-                \Log::info('Profile update result: ' . ($profileUpdated ? 'SUCCESS' : 'FAILED'));
-            } else {
-                \Log::error('No profile found for user: ' . $user->id);
+                $profile->update(['name' => $request->name]);
             }
             
             // Update school account with viewer/supervisor info
