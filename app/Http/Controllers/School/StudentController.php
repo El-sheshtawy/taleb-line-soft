@@ -128,13 +128,13 @@ class StudentController extends Controller
         
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'passport_id' => 'required|digits:12|unique:students,passport_id,' . $student->id,
+            'passport_id' => 'nullable|digits:12|unique:students,passport_id,' . $student->id,
             'gender' => 'required|in:0,1',
             'phone_number' => 'nullable|digits:8',
             'phone_number_2' => 'nullable|digits:8',
-            'grade_id' => 'required|exists:grades,id',
-            'class_id' => ['required', 'exists:classes,id', new ClassBelongsToGrade($request->grade_id, $school->id)],
-            'nationality_id' => 'required|exists:nationalities,id',
+            'grade_id' => 'nullable|exists:grades,id',
+            'class_id' => ['nullable', 'exists:classes,id', new ClassBelongsToGrade($request->grade_id, $school->id)],
+            'nationality_id' => 'nullable|exists:nationalities,id',
             'note' => ['nullable', 'string', 'max:255'],
         ], [], [
     	        'name' => 'الاسم',
