@@ -121,10 +121,18 @@ class SpecialUserController extends Controller
                 }
             }
             
-            // Delete the user
+            // Delete the user - check if soft deletes are used
             \Log::info('Deleting user: ' . $user->id);
-            $deleted = $user->delete();
+            if (method_exists($user, 'forceDelete')) {
+                $deleted = $user->forceDelete();
+            } else {
+                $deleted = $user->delete();
+            }
             \Log::info('User deletion result: ' . ($deleted ? 'success' : 'failed'));
+            
+            // Verify user is actually deleted
+            $userExists = User::find($user->id);
+            \Log::info('User still exists after deletion: ' . ($userExists ? 'yes' : 'no'));
 
             DB::commit();
             return redirect()->back()->with('success', 'تم حذف المستخدم بنجاح');
