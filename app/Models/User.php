@@ -45,7 +45,7 @@ class User extends Authenticatable
             case 'مشرف':
                 return $this->hasOne(Teacher::class, 'user_id');
             default:
-                return null;
+                return $this->hasOne(Teacher::class, 'user_id');
         }
     }
     
