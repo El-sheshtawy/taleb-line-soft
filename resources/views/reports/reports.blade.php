@@ -27,8 +27,6 @@
                 max-width: 45% !important;
                 font-size: 11px !important;
                 white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
             }
             
             .table th:nth-child(3),
