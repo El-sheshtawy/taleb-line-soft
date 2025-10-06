@@ -33,7 +33,12 @@ class ReportsController extends Controller
                     $query->where('is_absent', true)
                           ->where('date', '<=', $selectedDate);
                 }])
-                ->orderBy('name')
+                ->join('grades', 'students.grade_id', '=', 'grades.id')
+                ->join('classes', 'students.class_id', '=', 'classes.id')
+                ->orderBy('grades.name')
+                ->orderBy('classes.name')
+                ->orderBy('students.name')
+                ->select('students.*')
                 ->get();
         }
         
