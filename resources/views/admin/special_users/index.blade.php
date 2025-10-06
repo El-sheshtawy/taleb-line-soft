@@ -25,13 +25,20 @@
                                 'user_type' => $user->user_type,
                                 'school_id' => $user->school_id,
                                 'profile' => $user->profile ? [
-                                    'name' => $user->profile->name,
-                                    'passport_id' => $user->profile->passport_id,
-                                    'phone_number' => $user->profile->phone_number,
-                                    'subject' => $user->profile->subject,
-                                    'school_id' => $user->profile->school_id,
-                                    'nationality_id' => $user->profile->nationality_id
-                                ] : null,
+                                    'name' => $user->profile->name ?? '',
+                                    'passport_id' => $user->profile->passport_id ?? '',
+                                    'phone_number' => $user->profile->phone_number ?? '',
+                                    'subject' => $user->profile->subject ?? '',
+                                    'school_id' => $user->profile->school_id ?? $user->school_id,
+                                    'nationality_id' => $user->profile->nationality_id ?? ''
+                                ] : [
+                                    'name' => '',
+                                    'passport_id' => '',
+                                    'phone_number' => '',
+                                    'subject' => '',
+                                    'school_id' => $user->school_id,
+                                    'nationality_id' => ''
+                                ],
                                 'school' => $user->school ? [
                                     'id' => $user->school->id,
                                     'school_name' => $user->school->school_name,
