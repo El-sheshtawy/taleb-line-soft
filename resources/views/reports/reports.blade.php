@@ -23,8 +23,8 @@
             
             .table th:nth-child(2),
             .table td:nth-child(2) {
-                width: 20% !important;
-                max-width: 20% !important;
+                width: 15% !important;
+                max-width: 15% !important;
                 font-size: 11px !important;
                 white-space: nowrap;
                 overflow: hidden;
@@ -42,7 +42,7 @@
             
             .table th:nth-child(5),
             .table td:nth-child(5) {
-                width: 42% !important;
+                width: 47% !important;
                 font-size: 10px !important;
             }
             
