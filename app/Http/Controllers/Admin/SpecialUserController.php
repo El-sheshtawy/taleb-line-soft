@@ -61,39 +61,11 @@ class SpecialUserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        \Log::info('Update request received for user: ' . $user->id);
-        \Log::info('Request data: ', $request->all());
-        
-        $profile = $user->profile()->first();
-        
-        // Create profile if doesn't exist
-        if (!$profile) {
-            $profile = Teacher::create([
-                'name' => $user->username,
-                'passport_id' => '000000000000',
-                'phone_number' => '',
-                'subject' => 'عام',
-                'head_of_department' => false,
-                'supervisor' => false,
-                'school_id' => $user->school_id,
-                'user_id' => $user->id,
-                'nationality_id' => 1,
-            ]);
-        }
-        
-        $profileId = $profile->id;
-        \Log::info('Profile ID: ' . $profileId);
-        
         $request->validate([
             'user_type' => 'required|in:مراقب,مشرف',
             'school_id' => 'required|exists:school_accounts,id',
-            'name' => 'required|string|max:255',
-            'passport_id' => 'required|digits:12|unique:teachers,passport_id,' . $profileId,
-            'phone_number' => 'nullable|digits:8',
             'username' => 'required|string|unique:users,username,' . $user->id,
             'password' => 'nullable|string|min:6',
-            'subject' => 'nullable|string|max:255',
-            'nationality_id' => 'required|exists:nationalities,id',
         ]);
 
         DB::beginTransaction();
@@ -112,17 +84,6 @@ class SpecialUserController extends Controller
             }
 
             $user->update($updateData);
-
-            if ($profile) {
-                $profile->update([
-                    'name' => $request->name,
-                    'phone_number' => $request->phone_number,
-                    'subject' => $request->subject ?? 'عام',
-                    'passport_id' => $request->passport_id,
-                    'school_id' => $request->school_id,
-                    'nationality_id' => $request->nationality_id,
-                ]);
-            }
 
             DB::commit();
             return redirect()->back()->with('success', 'تم تحديث المستخدم بنجاح');

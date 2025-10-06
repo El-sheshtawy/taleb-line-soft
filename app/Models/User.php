@@ -41,11 +41,12 @@ class User extends Authenticatable
             case 'school':
                 return $this->hasOne(SchoolAccount::class, 'user_id');
             case 'teacher':
+                return $this->hasOne(Teacher::class, 'user_id');
             case 'مراقب':
             case 'مشرف':
-                return $this->hasOne(Teacher::class, 'user_id');
+                return null; // No profile for viewers/supervisors
             default:
-                return $this->hasOne(Teacher::class, 'user_id');
+                return null;
         }
     }
     
