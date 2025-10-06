@@ -15,33 +15,34 @@
     
     <style>
         @media (max-width: 768px) {
-            .table th:nth-child(2),
-            .table td:nth-child(2) {
-                width: 35% !important;
-                max-width: 35% !important;
-                font-size: 12px !important;
-                word-wrap: break-word;
-                white-space: normal;
-            }
-            
             .table th:nth-child(1),
             .table td:nth-child(1) {
                 width: 8% !important;
-                font-size: 12px !important;
+                font-size: 11px !important;
+            }
+            
+            .table th:nth-child(2),
+            .table td:nth-child(2) {
+                width: 45% !important;
+                max-width: 45% !important;
+                font-size: 11px !important;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
             
             .table th:nth-child(3),
             .table td:nth-child(3),
             .table th:nth-child(4),
             .table td:nth-child(4) {
-                width: 15% !important;
-                font-size: 12px !important;
+                width: 12% !important;
+                font-size: 10px !important;
             }
             
             .table th:nth-child(5),
             .table td:nth-child(5) {
-                width: 27% !important;
-                font-size: 11px !important;
+                width: 23% !important;
+                font-size: 10px !important;
             }
         }
     </style>
