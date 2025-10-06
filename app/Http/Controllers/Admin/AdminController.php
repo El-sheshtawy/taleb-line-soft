@@ -25,12 +25,11 @@ class AdminController extends Controller
         $schoolAccountSubscriptions = SchoolAccountSubscription::with('schoolAccount')->get();
         $academicYears = AcademicYear::orderBy('created_at')->get();
         $admins = User::where('user_type', 'admin')->with('admin')->get();
-        $specialUsers = User::whereIn('user_type', ['مراقب', 'مشرف'])
-            ->with(['profile.nationality', 'profile.school'])
-            ->get();
+        $specialUsers = User::whereIn('user_type', ['مراقب', 'مشرف'])->get();
         
         // Load school data for each user
         foreach($specialUsers as $user) {
+            $user->profile = $user->profile();
             if($user->school_id) {
                 $user->school = SchoolAccount::find($user->school_id);
             } elseif($user->profile && $user->profile->school_id) {
