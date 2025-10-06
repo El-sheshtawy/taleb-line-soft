@@ -92,8 +92,13 @@ class SpecialUserController extends Controller
             }
 
             \Log::info('Updating user with data: ', $updateData);
-            $userUpdated = $user->update($updateData);
-            \Log::info('User update result: ' . ($userUpdated ? 'SUCCESS' : 'FAILED'));
+            try {
+                $userUpdated = $user->update($updateData);
+                \Log::info('User update result: ' . ($userUpdated ? 'SUCCESS' : 'FAILED'));
+            } catch (\Exception $e) {
+                \Log::error('User update failed with error: ' . $e->getMessage());
+                throw $e;
+            }
             
             // Update profile
             if ($profile) {
