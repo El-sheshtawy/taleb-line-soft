@@ -159,7 +159,7 @@ class StudentController extends Controller
                 ]);
 	        }
     	 
-            $student->update(array_filter($validated));
+            $student->update($validated);
     	
     	    DB::commit();
             return redirect()->route('school.index', ['tab' => 'students-tab'])->with('success', 'تم تعديل بيانات الطالب بنجاح');
