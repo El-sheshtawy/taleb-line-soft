@@ -107,28 +107,59 @@ class SpecialUserController extends Controller
 
     public function destroy(User $user)
     {
+        \Log::info('=== STARTING USER DELETION ===');
+        \Log::info('User ID: ' . $user->id);
+        \Log::info('User Type: ' . $user->user_type);
+        \Log::info('Username: ' . $user->username);
+        
         DB::beginTransaction();
 
         try {
+            // Check if user exists before deletion
+            $userExists = User::find($user->id);
+            \Log::info('User exists before deletion: ' . ($userExists ? 'YES' : 'NO'));
+            
             // Handle foreign key constraints for special users
             if (in_array($user->user_type, ['مراقب', 'مشرف'])) {
                 $teacher = Teacher::where('user_id', $user->id)->first();
+                \Log::info('Teacher found: ' . ($teacher ? 'YES (ID: ' . $teacher->id . ')' : 'NO'));
+                
                 if ($teacher) {
-                    // Set teacher_id to NULL in student_sessions to avoid foreign key constraint
-                    DB::table('student_sessions')->where('teacher_id', $teacher->id)->update(['teacher_id' => null]);
+                    // Check student sessions before update
+                    $sessionsCount = DB::table('student_sessions')->where('teacher_id', $teacher->id)->count();
+                    \Log::info('Student sessions found: ' . $sessionsCount);
+                    
+                    // Set teacher_id to NULL in student_sessions
+                    $updated = DB::table('student_sessions')->where('teacher_id', $teacher->id)->update(['teacher_id' => null]);
+                    \Log::info('Student sessions updated: ' . $updated);
                     
                     // Delete teacher profile
-                    $teacher->delete();
+                    $teacherDeleted = $teacher->delete();
+                    \Log::info('Teacher deleted: ' . ($teacherDeleted ? 'YES' : 'NO'));
                 }
             }
             
             // Delete the user
-            $user->delete();
+            \Log::info('Attempting to delete user...');
+            $userDeleted = $user->delete();
+            \Log::info('User delete() returned: ' . ($userDeleted ? 'TRUE' : 'FALSE'));
+            
+            // Check if user still exists after deletion
+            $userStillExists = User::find($user->id);
+            \Log::info('User still exists after deletion: ' . ($userStillExists ? 'YES' : 'NO'));
+            
+            // Check total user count
+            $totalUsers = User::whereIn('user_type', ['مراقب', 'مشرف'])->count();
+            \Log::info('Total special users remaining: ' . $totalUsers);
 
             DB::commit();
+            \Log::info('=== TRANSACTION COMMITTED ===');
             return redirect()->back()->with('success', 'تم حذف المستخدم بنجاح');
         } catch (\Exception $e) {
             DB::rollBack();
+            \Log::error('=== DELETION FAILED ===');
+            \Log::error('Error: ' . $e->getMessage());
+            \Log::error('Stack trace: ' . $e->getTraceAsString());
             return redirect()->back()->with('error', 'حدث خطأ أثناء حذف المستخدم: ' . $e->getMessage());
         }
     }
