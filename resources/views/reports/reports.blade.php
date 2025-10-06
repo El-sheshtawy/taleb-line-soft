@@ -12,6 +12,39 @@
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('css/responsive_min.css') }}" rel="stylesheet">
+    
+    <style>
+        @media (max-width: 768px) {
+            .table th:nth-child(2),
+            .table td:nth-child(2) {
+                width: 35% !important;
+                max-width: 35% !important;
+                font-size: 12px !important;
+                word-wrap: break-word;
+                white-space: normal;
+            }
+            
+            .table th:nth-child(1),
+            .table td:nth-child(1) {
+                width: 8% !important;
+                font-size: 12px !important;
+            }
+            
+            .table th:nth-child(3),
+            .table td:nth-child(3),
+            .table th:nth-child(4),
+            .table td:nth-child(4) {
+                width: 15% !important;
+                font-size: 12px !important;
+            }
+            
+            .table th:nth-child(5),
+            .table td:nth-child(5) {
+                width: 27% !important;
+                font-size: 11px !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
