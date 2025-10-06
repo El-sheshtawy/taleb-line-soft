@@ -21,7 +21,7 @@
         <div class="appOne" style="background: #fff;">
             <div class="guarantor">
                 <div class="title" style="color:#fff;background:#555;display:flex; justify-content:center;align-items:center">
-                    <h5><span style="color:#75f98c;"><i class="ri-shield-user-fill"></i>تقارير الغياب</span></h5>
+                    <h5><span style="color:#75f98c;"><i class="ri-shield-user-fill"></i>تقارير الغياب اليومي</span></h5>
                 </div>
                 <p>هذه الصفحة تمكنكم من متابعة حضور الطلاب</p>
             </div>
@@ -58,7 +58,11 @@
                             <td class="p-1">{{ $student->grade->name ?? '-' }}</td>
                             <td class="p-1">{{ $student->classRoom->name ?? '-' }}</td>
                             <td class="p-1 {{ $student->total_absences > 0 ? 'text-danger fw-bold' : 'text-success' }}">
-                                {{ $student->total_absences }}
+                                <a href="{{ route('student.followup.record', $student->id) }}" 
+                                   class="text-decoration-none {{ $student->total_absences > 0 ? 'text-danger fw-bold' : 'text-success' }}" 
+                                   target="_blank">
+                                    {{ $student->total_absences }}
+                                </a>
                             </td>
                         </tr>
                         @endforeach
