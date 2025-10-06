@@ -105,8 +105,8 @@
                                         <a href="#" class="text-{{$student->gender ? 'danger' : 'primary'}} view-student-btn" 
                                            data-bs-toggle="modal" data-bs-target="#studentDetailsModal"
                                            data-student-name="{{ $student->name }}"
-                                           data-student-passport="{{ $student->passport_id }}"
-                                           data-student-phone="{{ $student->phone_number }}"
+                                           @if(auth()->user()->user_type == 'school' || !$school->hide_passport_id) data-student-passport="{{ $student->passport_id }}" @endif
+                                           @if(auth()->user()->user_type == 'school' || !$school->hide_phone1) data-student-phone="{{ $student->phone_number }}" @endif
                                            data-student-gender="{{ $student->gender ? 'ذكر' : 'أنثى' }}"
                                            data-student-grade="{{ $student->grade->name ?? '' }}"
                                            data-student-class="{{ $student->classRoom->name ?? '' }}"
@@ -116,6 +116,9 @@
                                     </p>
                                     @if(auth()->user()->user_type == 'school' || !$school->hide_passport_id)
                                         <p><strong>الرقم المدني :</strong> {{ $student->passport_id }}</p>
+                                    @endif
+                                    @if(auth()->user()->user_type == 'school' || !$school->hide_phone1)
+                                        <p><strong>رقم الهاتف :</strong> {{ $student->phone_number }}</p>
                                     @endif
                                     <p><strong>الملاحظة :</strong> <span class="text-secondary">{{ $student->note}}</span></p>
                                 </div>

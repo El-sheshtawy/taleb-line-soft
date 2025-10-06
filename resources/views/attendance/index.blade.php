@@ -188,8 +188,8 @@
                                                    data-bs-toggle="modal" data-bs-target="#studentDetailsModal"
                                                    data-student-name="{{ $student->name }}"
                                                    @if(auth()->user()->user_type === 'school')
-                                                   data-student-passport="{{ $student->passport_id }}"
-                                                   data-student-phone="{{ $student->phone_number }}"
+                                                   @if(auth()->user()->user_type == 'school' || !$school->hide_passport_id) data-student-passport="{{ $student->passport_id }}" @endif
+                                                   @if(auth()->user()->user_type == 'school' || !$school->hide_phone1) data-student-phone="{{ $student->phone_number }}" @endif
                                                    @endif
                                                    data-student-gender="{{ $student->gender ? 'ذكر' : 'أنثى' }}"
                                                    data-student-grade="{{ $student->grade->name ?? '' }}"

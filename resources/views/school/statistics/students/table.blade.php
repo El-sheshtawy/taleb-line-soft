@@ -113,9 +113,12 @@
                     @if(!in_array(auth()->user()->user_type, ['مراقب']))
                     <div class="mb-3 col-md-6">
                         <label class="form-label fw-bold text-primary">الرقم المدني:</label>
-                        <div class="form-control bg-light border-0 shadow-sm">{{ $student->passport_id }}</div>
+                        @if(auth()->user()->user_type == 'school' || !$school->hide_passport_id)
+                            <div class="form-control bg-light border-0 shadow-sm">{{ $student->passport_id }}</div>
+                        @endif
                     </div>
 
+                    @if(auth()->user()->user_type == 'school' || !$school->hide_phone1)
                     <div class="mb-3 col-md-6">
                         <label class="form-label fw-bold text-primary">رقم الهاتف:</label>
                         <div class="form-control bg-light border-0 shadow-sm">{{ $student->phone_number }}</div>
@@ -125,6 +128,7 @@
                         <label class="form-label fw-bold text-primary">رقم هاتف إضافي:</label>
                         <div class="form-control bg-light border-0 shadow-sm">{{ $student->phone_number_2 }}</div>
                     </div>
+                    @endif
                     @endif
 
                     <div class="mb-3 col-md-6">

@@ -83,9 +83,62 @@
         @include('layouts.footer')
     </div>
 
+    <!-- Student Record Modal -->
+    <div class="modal fade" id="studentRecordModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">سجل متابعة الطالب</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="studentRecordContent">
+                    <div class="text-center">
+                        <div class="spinner-border" role="status">
+                            <span class="visually-hidden">جاري التحميل...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- JS Files -->
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
+    
+    <script>
+        function showStudentRecord(studentId) {
+            const modal = new bootstrap.Modal(document.getElementById('studentRecordModal'));
+            const content = document.getElementById('studentRecordContent');
+            
+            // Show loading
+            content.innerHTML = '<div class="text-center"><div class="spinner-border" role="status"><span class="visually-hidden">جاري التحميل...</span></div></div>';
+            modal.show();
+            
+            // Fetch student record using the same route as teacher page
+            const url = `{{ route('student.followup.record', ['student' => ':studentId']) }}`.replace(':studentId', studentId);
+            
+            fetch(url, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'X-CSRF-TOKEN': "{{ csrf_token() }}",
+                    'Accept': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.html) {
+                    content.innerHTML = data.html;
+                } else {
+                    content.innerHTML = '<div class="alert alert-warning">لا توجد بيانات متابعة لهذا الطالب</div>';
+                }
+            })
+            .catch(error => {
+                console.error('Error loading follow-up record:', error);
+                content.innerHTML = '<div class="alert alert-danger">حدث خطأ أثناء تحميل سجل المتابعة</div>';
+            });
+        }
+    </script>
 </body>
 </html>
