@@ -59,6 +59,21 @@
             .modal-body {
                 padding: 10px !important;
             }
+            
+            .modal-body table th:first-child,
+            .modal-body table td:first-child {
+                width: 25% !important;
+            }
+            
+            .modal-body table th:nth-child(n+2):nth-child(-n+8),
+            .modal-body table td:nth-child(n+2):nth-child(-n+8) {
+                width: 9% !important;
+            }
+            
+            .modal-body table th:last-child,
+            .modal-body table td:last-child {
+                width: 12% !important;
+            }
         }
     </style>
 </head>
