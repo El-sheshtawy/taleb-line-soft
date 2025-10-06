@@ -91,37 +91,18 @@ class SpecialUserController extends Controller
                 $updateData['plain_password'] = $request->password;
             }
 
-            \Log::info('Updating user with data: ', $updateData);
-            try {
-                \Log::info('Current user data before update: ', $user->toArray());
-                $userUpdated = $user->update($updateData);
-                \Log::info('User update result: ' . ($userUpdated ? 'SUCCESS' : 'FAILED'));
-                $freshUser = $user->fresh();
-                if ($freshUser) {
-                    \Log::info('User data after update: ', $freshUser->toArray());
-                } else {
-                    \Log::info('User not found after update');
-                }
-            } catch (\Exception $e) {
-                \Log::error('User update failed with error: ' . $e->getMessage());
-                throw $e;
-            }
+            $user->update($updateData);
             
             // Update profile
             if ($profile) {
-                $profileData = [
+                $profile->update([
                     'name' => $request->name,
                     'phone_number' => $request->phone_number,
                     'subject' => $request->subject ?? 'عام',
                     'passport_id' => $request->passport_id,
                     'school_id' => $request->school_id,
                     'nationality_id' => $request->nationality_id,
-                ];
-                \Log::info('Updating profile with data: ', $profileData);
-                $profileUpdated = $profile->update($profileData);
-                \Log::info('Profile update result: ' . ($profileUpdated ? 'SUCCESS' : 'FAILED'));
-            } else {
-                \Log::error('No profile found for user: ' . $user->id);
+                ]);
             }
             
             // Update school account with viewer/supervisor info
