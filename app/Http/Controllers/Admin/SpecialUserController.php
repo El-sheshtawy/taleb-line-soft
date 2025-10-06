@@ -118,7 +118,8 @@ class SpecialUserController extends Controller
                 }
             }
             
-            $user->delete();
+            // Force delete the user
+            $user->forceDelete();
 
             DB::commit();
             return redirect()->back()->with('success', 'تم حذف المستخدم بنجاح');
