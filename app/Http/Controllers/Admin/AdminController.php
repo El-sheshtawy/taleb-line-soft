@@ -11,6 +11,7 @@ use App\Models\FollowUp;
 use App\Models\SchoolAccountSubscription;
 use App\Models\AcademicYear;
 use App\Models\User;
+use App\Models\Teacher;
 use App\Models\Nationality;
 use App\Models\SystemAccessSetting;
 
@@ -30,6 +31,23 @@ class AdminController extends Controller
         // Load school data for each user
         foreach($specialUsers as $user) {
             $user->load('profile');
+            
+            // Create Teacher profile if doesn't exist
+            if (!$user->profile) {
+                Teacher::create([
+                    'name' => $user->username,
+                    'passport_id' => '000000000000',
+                    'phone_number' => '',
+                    'subject' => 'عام',
+                    'head_of_department' => false,
+                    'supervisor' => false,
+                    'school_id' => $user->school_id,
+                    'user_id' => $user->id,
+                    'nationality_id' => 1,
+                ]);
+                $user->load('profile');
+            }
+            
             if($user->school_id) {
                 $user->school = SchoolAccount::find($user->school_id);
             } elseif($user->profile && $user->profile->school_id) {
