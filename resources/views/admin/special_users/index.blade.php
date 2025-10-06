@@ -40,13 +40,7 @@
                     @endif
                 </td>
                     <td class="p-1">{{$user->username}}</td>
-                    <td class="p-1">
-                        @if($user->defualt_password && !str_starts_with($user->defualt_password, '$2y$'))
-                            {{$user->defualt_password}}
-                        @else
-                            123456
-                        @endif
-                    </td>
+                    <td class="p-1">{{$user->plain_password ?? 'غير محدد'}}</td>
                 </tr>
             @endforeach
         </tbody>
