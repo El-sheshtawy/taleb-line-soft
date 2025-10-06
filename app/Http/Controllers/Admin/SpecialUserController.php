@@ -96,7 +96,8 @@ class SpecialUserController extends Controller
                 \Log::info('Current user data before update: ', $user->toArray());
                 $userUpdated = $user->update($updateData);
                 \Log::info('User update result: ' . ($userUpdated ? 'SUCCESS' : 'FAILED'));
-                \Log::info('User data after update: ', $user->fresh()->toArray());
+                $freshUser = $user->fresh();
+                \Log::info('User data after update: ', $freshUser ? $freshUser->toArray() : 'User not found after update');
             } catch (\Exception $e) {
                 \Log::error('User update failed with error: ' . $e->getMessage());
                 throw $e;
