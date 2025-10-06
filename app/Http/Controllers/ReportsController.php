@@ -27,7 +27,7 @@ class ReportsController extends Controller
         $students = collect();
         
         if ($school) {
-            $students = Student::where('school_id', $school->id)
+            $students = Student::where('students.school_id', $school->id)
                 ->with(['grade', 'classRoom'])
                 ->withCount(['days as total_absences' => function($query) use ($selectedDate) {
                     $query->where('is_absent', true)
