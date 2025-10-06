@@ -8,6 +8,7 @@
                 <th class="p-1 text-center">النوع</th>
                 <th class="p-1 text-center">المدرسة</th>
                 <th class="p-1 text-center">اسم المستخدم</th>
+                <th class="p-1 text-center">كلمة المرور</th>
             </tr>
         </thead>
         <tbody>
@@ -39,6 +40,7 @@
                     @endif
                 </td>
                     <td class="p-1">{{$user->username}}</td>
+                    <td class="p-1">{{$user->defualt_password ? '********' : 'غير محدد'}}</td>
                 </tr>
             @endforeach
         </tbody>
