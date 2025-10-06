@@ -74,11 +74,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Add delete confirmation
 function confirmDelete() {
-    console.log('Delete function called');
-    const form = document.getElementById('deleteSpecialUserForm');
-    console.log('Form action:', form.action);
     if (confirm('هل أنت متأكد من حذف هذا المستخدم؟')) {
-        console.log('Submitting form');
+        const form = document.getElementById('deleteSpecialUserForm');
+        
+        // Add event listener to reload page after form submission
+        form.addEventListener('submit', function() {
+            setTimeout(function() {
+                window.location.reload();
+            }, 1000);
+        });
+        
         form.submit();
     }
 }
