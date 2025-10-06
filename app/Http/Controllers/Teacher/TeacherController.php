@@ -38,11 +38,11 @@ class TeacherController extends Controller
         $date = $validated['date'] ?? $today;
         
         $user = Auth::user();
-        $teacher = in_array($user->user_type, ['teacher', 'مراقب', 'مشرف']) ? $user->profile : null;
+        $teacher = $user->user_type == 'teacher' ? $user->profile : null;
         $school = $user->getSchool();
-        $teachers = $school->teachers;
+        $teachers = $school ? $school->teachers : collect();
         
-        $school_absent_item = $school->followUp->getAbsent();
+        $school_absent_item = $school && $school->followUp ? $school->followUp->getAbsent() : null;
         
         // Check if no filters are provided
         if (!$request->filled('grade_id') && !$request->filled('class_id')) {
@@ -51,9 +51,9 @@ class TeacherController extends Controller
             $sessions = collect();
         } else {
             // Base query for students
-            $studentsQuery = Student::with(['user', 'classRoom', 'grade', 'school'])
+            $studentsQuery = $school ? Student::with(['user', 'classRoom', 'grade', 'school'])
                 ->where('school_id', $school->id)
-                 ->orderBy('name', 'asc');
+                 ->orderBy('name', 'asc') : Student::whereRaw('1 = 0');
             
             // Apply grade filter if provided
             if ($request->filled('grade_id')) {
@@ -95,10 +95,10 @@ class TeacherController extends Controller
         }
         
         // Get other required data
-        $followUp = $school->followUp()->with('items')->first();
-        $classes = ClassRoom::with('grade')->where('school_id', $school->id)->get();
+        $followUp = $school ? $school->followUp()->with('items')->first() : null;
+        $classes = $school ? ClassRoom::with('grade')->where('school_id', $school->id)->get() : collect();
         $academicYears = AcademicYear::all();
-        $grades = Grade::where('level_id', $school->level_id)->get();
+        $grades = $school ? Grade::where('level_id', $school->level_id)->get() : collect();
         $levels = Level::all();
         
         return view('teacher.teacher', compact(

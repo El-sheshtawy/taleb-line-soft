@@ -82,9 +82,7 @@ Route::get('/home', function () {
 Route::get('/father', function () {
     return view('fathers.fathers');
 });
-Route::get('/report', function () {
-    return view('reports.reports');
-});
+Route::get('/report', [\App\Http\Controllers\ReportsController::class, 'index'])->name('reports.index');
 
 Route::middleware('guest')->group(function(){
     Route::get('/login', [AuthController::class, 'login'])->name('login');

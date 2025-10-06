@@ -64,7 +64,12 @@
             return;
         }
         
-        const schoolId = {{$school->id}}
+        const schoolId = {{ $school ? $school->id : 'null' }};
+        
+        if (!schoolId) {
+            classSelect.innerHTML = '<option value="">لا يوجد مدرسة محددة</option>';
+            return;
+        }
     
         classSelect.innerHTML = '<option value="">جاري التحميل...</option>';
         classSelect.disabled = true;
