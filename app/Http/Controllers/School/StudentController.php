@@ -152,7 +152,7 @@ class StudentController extends Controller
     	    
     	try{
     	    
-	     if ($student->passport_id !== $request->passport_id || $student->phone_number !== $request->phone_number) {
+	     if ($request->passport_id && ($student->passport_id !== $request->passport_id || $student->phone_number !== $request->phone_number)) {
                 $student->user->update([
                     'username' => $request->passport_id,
                     'password' => Hash::make($request->phone_number ?? $school->students_default_password ?? '123456789'),
