@@ -70,7 +70,7 @@ class SpecialUserController extends Controller
             'name' => 'required|string|max:255',
             'passport_id' => 'required|digits:12|unique:teachers,passport_id,' . $profileId,
             'phone_number' => 'nullable|digits:8',
-            'username' => 'required|string|unique:users,username,' . $user->id,
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
             'password' => 'nullable|string|min:6',
             'subject' => 'nullable|string|max:255',
             'nationality_id' => 'required|exists:nationalities,id',
@@ -93,8 +93,10 @@ class SpecialUserController extends Controller
 
             \Log::info('Updating user with data: ', $updateData);
             try {
+                \Log::info('Current user data before update: ', $user->toArray());
                 $userUpdated = $user->update($updateData);
                 \Log::info('User update result: ' . ($userUpdated ? 'SUCCESS' : 'FAILED'));
+                \Log::info('User data after update: ', $user->fresh()->toArray());
             } catch (\Exception $e) {
                 \Log::error('User update failed with error: ' . $e->getMessage());
                 throw $e;
