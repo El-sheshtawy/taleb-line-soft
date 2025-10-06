@@ -110,35 +110,25 @@ class SpecialUserController extends Controller
         DB::beginTransaction();
 
         try {
-            \Log::info('Attempting to delete user: ' . $user->id . ' - ' . $user->username);
-            
-            // Delete associated teacher profile if exists
+            // Handle foreign key constraints for special users
             if (in_array($user->user_type, ['مراقب', 'مشرف'])) {
                 $teacher = Teacher::where('user_id', $user->id)->first();
                 if ($teacher) {
-                    \Log::info('Deleting teacher profile: ' . $teacher->id);
+                    // Set teacher_id to NULL in student_sessions to avoid foreign key constraint
+                    DB::table('student_sessions')->where('teacher_id', $teacher->id)->update(['teacher_id' => null]);
+                    
+                    // Delete teacher profile
                     $teacher->delete();
                 }
             }
             
-            // Delete the user - check if soft deletes are used
-            \Log::info('Deleting user: ' . $user->id);
-            if (method_exists($user, 'forceDelete')) {
-                $deleted = $user->forceDelete();
-            } else {
-                $deleted = $user->delete();
-            }
-            \Log::info('User deletion result: ' . ($deleted ? 'success' : 'failed'));
-            
-            // Verify user is actually deleted
-            $userExists = User::find($user->id);
-            \Log::info('User still exists after deletion: ' . ($userExists ? 'yes' : 'no'));
+            // Delete the user
+            $user->delete();
 
             DB::commit();
             return redirect()->back()->with('success', 'تم حذف المستخدم بنجاح');
         } catch (\Exception $e) {
             DB::rollBack();
-            \Log::error('Error deleting user: ' . $e->getMessage());
             return redirect()->back()->with('error', 'حدث خطأ أثناء حذف المستخدم: ' . $e->getMessage());
         }
     }
