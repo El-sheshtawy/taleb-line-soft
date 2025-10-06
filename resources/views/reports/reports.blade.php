@@ -23,8 +23,8 @@
             
             .table th:nth-child(2),
             .table td:nth-child(2) {
-                width: 35% !important;
-                max-width: 35% !important;
+                width: 25% !important;
+                max-width: 25% !important;
                 font-size: 11px !important;
                 white-space: nowrap;
                 overflow: hidden;
@@ -35,13 +35,13 @@
             .table td:nth-child(3),
             .table th:nth-child(4),
             .table td:nth-child(4) {
-                width: 12% !important;
+                width: 15% !important;
                 font-size: 10px !important;
             }
             
             .table th:nth-child(5),
             .table td:nth-child(5) {
-                width: 33% !important;
+                width: 37% !important;
                 font-size: 10px !important;
             }
             
@@ -92,10 +92,10 @@
                     <thead>
                         <tr class="text-center">
                             <th class="p-1">م</th>
-                            <th class="p-1">اسم الطالب</th>
-                            <th class="p-1">الصف</th>
-                            <th class="p-1">الفصل</th>
-                            <th class="p-1">عدد أيام الغياب السابقة</th>
+                            <th class="p-1">الاسم</th>
+                            <th class="p-1">صف</th>
+                            <th class="p-1">فصل</th>
+                            <th class="p-1">غياب</th>
                         </tr>
                     </thead>
                     <tbody>
