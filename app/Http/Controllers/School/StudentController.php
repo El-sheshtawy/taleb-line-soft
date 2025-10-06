@@ -122,9 +122,9 @@ class StudentController extends Controller
     public function update(Request $request, Student $student)
     {
         $user = Auth::user();
-        $school = $user->profile;
-        if($user->user_type != 'school' || !$school) return back()->with('error', 'لا يوجد مدارس في السيستم');
-        if($student->school_id != $school->id) abor(403, "unauthorized action");
+        $school = $user->user_type == 'school' ? $user->profile : $user->getSchool();
+        if(!$school) return back()->with('error', 'لا يوجد مدارس في السيستم');
+        if($student->school_id != $school->id) abort(403, "unauthorized action");
         
         $validated = $request->validate([
             'name' => 'required|string|max:255',
