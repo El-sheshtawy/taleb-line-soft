@@ -110,21 +110,27 @@ class SpecialUserController extends Controller
         DB::beginTransaction();
 
         try {
+            \Log::info('Attempting to delete user: ' . $user->id . ' - ' . $user->username);
+            
             // Delete associated teacher profile if exists
             if (in_array($user->user_type, ['مراقب', 'مشرف'])) {
                 $teacher = Teacher::where('user_id', $user->id)->first();
                 if ($teacher) {
+                    \Log::info('Deleting teacher profile: ' . $teacher->id);
                     $teacher->delete();
                 }
             }
             
-            // Force delete the user
-            $user->forceDelete();
+            // Delete the user
+            \Log::info('Deleting user: ' . $user->id);
+            $deleted = $user->delete();
+            \Log::info('User deletion result: ' . ($deleted ? 'success' : 'failed'));
 
             DB::commit();
             return redirect()->back()->with('success', 'تم حذف المستخدم بنجاح');
         } catch (\Exception $e) {
             DB::rollBack();
+            \Log::error('Error deleting user: ' . $e->getMessage());
             return redirect()->back()->with('error', 'حدث خطأ أثناء حذف المستخدم: ' . $e->getMessage());
         }
     }
