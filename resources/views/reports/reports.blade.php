@@ -105,12 +105,9 @@
                             <td class="p-1">{{ $student->name }}</td>
                             <td class="p-1">{{ $student->grade->name ?? '-' }}</td>
                             <td class="p-1">{{ $student->classRoom->name ?? '-' }}</td>
-                            <td class="p-1 {{ $student->total_absences > 0 ? 'text-danger fw-bold' : 'text-success' }}">
-                                <a href="#" 
-                                   class="text-decoration-none {{ $student->total_absences > 0 ? 'text-danger fw-bold' : 'text-success' }}" 
-                                   onclick="showStudentRecord({{ $student->id }})">
-                                    {{ $student->total_absences }}
-                                </a>
+                            <td class="p-1 {{ $student->total_absences > 0 ? 'text-danger fw-bold' : 'text-success' }}" 
+                                style="cursor: pointer;" onclick="showStudentRecord({{ $student->id }})">
+                                {{ $student->total_absences }}
                             </td>
                         </tr>
                         @endforeach
