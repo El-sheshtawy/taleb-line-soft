@@ -159,13 +159,13 @@ class StudentController extends Controller
                 ]);
 	        }
     	 
-            $student->update($validated);
+            $student->update(array_filter($validated));
     	
     	    DB::commit();
-            return redirect()->route('school.index', ['grade_id' => $request->grade_id, 'class_id' => $request->class_id])->with('success', 'تم تعديل بيانات الطالب بنجاح');
+            return redirect()->route('school.index', ['tab' => 'students-tab'])->with('success', 'تم تعديل بيانات الطالب بنجاح');
     	} catch (\Exception $e) {
             DB::rollBack(); 
-            return redirect()->route('school.index', ['grade_id' => $request->grade_id, 'class_id' => $request->class_id])->with('error', 'حدث خطأ أثناء تعديل بيانات الطالب: ' . $e->getMessage());
+            return redirect()->route('school.index', ['tab' => 'students-tab'])->with('error', 'حدث خطأ أثناء تعديل بيانات الطالب: ' . $e->getMessage());
         }
     }
 
