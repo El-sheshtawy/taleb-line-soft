@@ -126,6 +126,11 @@ class StudentController extends Controller
         if(!$school) return back()->with('error', 'لا يوجد مدارس في السيستم');
         if($student->school_id != $school->id) abort(403, "unauthorized action");
         
+        // Convert empty nationality_id to null
+        if ($request->nationality_id === '') {
+            $request->merge(['nationality_id' => null]);
+        }
+        
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'passport_id' => 'nullable|digits:12|unique:students,passport_id,' . $student->id,

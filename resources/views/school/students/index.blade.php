@@ -197,14 +197,21 @@ document.addEventListener("DOMContentLoaded", function () {
             
             let studentClassId = studentData.class_id;
             
-            document.getElementById("edit_student_name").value = studentData.name;
-            document.getElementById("edit_student_gender").value = studentData.gender;
-            document.getElementById("edit_student_passport_id").value = studentData.passport_id;
-            document.getElementById("edit_student_phone_number").value = studentData.phone_number;
-            document.getElementById("edit_student_phone_number_2").value = studentData.phone_number_2;
-            document.getElementById("edit_student_grade_id").value = studentData.grade_id;
-            document.getElementById("edit_student_nationality_id").value = studentData.nationality_id;
-            document.getElementById("edit_student_note").value = studentData.note;
+            document.getElementById("edit_student_name").value = studentData.name || '';
+            document.getElementById("edit_student_gender").value = studentData.gender || '';
+            
+            const passportField = document.getElementById("edit_student_passport_id");
+            if (passportField) passportField.value = studentData.passport_id || '';
+            
+            const phoneField = document.getElementById("edit_student_phone_number");
+            if (phoneField) phoneField.value = studentData.phone_number || '';
+            
+            const phone2Field = document.getElementById("edit_student_phone_number_2");
+            if (phone2Field) phone2Field.value = studentData.phone_number_2 || '';
+            
+            document.getElementById("edit_student_grade_id").value = studentData.grade_id || '';
+            document.getElementById("edit_student_nationality_id").value = studentData.nationality_id || '';
+            document.getElementById("edit_student_note").value = studentData.note || '';
             
             getGradeClasses(studentData.grade_id, 'edit_student_class_id', function() {
                 if (studentClassId) {
