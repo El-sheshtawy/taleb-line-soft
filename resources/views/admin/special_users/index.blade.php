@@ -74,8 +74,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Add delete confirmation
 function confirmDelete() {
+    console.log('Delete function called');
+    const form = document.getElementById('deleteSpecialUserForm');
+    console.log('Form action:', form.action);
     if (confirm('هل أنت متأكد من حذف هذا المستخدم؟')) {
-        document.getElementById('deleteSpecialUserForm').submit();
+        console.log('Submitting form');
+        form.submit();
     }
 }
 </script>
