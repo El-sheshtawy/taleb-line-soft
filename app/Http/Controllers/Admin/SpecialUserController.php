@@ -68,12 +68,8 @@ class SpecialUserController extends Controller
             'user_type' => 'required|in:مراقب,مشرف',
             'school_id' => 'required|exists:school_accounts,id',
             'name' => 'required|string|max:255',
-            'passport_id' => 'required|digits:12|unique:teachers,passport_id,' . $profileId,
-            'phone_number' => 'nullable|digits:8',
             'username' => 'required|string|max:255|unique:users,username,' . $user->id,
             'password' => 'nullable|string|min:6',
-            'subject' => 'nullable|string|max:255',
-            'nationality_id' => 'required|exists:nationalities,id',
         ]);
 
         DB::beginTransaction();
@@ -123,6 +119,24 @@ class SpecialUserController extends Controller
             } else {
                 \Log::error('No profile found for user: ' . $user->id);
             }
+            
+            // Update school account with viewer/supervisor info
+            if ($request->school_id) {
+                $school = SchoolAccount::find($request->school_id);
+                if ($school) {
+                    if ($request->user_type === 'مراقب') {
+                        $school->update([
+                            'viewer_name' => $request->name,
+                            'viewer_password' => $request->filled('password') ? $request->password : $school->viewer_password
+                        ]);
+                    } elseif ($request->user_type === 'مشرف') {
+                        $school->update([
+                            'supervisor_name' => $request->name,
+                            'supervisor_password' => $request->filled('password') ? $request->password : $school->supervisor_password
+                        ]);
+                    }
+                }
+            }
 
             DB::commit();
             return redirect()->back()->with('success', 'تم تحديث المستخدم بنجاح');
@@ -169,6 +183,24 @@ class SpecialUserController extends Controller
                     // Delete teacher profile
                     $teacherDeleted = $teacher->delete();
                     \Log::info('Teacher deleted: ' . ($teacherDeleted ? 'YES' : 'NO'));
+                }
+            }
+            
+            // Update school account to remove viewer/supervisor info
+            if ($user->school_id) {
+                $school = SchoolAccount::find($user->school_id);
+                if ($school) {
+                    if ($user->user_type === 'مراقب') {
+                        $school->update([
+                            'viewer_name' => null,
+                            'viewer_password' => null
+                        ]);
+                    } elseif ($user->user_type === 'مشرف') {
+                        $school->update([
+                            'supervisor_name' => null,
+                            'supervisor_password' => null
+                        ]);
+                    }
                 }
             }
             
