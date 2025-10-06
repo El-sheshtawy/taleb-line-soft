@@ -91,18 +91,25 @@ class SpecialUserController extends Controller
                 $updateData['plain_password'] = $request->password;
             }
 
-            $user->update($updateData);
+            \Log::info('Updating user with data: ', $updateData);
+            $userUpdated = $user->update($updateData);
+            \Log::info('User update result: ' . ($userUpdated ? 'SUCCESS' : 'FAILED'));
             
             // Update profile
             if ($profile) {
-                $profile->update([
+                $profileData = [
                     'name' => $request->name,
                     'phone_number' => $request->phone_number,
                     'subject' => $request->subject ?? 'عام',
                     'passport_id' => $request->passport_id,
                     'school_id' => $request->school_id,
                     'nationality_id' => $request->nationality_id,
-                ]);
+                ];
+                \Log::info('Updating profile with data: ', $profileData);
+                $profileUpdated = $profile->update($profileData);
+                \Log::info('Profile update result: ' . ($profileUpdated ? 'SUCCESS' : 'FAILED'));
+            } else {
+                \Log::error('No profile found for user: ' . $user->id);
             }
 
             DB::commit();
