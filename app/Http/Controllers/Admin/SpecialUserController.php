@@ -61,7 +61,7 @@ class SpecialUserController extends Controller
 
     public function update(Request $request, User $user)
     {
-        $profile = $user->profile()->first();
+        $profile = Teacher::where('user_id', $user->id)->first();
         $profileId = $profile ? $profile->id : 0;
         
         $request->validate([
@@ -93,7 +93,7 @@ class SpecialUserController extends Controller
 
             $user->update($updateData);
             
-            // Update profile if exists
+            // Update profile
             if ($profile) {
                 $profile->update([
                     'name' => $request->name,
