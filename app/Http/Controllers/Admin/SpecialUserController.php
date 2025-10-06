@@ -61,11 +61,14 @@ class SpecialUserController extends Controller
 
     public function update(Request $request, User $user)
     {
+        $profile = $user->profile()->first();
+        $profileId = $profile ? $profile->id : 0;
+        
         $request->validate([
             'user_type' => 'required|in:مراقب,مشرف',
             'school_id' => 'required|exists:school_accounts,id',
             'name' => 'required|string|max:255',
-            'passport_id' => 'required|digits:12|unique:teachers,passport_id,' . $user->profile->id,
+            'passport_id' => 'required|digits:12|unique:teachers,passport_id,' . $profileId,
             'phone_number' => 'nullable|digits:8',
             'username' => 'required|string|unique:users,username,' . $user->id,
             'password' => 'nullable|string|min:6',
@@ -90,14 +93,16 @@ class SpecialUserController extends Controller
 
             $user->update($updateData);
 
-            $user->profile->update([
-                'name' => $request->name,
-                'phone_number' => $request->phone_number,
-                'subject' => $request->subject ?? 'عام',
-                'passport_id' => $request->passport_id,
-                'school_id' => $request->school_id,
-                'nationality_id' => $request->nationality_id,
-            ]);
+            if ($profile) {
+                $profile->update([
+                    'name' => $request->name,
+                    'phone_number' => $request->phone_number,
+                    'subject' => $request->subject ?? 'عام',
+                    'passport_id' => $request->passport_id,
+                    'school_id' => $request->school_id,
+                    'nationality_id' => $request->nationality_id,
+                ]);
+            }
 
             DB::commit();
             return redirect()->back()->with('success', 'تم تحديث المستخدم بنجاح');
