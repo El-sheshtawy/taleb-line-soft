@@ -105,19 +105,24 @@ class SpecialUserController extends Controller
         }
     }
 
-    public function destroy(User $user)
+    public function destroy($id)
     {
         \Log::info('=== STARTING USER DELETION ===');
-        \Log::info('User ID: ' . $user->id);
+        \Log::info('User ID from route: ' . $id);
+        
+        // Find the user by ID
+        $user = User::find($id);
+        if (!$user) {
+            \Log::error('User not found with ID: ' . $id);
+            return redirect()->back()->with('error', 'المستخدم غير موجود');
+        }
+        
         \Log::info('User Type: ' . $user->user_type);
         \Log::info('Username: ' . $user->username);
         
         DB::beginTransaction();
 
         try {
-            // Check if user exists before deletion
-            $userExists = User::find($user->id);
-            \Log::info('User exists before deletion: ' . ($userExists ? 'YES' : 'NO'));
             
             // Handle foreign key constraints for special users
             if (in_array($user->user_type, ['مراقب', 'مشرف'])) {
