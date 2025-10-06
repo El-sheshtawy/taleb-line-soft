@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" onclick="document.getElementById('deleteSpecialUserForm').submit();">حذف</button>
+                        <button type="button" class="btn btn-danger" onclick="confirmDelete()">حذف</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
                         <button type="submit" class="btn btn-primary">تحديث</button>
                     </div>

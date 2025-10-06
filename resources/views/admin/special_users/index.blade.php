@@ -71,4 +71,11 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 });
+
+// Add delete confirmation
+function confirmDelete() {
+    if (confirm('هل أنت متأكد من حذف هذا المستخدم؟')) {
+        document.getElementById('deleteSpecialUserForm').submit();
+    }
+}
 </script>
