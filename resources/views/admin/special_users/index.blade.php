@@ -40,7 +40,26 @@
                     @endif
                 </td>
                     <td class="p-1">{{$user->username}}</td>
-                    <td class="p-1">{{$user->plain_password ?? 'غير محدد'}}</td>
+                    <td class="p-1">
+                        @php
+                            $school = null;
+                            if($user->school_id) {
+                                $school = App\Models\SchoolAccount::find($user->school_id);
+                            } elseif($user->profile && $user->profile->school_id) {
+                                $school = App\Models\SchoolAccount::find($user->profile->school_id);
+                            }
+                            
+                            $password = 'غير محدد';
+                            if($school) {
+                                if($user->user_type === 'مراقب') {
+                                    $password = $school->viewer_password ?? 'غير محدد';
+                                } elseif($user->user_type === 'مشرف') {
+                                    $password = $school->supervisor_password ?? 'غير محدد';
+                                }
+                            }
+                        @endphp
+                        {{$password}}
+                    </td>
                 </tr>
             @endforeach
         </tbody>
