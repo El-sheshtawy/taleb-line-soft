@@ -76,6 +76,11 @@
                     </div>
 
                 </form>
+                
+                <form id="deleteSpecialUserForm" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
             </div>
         </div>
     </div>

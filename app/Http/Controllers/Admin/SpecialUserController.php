@@ -61,8 +61,12 @@ class SpecialUserController extends Controller
 
     public function update(Request $request, User $user)
     {
+        \Log::info('Update request received for user: ' . $user->id);
+        \Log::info('Request data: ', $request->all());
+        
         $profile = $user->profile()->first();
         $profileId = $profile ? $profile->id : 0;
+        \Log::info('Profile ID: ' . $profileId);
         
         $request->validate([
             'user_type' => 'required|in:مراقب,مشرف',
