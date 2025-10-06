@@ -68,8 +68,12 @@ class SpecialUserController extends Controller
             'user_type' => 'required|in:مراقب,مشرف',
             'school_id' => 'required|exists:school_accounts,id',
             'name' => 'required|string|max:255',
+            'passport_id' => 'required|digits:12|unique:teachers,passport_id,' . $profileId,
+            'phone_number' => 'nullable|digits:8',
             'username' => 'required|string|max:255|unique:users,username,' . $user->id,
             'password' => 'nullable|string|min:6',
+            'subject' => 'nullable|string|max:255',
+            'nationality_id' => 'required|exists:nationalities,id',
         ]);
 
         DB::beginTransaction();
@@ -103,9 +107,21 @@ class SpecialUserController extends Controller
                 throw $e;
             }
             
-            // Update profile name
+            // Update profile
             if ($profile) {
-                $profile->update(['name' => $request->name]);
+                $profileData = [
+                    'name' => $request->name,
+                    'phone_number' => $request->phone_number,
+                    'subject' => $request->subject ?? 'عام',
+                    'passport_id' => $request->passport_id,
+                    'school_id' => $request->school_id,
+                    'nationality_id' => $request->nationality_id,
+                ];
+                \Log::info('Updating profile with data: ', $profileData);
+                $profileUpdated = $profile->update($profileData);
+                \Log::info('Profile update result: ' . ($profileUpdated ? 'SUCCESS' : 'FAILED'));
+            } else {
+                \Log::error('No profile found for user: ' . $user->id);
             }
             
             // Update school account with viewer/supervisor info

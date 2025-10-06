@@ -24,9 +24,26 @@
                                 'username' => $user->username,
                                 'user_type' => $user->user_type,
                                 'school_id' => $user->school_id,
-                                'plain_password' => $user->plain_password,
                                 'profile' => $user->profile ? [
-                                    'name' => $user->profile->name
+                                    'name' => $user->profile->name ?? '',
+                                    'passport_id' => $user->profile->passport_id ?? '',
+                                    'phone_number' => $user->profile->phone_number ?? '',
+                                    'subject' => $user->profile->subject ?? '',
+                                    'school_id' => $user->profile->school_id ?? $user->school_id,
+                                    'nationality_id' => $user->profile->nationality_id ?? ''
+                                ] : [
+                                    'name' => '',
+                                    'passport_id' => '',
+                                    'phone_number' => '',
+                                    'subject' => '',
+                                    'school_id' => $user->school_id,
+                                    'nationality_id' => ''
+                                ],
+                                'school' => $user->school ? [
+                                    'id' => $user->school->id,
+                                    'school_name' => $user->school->school_name,
+                                    'viewer_password' => $user->school->viewer_password,
+                                    'supervisor_password' => $user->school->supervisor_password
                                 ] : null
                             ]) }}"
                             data-edit-action="{{ route('admin.special-users.update', $user->id) }}"
@@ -91,11 +108,29 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("deleteSpecialUserForm").action = this.getAttribute("data-delete-action");
             
             // Fill form fields with user data
-            document.getElementById("edit_name").value = userData.profile ? userData.profile.name : userData.username;
-            document.getElementById("edit_username").value = userData.username;
-            document.getElementById("edit_user_type").value = userData.user_type;
-            document.getElementById("edit_school_id").value = userData.school_id;
-            document.getElementById("edit_password").value = userData.plain_password || '';
+            document.getElementById("edit_name").value = userData.profile ? userData.profile.name : '';
+            document.getElementById("edit_username").value = userData.username || '';
+            document.getElementById("edit_user_type").value = userData.user_type || '';
+            
+            // Handle school_id from either user.school_id or user.profile.school_id
+            let schoolId = userData.school_id || (userData.profile ? userData.profile.school_id : '');
+            document.getElementById("edit_school_id").value = schoolId;
+            
+            document.getElementById("edit_passport_id").value = userData.profile ? userData.profile.passport_id : '';
+            document.getElementById("edit_phone_number").value = userData.profile ? (userData.profile.phone_number || '') : '';
+            document.getElementById("edit_subject").value = userData.profile ? (userData.profile.subject || '') : '';
+            document.getElementById("edit_nationality_id").value = userData.profile ? userData.profile.nationality_id : '';
+            
+            // Get password from school's viewer/supervisor password fields
+            let password = '';
+            if (userData.school) {
+                if (userData.user_type === 'مراقب') {
+                    password = userData.school.viewer_password || '';
+                } else if (userData.user_type === 'مشرف') {
+                    password = userData.school.supervisor_password || '';
+                }
+            }
+            document.getElementById("edit_password").value = password;
         });
     });
 });
