@@ -27,19 +27,14 @@ class ReportsController extends Controller
         $students = collect();
         
         if ($school) {
-            $students = Student::where('students.school_id', $school->id)
+            $students = Student::where('school_id', $school->id)
                 ->with(['grade', 'classRoom'])
                 ->withCount(['days as total_absences' => function($query) use ($selectedDate) {
                     $query->where('is_absent', true)
                           ->where('date', '<=', $selectedDate);
                 }])
-                ->join('grades', 'students.grade_id', '=', 'grades.id')
-                ->join('classes', 'students.class_id', '=', 'classes.id')
-                ->orderBy('grades.name')
-                ->orderBy('classes.name')
-                ->orderBy('students.name')
-                ->select('students.*')
-                ->get();
+                ->get()
+                ->sortBy([['grade.name', 'asc'], ['classRoom.name', 'asc'], ['name', 'asc']]);
         }
         
         return view('reports.reports', compact('students', 'selectedDate', 'dayName', 'school'));
