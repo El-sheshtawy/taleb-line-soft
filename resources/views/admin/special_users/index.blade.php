@@ -25,23 +25,13 @@
                                 'user_type' => $user->user_type,
                                 'school_id' => $user->school_id,
                                 'profile' => $user->profile ? [
-                                    'name' => $user->profile->name ?? '',
-                                    'passport_id' => $user->profile->passport_id ?? '',
-                                    'phone_number' => $user->profile->phone_number ?? '',
-                                    'subject' => $user->profile->subject ?? '',
-                                    'school_id' => $user->profile->school_id ?? $user->school_id,
-                                    'nationality_id' => $user->profile->nationality_id ?? ''
-                                ] : [
-                                    'name' => '',
-                                    'passport_id' => '',
-                                    'phone_number' => '',
-                                    'subject' => '',
-                                    'school_id' => $user->school_id,
-                                    'nationality_id' => ''
-                                ],
+                                    'name' => $user->profile->name,
+                                    'passport_id' => $user->profile->passport_id,
+                                    'phone_number' => $user->profile->phone_number,
+                                    'subject' => $user->profile->subject,
+                                    'nationality_id' => $user->profile->nationality_id
+                                ] : null,
                                 'school' => $user->school ? [
-                                    'id' => $user->school->id,
-                                    'school_name' => $user->school->school_name,
                                     'viewer_password' => $user->school->viewer_password,
                                     'supervisor_password' => $user->school->supervisor_password
                                 ] : null
@@ -112,6 +102,10 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("edit_username").value = userData.username;
             document.getElementById("edit_user_type").value = userData.user_type;
             document.getElementById("edit_school_id").value = userData.school_id;
+            document.getElementById("edit_passport_id").value = userData.profile ? userData.profile.passport_id : '';
+            document.getElementById("edit_phone_number").value = userData.profile ? userData.profile.phone_number : '';
+            document.getElementById("edit_subject").value = userData.profile ? userData.profile.subject : '';
+            document.getElementById("edit_nationality_id").value = userData.profile ? userData.profile.nationality_id : '';
             
             // Get password from school's viewer/supervisor password fields
             let password = '';
