@@ -65,7 +65,23 @@ class SpecialUserController extends Controller
         \Log::info('Request data: ', $request->all());
         
         $profile = $user->profile()->first();
-        $profileId = $profile ? $profile->id : 0;
+        
+        // Create profile if doesn't exist
+        if (!$profile) {
+            $profile = Teacher::create([
+                'name' => $user->username,
+                'passport_id' => '000000000000',
+                'phone_number' => '',
+                'subject' => 'عام',
+                'head_of_department' => false,
+                'supervisor' => false,
+                'school_id' => $user->school_id,
+                'user_id' => $user->id,
+                'nationality_id' => 1,
+            ]);
+        }
+        
+        $profileId = $profile->id;
         \Log::info('Profile ID: ' . $profileId);
         
         $request->validate([
