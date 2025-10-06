@@ -34,7 +34,7 @@ class SpecialUserController extends Controller
                 'user_type' => $request->user_type,
                 'username' => $request->username,
                 'password' => Hash::make($request->password),
-                'defualt_password' => Hash::make($request->password),
+                'defualt_password' => $request->password,
                 'school_id' => $request->school_id
             ]);
 
@@ -83,7 +83,7 @@ class SpecialUserController extends Controller
 
             if ($request->filled('password')) {
                 $updateData['password'] = Hash::make($request->password);
-                $updateData['defualt_password'] = Hash::make($request->password);
+                $updateData['defualt_password'] = $request->password;
             }
 
             $user->update($updateData);
