@@ -92,6 +92,7 @@ class SpecialUserController extends Controller
             return redirect()->back()->with('error', 'حدث خطأ أثناء تحديث المستخدم: ' . $e->getMessage());
         }
     }
+    // ok
 
     public function destroy($id)
     {
