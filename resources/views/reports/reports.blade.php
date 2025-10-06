@@ -58,9 +58,9 @@
                             <td class="p-1">{{ $student->grade->name ?? '-' }}</td>
                             <td class="p-1">{{ $student->classRoom->name ?? '-' }}</td>
                             <td class="p-1 {{ $student->total_absences > 0 ? 'text-danger fw-bold' : 'text-success' }}">
-                                <a href="{{ route('student.followup.record', $student->id) }}" 
+                                <a href="#" 
                                    class="text-decoration-none {{ $student->total_absences > 0 ? 'text-danger fw-bold' : 'text-success' }}" 
-                                   target="_blank">
+                                   onclick="showStudentRecord({{ $student->id }})">
                                     {{ $student->total_absences }}
                                 </a>
                             </td>
