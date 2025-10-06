@@ -40,7 +40,7 @@
                     @endif
                 </td>
                     <td class="p-1">{{$user->username}}</td>
-                    <td class="p-1">{{$user->defualt_password ? '********' : 'غير محدد'}}</td>
+                    <td class="p-1">{{$user->defualt_password ?? 'غير محدد'}}</td>
                 </tr>
             @endforeach
         </tbody>
