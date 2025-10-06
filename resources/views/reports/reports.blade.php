@@ -44,6 +44,20 @@
                 width: 23% !important;
                 font-size: 10px !important;
             }
+            
+            .modal-dialog {
+                margin: 10px !important;
+                max-width: calc(100% - 20px) !important;
+            }
+            
+            .modal-content {
+                max-height: 90vh !important;
+                overflow-y: auto !important;
+            }
+            
+            .modal-body {
+                padding: 10px !important;
+            }
         }
     </style>
 </head>
