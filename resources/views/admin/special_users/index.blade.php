@@ -89,6 +89,17 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("edit_phone_number").value = userData.profile.phone_number || '';
             document.getElementById("edit_subject").value = userData.profile.subject || '';
             document.getElementById("edit_nationality_id").value = userData.profile.nationality_id;
+            
+            // Get password from school's viewer/supervisor password fields
+            let password = '';
+            if (userData.school) {
+                if (userData.user_type === 'مراقب') {
+                    password = userData.school.viewer_password || '';
+                } else if (userData.user_type === 'مشرف') {
+                    password = userData.school.supervisor_password || '';
+                }
+            }
+            document.getElementById("edit_password").value = password;
         });
     });
 });
