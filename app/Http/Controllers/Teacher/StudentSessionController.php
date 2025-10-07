@@ -246,7 +246,8 @@ class StudentSessionController extends Controller
                 
     
                 if ($existingSession) {
-                    if($teacher && $existingSession->teacher_id != $teacher->id){
+                    // المشرف يملك صلاحية تعديل جميع الحصص
+                    if($teacher && $existingSession->teacher_id != $teacher->id && $user->user_type !== 'مشرف'){
                         return response()->json([
                             'success' => false,
                             'message' => 'ليس لديك الصلاحية لتعديل هذه الحصة ' . $sessionNumber . ' لهذا الطالب '
