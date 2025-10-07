@@ -27,11 +27,8 @@ class CheckActionPermission
         
         // مشرف role - allow access to teacher and school routes
         if ($user->user_type === 'مشرف') {
-            $currentRoute = $request->route()->getName() ?? '';
-            $currentPath = $request->path();
-            if (!str_contains($currentRoute, 'teacher') && !str_contains($currentRoute, 'school') && !str_contains($currentPath, 'teacher') && !str_contains($currentPath, 'school')) {
-                abort(403, 'غير مسموح لك بتنفيذ هذا الإجراء');
-            }
+            // المشرف يملك نفس صلاحيات المعلم
+            return $next($request);
         }
         
         return $next($request);
