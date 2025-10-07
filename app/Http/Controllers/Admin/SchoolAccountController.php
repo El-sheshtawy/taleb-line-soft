@@ -157,7 +157,8 @@ class SchoolAccountController extends Controller
     	try{
     	    $validated['username'] = preg_replace('/[^A-Za-z0-9]/', '', trim($validated['username']));
     	    
-    	    if ($validated['username'] !== $schoolAccount->username || $validated['password'] !== $schoolAccount->password) {
+    	    // Update school admin user
+    	    if ($schoolAccount->user) {
                 $schoolAccount->user->update([
                     'username' => $request->username,
 	                'password' => Hash::make($request->password),
