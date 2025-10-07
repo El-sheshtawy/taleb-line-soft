@@ -128,6 +128,34 @@ class SchoolController extends Controller
             }
             
             $schoolAccount->update($updateData);
+            
+            // Update viewer user password
+            if (!empty($validated['viewer_username']) && !empty($validated['viewer_password'])) {
+                $viewerUser = \App\Models\User::where('username', $validated['viewer_username'])
+                    ->where('user_type', 'مراقب')
+                    ->where('school_id', $schoolAccount->id)
+                    ->first();
+                if ($viewerUser) {
+                    $viewerUser->update([
+                        'password' => Hash::make($validated['viewer_password']),
+                        'defualt_password' => Hash::make($validated['viewer_password'])
+                    ]);
+                }
+            }
+            
+            // Update supervisor user password
+            if (!empty($validated['supervisor_username']) && !empty($validated['supervisor_password'])) {
+                $supervisorUser = \App\Models\User::where('username', $validated['supervisor_username'])
+                    ->where('user_type', 'مشرف')
+                    ->where('school_id', $schoolAccount->id)
+                    ->first();
+                if ($supervisorUser) {
+                    $supervisorUser->update([
+                        'password' => Hash::make($validated['supervisor_password']),
+                        'defualt_password' => Hash::make($validated['supervisor_password'])
+                    ]);
+                }
+            }
 
             if ($request->hasFile('school_logo_url')) {
                 if ($schoolAccount->school_logo_url) {
