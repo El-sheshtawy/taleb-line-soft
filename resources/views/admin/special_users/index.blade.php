@@ -4,20 +4,17 @@
         <thead>
             <tr class="text-center">
                 <th class="p-1 text-center">م</th>
-                <th class="p-1 text-center">الإجراءات</th>
                 <th class="p-1 text-center">النوع</th>
                 <th class="p-1 text-center">المدرسة</th>
                 <th class="p-1 text-center">اسم المستخدم</th>
                 <th class="p-1 text-center">كلمة المرور</th>
+                <th class="p-1 text-center">الإجراءات</th>
             </tr>
         </thead>
         <tbody>
             @foreach($specialUsers as $user)
                 <tr class="text-center">
                     <td class="p-1">{{$loop->iteration}}</td>
-                    <td class="p-1">
-                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSpecialUserModal" onclick="setDeleteAction('{{ route('admin.special-users.destroy', $user->id) }}')">حذف</button>
-                    </td>
                     <td class="p-1">
                         <span class="badge bg-{{$user->user_type === 'مراقب' ? 'info' : 'warning'}}">
                             {{$user->user_type}}
@@ -52,6 +49,9 @@
                             }
                         @endphp
                         {{$password}}
+                    </td>
+                    <td class="p-1">
+                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSpecialUserModal" onclick="setDeleteAction('{{ route('admin.special-users.destroy', $user->id) }}')">حذف</button>
                     </td>
                 </tr>
             @endforeach
