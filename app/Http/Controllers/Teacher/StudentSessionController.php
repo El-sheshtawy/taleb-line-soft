@@ -238,28 +238,25 @@ class StudentSessionController extends Controller
         ]);
                 
         foreach ($request->notes ?? [] as $sessionNumber => $note) {
-            if($note && $note != ''){
-                $existingSession = StudentSession::where([
-                    'student_day_id' => $studentDay->id,
-                    'session_number' => $sessionNumber
-                ])->first();
-                
-    
-                if ($existingSession) {
-                    // المشرف يملك صلاحية تعديل جميع الحصص
-                    if($teacher && $existingSession->teacher_id != $teacher->id && $user->user_type !== 'مشرف'){
-                        return response()->json([
-                            'success' => false,
-                            'message' => 'ليس لديك الصلاحية لتعديل هذه الحصة ' . $sessionNumber . ' لهذا الطالب '
-                        ], 500);
-                    }
-                    $existingSession->update(['teacher_note' => $note]);
-                } else {
+            $existingSession = StudentSession::where([
+                'student_day_id' => $studentDay->id,
+                'session_number' => $sessionNumber
+            ])->first();
+            
+            if ($existingSession) {
+                // المشرف يملك صلاحية تعديل جميع الحصص
+                if($teacher && $existingSession->teacher_id != $teacher->id && $user->user_type !== 'مشرف'){
                     return response()->json([
                         'success' => false,
-                        'message' => 'لا يمكن تحديث هذه الحصة ' . $sessionNumber . ' لهذا الطالب '
+                        'message' => 'ليس لديك الصلاحية لتعديل هذه الحصة ' . $sessionNumber . ' لهذا الطالب '
                     ], 500);
                 }
+                $existingSession->update(['teacher_note' => $note ?? '']);
+            } elseif($note && $note != '') {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'لا يمكن تحديث هذه الحصة ' . $sessionNumber . ' لهذا الطالب '
+                ], 500);
             }
         }
     
