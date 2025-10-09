@@ -3,7 +3,7 @@
         الطلاب
         <span class="badge bg-primary text-light">{{ count($students) }}</span>
     </span>
-    @if(!in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
+    @if(!in_array(auth()->user()->user_type, ['مراقب']))
     <a class="badge bg-danger text-white" onclick="return confirm('هل انت متاكد من حذف الطلاب؟')" 
         href="{{ route('school.students.delete', ['grade_id' => request()->grade_id, 'class_id' => request()->class_id]) }}">
         حذف الطلاب
