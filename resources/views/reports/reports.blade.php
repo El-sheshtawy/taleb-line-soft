@@ -23,7 +23,7 @@
             
             .table th:nth-child(2),
             .table td:nth-child(2) {
-                width: 50% !important;
+                width: 40% !important;
                 font-size: 10px !important;
                 white-space: nowrap;
                 overflow: hidden;
@@ -35,7 +35,13 @@
             .table td:nth-child(3),
             .table th:nth-child(4),
             .table td:nth-child(4) {
-                width: 21% !important;
+                width: 18% !important;
+                font-size: 10px !important;
+            }
+            
+            .table th:nth-child(5),
+            .table td:nth-child(5) {
+                width: 16% !important;
                 font-size: 10px !important;
             }
             
@@ -114,6 +120,7 @@
                             <th class="p-1">الاسم</th>
                             <th class="p-1">صف</th>
                             <th class="p-1">فصل</th>
+                            <th class="p-1">غياب</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -123,6 +130,9 @@
                             <td class="p-1 text-end student-name">{{ $student->name }}</td>
                             <td class="p-1">{{ $student->grade->name ?? '-' }}</td>
                             <td class="p-1">{{ $student->classRoom->name ?? '-' }}</td>
+                            <td class="p-1 text-danger fw-bold" style="cursor: pointer;" onclick="showStudentRecord({{ $student->id }})">
+                                {{ $student->total_absences }}
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

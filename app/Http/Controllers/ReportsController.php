@@ -30,6 +30,10 @@ class ReportsController extends Controller
             // Get only students absent today
             $students = Student::where('school_id', $school->id)
                 ->with(['grade', 'classRoom'])
+                ->withCount(['days as total_absences' => function($query) use ($selectedDate) {
+                    $query->where('is_absent', true)
+                          ->where('date', '<=', $selectedDate);
+                }])
                 ->whereHas('days', function($query) use ($selectedDate) {
                     $query->where('is_absent', true)
                           ->where('date', $selectedDate);
