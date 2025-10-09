@@ -85,7 +85,7 @@
         <div class="appOne" style="background: #fff;">
             <div class="guarantor">
                 <div class="title" style="color:#fff;background:#555;display:flex; justify-content:center;align-items:center">
-                    <h5><span style="color:#75f98c;"><i class="ri-shield-user-fill"></i>تقارير الغياب اليومي</span></h5>
+                    <h5><span style="color:#75f98c;"><i class="ri-shield-user-fill"></i>تقرير الغياب اليومي</span></h5>
                 </div>
                 <p>هذه الصفحة تمكنكم من متابعة حضور الطلاب</p>
             </div>
@@ -93,11 +93,10 @@
             <!-- Date Filter -->
             <div class="d-flex align-items-center justify-content-center gap-2 p-2 text-center" style="background:#0E2550">
                 <form method="GET" class="d-flex align-items-center gap-2">
-                    <label for="date" class="text-white">التاريخ:</label>
+                    <label for="date" class="text-white">{{ $dayName }}:</label>
                     <input type="date" name="date" id="date" value="{{ $selectedDate }}" 
                            style="font-size:16px;background:#ffd400;border-radius:5px;border:none;padding:5px;" 
                            onchange="this.form.submit()">
-                    <span class="text-white">{{ $dayName }}</span>
                 </form>
             </div>
             
@@ -129,6 +128,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="mt-2 p-2 bg-light border rounded text-center">
+                    <strong>عدد الغائبين اليوم: <span class="badge bg-danger">{{ $absentTodayCount }}</span></strong>
+                </div>
             </div>
             @else
             <div class="alert alert-info text-center mt-4">

@@ -35,8 +35,18 @@ class ReportsController extends Controller
                 }])
                 ->get()
                 ->sortBy([['grade.name', 'asc'], ['classRoom.name', 'asc'], ['name', 'asc']]);
+                
+            // Count absent students for today only
+            $absentTodayCount = Student::where('school_id', $school->id)
+                ->whereHas('days', function($query) use ($selectedDate) {
+                    $query->where('is_absent', true)
+                          ->where('date', $selectedDate);
+                })
+                ->count();
+        } else {
+            $absentTodayCount = 0;
         }
         
-        return view('reports.reports', compact('students', 'selectedDate', 'dayName', 'school'));
+        return view('reports.reports', compact('students', 'selectedDate', 'dayName', 'school', 'absentTodayCount'));
     }
 }
