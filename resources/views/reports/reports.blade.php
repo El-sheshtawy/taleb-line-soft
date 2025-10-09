@@ -22,21 +22,21 @@
             }
             
             .table th:nth-child(2),
-            .table td:nth-child(2) {
+            .table td:nth-child(2),
+            .table th:nth-child(3),
+            .table td:nth-child(3) {
+                width: 18% !important;
+                font-size: 10px !important;
+            }
+            
+            .table th:nth-child(4),
+            .table td:nth-child(4) {
                 width: 40% !important;
                 font-size: 10px !important;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 padding: 1px !important;
-            }
-            
-            .table th:nth-child(3),
-            .table td:nth-child(3),
-            .table th:nth-child(4),
-            .table td:nth-child(4) {
-                width: 18% !important;
-                font-size: 10px !important;
             }
             
             .table th:nth-child(5),
@@ -96,20 +96,24 @@
                     <input type="date" name="date" id="date" value="{{ $selectedDate }}" 
                            style="font-size:16px;background:#ffd400;border-radius:5px;border:none;padding:5px;" 
                            onchange="this.form.submit()">
+                    <span class="text-white">- عدد الغائبين: <span class="badge bg-danger">{{ $absentTodayCount }}</span></span>
                 </form>
             </div>
             
-            <!-- Search Box -->
-            <div class="mt-3 mb-2">
-                <input type="text" id="searchInput" class="form-control" placeholder="بحث في الطلاب..." 
-                       style="font-size:14px;border-radius:5px;">
+            <!-- Search Box and Print Button -->
+            <div class="row mt-3 mb-2">
+                <div class="col-md-8">
+                    <input type="text" id="searchInput" class="form-control" placeholder="بحث في الطلاب..." 
+                           style="font-size:14px;border-radius:5px;">
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-danger w-100" onclick="window.print()">
+                        طباعة PDF <i class="fas fa-print"></i>
+                    </button>
+                </div>
             </div>
             
-            <!-- Absent Count -->
             @if($students->count() > 0)
-            <div class="mt-2 p-2 bg-light border rounded text-center">
-                <strong>عدد الغائبين اليوم: <span class="badge bg-danger">{{ $absentTodayCount }}</span></strong>
-            </div>
             
             <!-- Students Table -->
             <div class="table-responsive mt-3">
@@ -117,9 +121,9 @@
                     <thead>
                         <tr class="text-center">
                             <th class="p-1">م</th>
-                            <th class="p-1">الاسم</th>
                             <th class="p-1">صف</th>
                             <th class="p-1">فصل</th>
+                            <th class="p-1">الاسم</th>
                             <th class="p-1">غياب</th>
                         </tr>
                     </thead>
@@ -127,9 +131,9 @@
                         @foreach($students as $student)
                         <tr class="text-center student-row">
                             <td class="p-1">{{ $loop->iteration }}</td>
-                            <td class="p-1 text-end student-name">{{ $student->name }}</td>
                             <td class="p-1">{{ $student->grade->name ?? '-' }}</td>
                             <td class="p-1">{{ $student->classRoom->name ?? '-' }}</td>
+                            <td class="p-1 text-end student-name">{{ $student->name }}</td>
                             <td class="p-1 text-danger fw-bold" style="cursor: pointer;" onclick="showStudentRecord({{ $student->id }})">
                                 {{ $student->total_absences }}
                             </td>
