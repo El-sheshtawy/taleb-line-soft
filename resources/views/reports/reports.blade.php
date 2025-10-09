@@ -23,8 +23,7 @@
             
             .table th:nth-child(2),
             .table td:nth-child(2) {
-                width: 5% !important;
-                max-width: 5% !important;
+                width: 50% !important;
                 font-size: 10px !important;
                 white-space: nowrap;
                 overflow: hidden;
@@ -36,13 +35,7 @@
             .table td:nth-child(3),
             .table th:nth-child(4),
             .table td:nth-child(4) {
-                width: 15% !important;
-                font-size: 10px !important;
-            }
-            
-            .table th:nth-child(5),
-            .table td:nth-child(5) {
-                width: 57% !important;
+                width: 21% !important;
                 font-size: 10px !important;
             }
             
@@ -100,6 +93,12 @@
                 </form>
             </div>
             
+            <!-- Search Box -->
+            <div class="mt-3 mb-2">
+                <input type="text" id="searchInput" class="form-control" placeholder="بحث في الطلاب..." 
+                       style="font-size:14px;border-radius:5px;">
+            </div>
+            
             <!-- Absent Count -->
             @if($students->count() > 0)
             <div class="mt-2 p-2 bg-light border rounded text-center">
@@ -119,9 +118,9 @@
                     </thead>
                     <tbody>
                         @foreach($students as $student)
-                        <tr class="text-center">
+                        <tr class="text-center student-row">
                             <td class="p-1">{{ $loop->iteration }}</td>
-                            <td class="p-1 text-end">{{ $student->name }}</td>
+                            <td class="p-1 text-end student-name">{{ $student->name }}</td>
                             <td class="p-1">{{ $student->grade->name ?? '-' }}</td>
                             <td class="p-1">{{ $student->classRoom->name ?? '-' }}</td>
                         </tr>
@@ -168,6 +167,21 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     
     <script>
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            const rows = document.querySelectorAll('.student-row');
+            
+            rows.forEach(row => {
+                const studentName = row.querySelector('.student-name').textContent.toLowerCase();
+                if (studentName.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+        
         function showStudentRecord(studentId) {
             const modal = new bootstrap.Modal(document.getElementById('studentRecordModal'));
             const content = document.getElementById('studentRecordContent');
