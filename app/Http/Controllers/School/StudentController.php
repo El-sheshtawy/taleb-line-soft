@@ -24,8 +24,8 @@ class StudentController extends Controller
      public function store(Request $request)
     {
         $user = Auth::user();
-        $school = $user->profile;
-        if($user->user_type != 'school' || !$school) return back()->with('error', 'لا يوجد مدارس في السيستم');
+        $school = $user->user_type == 'school' ? $user->profile : $user->getSchool();
+        if(!in_array($user->user_type, ['school', 'مشرف']) || !$school) return back()->with('error', 'لا يوجد مدارس في السيستم');
         
          $request->validate([
             'name' => 'required|string|max:255',
@@ -177,9 +177,9 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $user = Auth::user();
-        $school = $user->profile;
-        if($user->user_type != 'school' || !$school) return back()->with('error', 'لا يوجد مدارس في السيستم');
-        if($student->school_id != $school->id) abor(403, "unauthorized action");
+        $school = $user->user_type == 'school' ? $user->profile : $user->getSchool();
+        if(!in_array($user->user_type, ['school', 'مشرف']) || !$school) return back()->with('error', 'لا يوجد مدارس في السيستم');
+        if($student->school_id != $school->id) abort(403, "unauthorized action");
         
     	$user = $student->user;
         $student->delete();
@@ -191,8 +191,8 @@ class StudentController extends Controller
     public function deleteSelected(Request $request)
     {
         $user = Auth::user();
-        $school = $user->profile;
-        if ($user->user_type != 'school' || !$school) return back()->with('error', 'لا يوجد مدارس في السيستم');
+        $school = $user->user_type == 'school' ? $user->profile : $user->getSchool();
+        if (!in_array($user->user_type, ['school', 'مشرف']) || !$school) return back()->with('error', 'لا يوجد مدارس في السيستم');
 
         $classes = ClassRoom::with('grade')->where('school_id', $school->id)->get();
         $grades = Grade::where('level_id', $school->level_id)->get();
