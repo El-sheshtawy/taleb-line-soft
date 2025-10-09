@@ -144,7 +144,7 @@
 }
 </style>
 
-@if(!in_array(auth()->user()->user_type, ['مراقب', 'مشرف']))
+@if(!in_array(auth()->user()->user_type, ['مراقب']))
 <div class="row g-2 my-1">
     <div class="col-12 col-md-4">
         <button type="button" class="btn btn-primary w-100 text-center" data-bs-toggle="modal" data-bs-target="#createStudentModal">
