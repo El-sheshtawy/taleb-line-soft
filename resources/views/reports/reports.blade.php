@@ -100,8 +100,13 @@
                 </form>
             </div>
             
-            <!-- Students Table -->
+            <!-- Absent Count -->
             @if($students->count() > 0)
+            <div class="mt-2 p-2 bg-light border rounded text-center">
+                <strong>عدد الغائبين اليوم: <span class="badge bg-danger">{{ $absentTodayCount }}</span></strong>
+            </div>
+            
+            <!-- Students Table -->
             <div class="table-responsive mt-3">
                 <table class="table table-secondary table-bordered table-striped text-nowrap">
                     <thead>
@@ -110,27 +115,19 @@
                             <th class="p-1">الاسم</th>
                             <th class="p-1">صف</th>
                             <th class="p-1">فصل</th>
-                            <th class="p-1">غياب</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($students as $student)
                         <tr class="text-center">
                             <td class="p-1">{{ $loop->iteration }}</td>
-                            <td class="p-1">{{ $student->name }}</td>
+                            <td class="p-1 text-end">{{ $student->name }}</td>
                             <td class="p-1">{{ $student->grade->name ?? '-' }}</td>
                             <td class="p-1">{{ $student->classRoom->name ?? '-' }}</td>
-                            <td class="p-1 {{ $student->total_absences > 0 ? 'text-danger fw-bold' : 'text-success' }}" 
-                                style="cursor: pointer;" onclick="showStudentRecord({{ $student->id }})">
-                                {{ $student->total_absences }}
-                            </td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <div class="mt-2 p-2 bg-light border rounded text-center">
-                    <strong>عدد الغائبين اليوم: <span class="badge bg-danger">{{ $absentTodayCount }}</span></strong>
-                </div>
             </div>
             @else
             <div class="alert alert-info text-center mt-4">
