@@ -68,77 +68,74 @@
 <body>
     <input type="hidden" class="expire_date" value="2028-02-25">
 
-    <div class="app">
-        @include('layouts.nav')
+    @include('layouts.nav')
 
-        <div class="appOne" style="background: #fff;">
-            <div class="guarantor">
-                <div class="title"
-                    style="color:#fff;background:#555;display:flex; justify-content:center;align-items:center">
-                    @if(auth()->user()->user_type === 'مراقب')
-                        <h5> <span style="color:#75f98c;"> <i class="ri-eye-fill"></i>مراقب</span>
-                            {{ $teacher ? $teacher->name : '' }} </h5>
-                    @elseif(auth()->user()->user_type === 'مشرف')
-                        <h5> <span style="color:#75f98c;"> <i class="ri-user-settings-fill"></i>مشرف</span>
-                            {{ $teacher ? $teacher->name : '' }} </h5>
-                    @else
-                        <h5> <span style="color:#75f98c;"> <i class="ri-shield-user-fill"></i>المعلم</span>
-                            {{ $teacher ? $teacher->name : '' }} </h5>
-                    @endif
-                </div>
+    <div class="appOne" style="background: #fff;">
+        <div class="guarantor">
+            <div class="title"
+                style="color:#fff;background:#555;display:flex; justify-content:center;align-items:center">
                 @if(auth()->user()->user_type === 'مراقب')
-                    <p> هذه الصفحة تمكنكم من مراقبة حضور الطلاب <br /> ولكم كل الشكر والتقدير على دعمكم لنا 🌹 </p>
+                    <h5> <span style="color:#75f98c;"> <i class="ri-eye-fill"></i>مراقب</span>
+                        {{ $teacher ? $teacher->name : '' }} </h5>
+                @elseif(auth()->user()->user_type === 'مشرف')
+                    <h5> <span style="color:#75f98c;"> <i class="ri-user-settings-fill"></i>مشرف</span>
+                        {{ $teacher ? $teacher->name : '' }} </h5>
                 @else
-                    <p> هذه الصفحة تمكنكم من متابعة حضور الطلاب <br /> ولكم كل الشكر والتقدير على دعمكم لنا 🌹 </p>
+                    <h5> <span style="color:#75f98c;"> <i class="ri-shield-user-fill"></i>المعلم</span>
+                        {{ $teacher ? $teacher->name : '' }} </h5>
                 @endif
             </div>
-
-            <div class="listOfName">
-
-                <!--<h5 class="text-primary text-bold my-1">كشف حضور الطلاب <span class="badge bg-primary text-light">{{ count($students) }}</span></h5>-->
-                <div class="d-flex justify-content-between align-items-center gap-2 my-1 p-2 text-center"
-                    style="background:#0E2550">
-                    <h5 class="text-primary text-bold m-0">
-                        كشف متابعة الطلاب
-                        <span class="badge bg-primary text-light">{{ count($students) }}</span>
-                    </h5>
-
-                    <select id="settingsSelector"
-                        style="font-size:16px;background:#ffd400;border-radius:5px;position: unset;">
-                        <option disabled selected>الاعدادات</option>
-                        <option value="monitoring">عرض المتابعة</option>
-                        <option value="export-pdf">تصدير بي دي اف</option>
-                        <option value="meeting-room">غرفة ميتينج</option>
-                        <x-action-button>
-                            @if (auth()->user()->user_type == 'school')
-                                <option value="clear-data">مسح متابعة اليوم</option>
-                            @endif
-                        </x-action-button>
-                    </select>
-                </div>
-
-                <div class="p-2 bg-light shadow-sm rounded border border-primary mb-1">
-                    @include('teacher.followup_components.search_form')
-                </div>
-
-                @include('teacher.followup_components.main_table')
-                @include('teacher.followup_components.session_modal')
-
-
-                <h5 class="text-primary text-bold my-1">إحصائيات الحصص</h5>
-                @include('teacher.followup_components.stats_table')
-            </div>
+            @if(auth()->user()->user_type === 'مراقب')
+                <p> هذه الصفحة تمكنكم من مراقبة حضور الطلاب <br /> ولكم كل الشكر والتقدير على دعمكم لنا 🌹 </p>
+            @else
+                <p> هذه الصفحة تمكنكم من متابعة حضور الطلاب <br /> ولكم كل الشكر والتقدير على دعمكم لنا 🌹 </p>
+            @endif
         </div>
 
+        <div class="listOfName">
 
-        <footer class="footer">
-            <img width="150" src="{{ asset('storage/school_logos/banner1.jpg') }}" alt="School Logo">
-        </footer>
+            <!--<h5 class="text-primary text-bold my-1">كشف حضور الطلاب <span class="badge bg-primary text-light">{{ count($students) }}</span></h5>-->
+            <div class="d-flex justify-content-between align-items-center gap-2 my-1 p-2 text-center"
+                style="background:#0E2550">
+                <h5 class="text-primary text-bold m-0">
+                    كشف متابعة الطلاب
+                    <span class="badge bg-primary text-light">{{ count($students) }}</span>
+                </h5>
+
+                <select id="settingsSelector"
+                    style="font-size:16px;background:#ffd400;border-radius:5px;position: unset;">
+                    <option disabled selected>الاعدادات</option>
+                    <option value="monitoring">عرض المتابعة</option>
+                    <option value="export-pdf">تصدير بي دي اف</option>
+                    <option value="meeting-room">غرفة ميتينج</option>
+                    <x-action-button>
+                        @if (auth()->user()->user_type == 'school')
+                            <option value="clear-data">مسح متابعة اليوم</option>
+                        @endif
+                    </x-action-button>
+                </select>
+            </div>
+
+            <div class="p-2 bg-light shadow-sm rounded border border-primary mb-1">
+                @include('teacher.followup_components.search_form')
+            </div>
+
+            @include('teacher.followup_components.main_table')
+            @include('teacher.followup_components.session_modal')
 
 
-        @include('layouts.footer')
-
+            <h5 class="text-primary text-bold my-1">إحصائيات الحصص</h5>
+            @include('teacher.followup_components.stats_table')
+        </div>
     </div>
+
+
+    <footer class="footer">
+        <img width="150" src="{{ asset('storage/school_logos/banner1.jpg') }}" alt="School Logo">
+    </footer>
+
+
+    @include('layouts.footer')
 
 
 
