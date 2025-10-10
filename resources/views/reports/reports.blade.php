@@ -90,12 +90,14 @@
             </div>
             
             <!-- Date Filter -->
-            <div class="d-flex align-items-center justify-content-between gap-2 p-2 text-center position-relative" style="background:#0E2550">
-                <div id="dateCountSection" class="text-white" style="{{ request('show_all_absences') ? 'display: none;' : '' }}">
-                    <span class="badge bg-danger">{{ $absentTodayCount }}</span>
-                </div>
-                <div id="allAbsencesCountSection" class="text-white" style="{{ !request('show_all_absences') ? 'display: none;' : '' }}">
-                    <span class="badge bg-danger">{{ $students->count() }}</span>
+            <div class="d-flex align-items-center justify-content-center gap-2 p-2 text-center position-relative" style="background:#0E2550">
+                <div class="position-absolute" style="left: 15px; top: 50%; transform: translateY(-50%);">
+                    <div id="dateCountSection" class="text-white" style="{{ request('show_all_absences') ? 'display: none;' : '' }}">
+                        <span class="badge bg-danger">{{ $absentTodayCount }}</span>
+                    </div>
+                    <div id="allAbsencesCountSection" class="text-white" style="{{ !request('show_all_absences') ? 'display: none;' : '' }}">
+                        <span class="badge bg-danger">{{ $students->count() }}</span>
+                    </div>
                 </div>
                 <form method="GET" class="d-flex align-items-center gap-2" id="filterForm">
                     <div id="dateSection" class="d-flex align-items-center gap-2" style="{{ request('show_all_absences') ? 'display: none !important;' : '' }}">
@@ -107,7 +109,8 @@
                 </form>
                 <input type="checkbox" name="show_all_absences" id="showAllAbsences" value="1" 
                        {{ request('show_all_absences') ? 'checked' : '' }}
-                       onchange="toggleDateFilter()" class="form-check-input" form="filterForm">
+                       onchange="toggleDateFilter()" class="form-check-input position-absolute" 
+                       style="right: 15px; top: 50%; transform: translateY(-50%);" form="filterForm">
             </div>
             
             <!-- Search Box and Print Button -->
