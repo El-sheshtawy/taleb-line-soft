@@ -91,12 +91,23 @@
             
             <!-- Date Filter -->
             <div class="d-flex align-items-center justify-content-center gap-2 p-2 text-center" style="background:#0E2550">
-                <form method="GET" class="d-flex align-items-center gap-2">
-                    <label for="date" class="text-white">{{ $dayName }}:</label>
-                    <input type="date" name="date" id="date" value="{{ $selectedDate }}" 
-                           style="font-size:16px;background:#ffd400;border-radius:5px;border:none;padding:5px;" 
-                           onchange="this.form.submit()">
-                    <span class="text-white">- عدد الغائبين: <span class="badge bg-danger">{{ $absentTodayCount }}</span></span>
+                <form method="GET" class="d-flex align-items-center gap-2" id="filterForm">
+                    <div class="d-flex align-items-center gap-2">
+                        <input type="checkbox" name="show_all_absences" id="showAllAbsences" value="1" 
+                               {{ request('show_all_absences') ? 'checked' : '' }}
+                               onchange="toggleDateFilter()" class="form-check-input">
+                        <label for="showAllAbsences" class="text-white">عرض جميع الطلاب الغائبين</label>
+                    </div>
+                    <div id="dateSection" class="d-flex align-items-center gap-2" style="{{ request('show_all_absences') ? 'display: none !important;' : '' }}">
+                        <label for="date" class="text-white">{{ $dayName }}:</label>
+                        <input type="date" name="date" id="date" value="{{ $selectedDate }}" 
+                               style="font-size:16px;background:#ffd400;border-radius:5px;border:none;padding:5px;" 
+                               onchange="this.form.submit()">
+                        <span class="text-white">- عدد الغائبين: <span class="badge bg-danger">{{ $absentTodayCount }}</span></span>
+                    </div>
+                    <div id="allAbsencesSection" class="text-white" style="{{ !request('show_all_absences') ? 'display: none;' : '' }}">
+                        <span>- إجمالي الطلاب الغائبين: <span class="badge bg-danger">{{ $students->count() }}</span></span>
+                    </div>
                 </form>
             </div>
             
@@ -176,6 +187,25 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     
     <script>
+        // Toggle date filter based on checkbox
+        function toggleDateFilter() {
+            const checkbox = document.getElementById('showAllAbsences');
+            const dateSection = document.getElementById('dateSection');
+            const allAbsencesSection = document.getElementById('allAbsencesSection');
+            const form = document.getElementById('filterForm');
+            
+            if (checkbox.checked) {
+                dateSection.style.display = 'none';
+                allAbsencesSection.style.display = 'block';
+            } else {
+                dateSection.style.display = 'flex';
+                allAbsencesSection.style.display = 'none';
+            }
+            
+            // Submit form when checkbox changes
+            form.submit();
+        }
+        
         // Search functionality
         document.getElementById('searchInput').addEventListener('keyup', function() {
             const searchTerm = this.value.toLowerCase();
