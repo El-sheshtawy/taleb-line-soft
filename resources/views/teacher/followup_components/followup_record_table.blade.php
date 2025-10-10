@@ -1,5 +1,5 @@
-<div class="table-responsive mb-1" style="overflow-x: visible;"> 
-    <table class="table align-middle mb-0" style="width: 100%; table-layout: fixed; border: none;">
+<div class="mb-1" style="margin: 0; padding: 0; width: 100vw; margin-left: calc(-50vw + 50%);">
+    <table class="table align-middle mb-0" style="width: 100%; table-layout: fixed; border: none; margin: 0; padding: 0;">
         <style>
             .table {
                 table-layout: fixed !important;
