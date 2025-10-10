@@ -1,42 +1,39 @@
-<div class="mb-1" style="margin: 0; padding: 0; width: 100vw; margin-left: calc(-50vw + 50%);">
-    <table class="table align-middle mb-0" style="width: 100%; table-layout: fixed; border: none; margin: 0; padding: 0;">
+<div class="table-responsive mb-1" style="margin: 0 -12px; width: calc(100% + 24px);">
+    <table class="table table-secondary table-bordered align-middle mb-0">
         <style>
-            .table {
-                table-layout: fixed !important;
-                width: 100% !important;
-                border: none !important;
-            }
-            .table th, .table td {
-                border: none !important;
-            }
             @media (max-width: 768px) {
                 .table th:nth-child(1),
                 .table td:nth-child(1) {
-                    width: 25% !important;
+                    min-width: 110px !important;
                     font-size: 10px !important;
                     white-space: nowrap !important;
+                    padding: 2px 4px !important;
                 }
                 .table th:nth-child(2),
                 .table td:nth-child(2) {
-                    width: 20% !important;
-                    font-size: 10px !important;
+                    min-width: 60px !important;
+                    font-size: 9px !important;
+                    white-space: nowrap !important;
+                    padding: 2px 2px !important;
                 }
                 .table th:nth-child(n+3):nth-child(-n+9),
                 .table td:nth-child(n+3):nth-child(-n+9) {
-                    width: 6.5% !important;
+                    min-width: 35px !important;
                     font-size: 10px !important;
+                    padding: 2px !important;
                 }
                 .table th:last-child,
                 .table td:last-child {
-                    width: 6.5% !important;
+                    min-width: 35px !important;
                     font-size: 10px !important;
+                    padding: 2px !important;
                 }
             }
         </style>
         <thead>
             <tr>
-                <th class="p-1 text-center">اليوم</th>
-                <th class="p-1 text-center">التاريخ</th>
+                <th class="p-1 text-end">اليوم</th>
+                <th class="p-1 text-end">التاريخ</th>
                 <th class="p-1 text-center">1</th>
                 <th class="p-1 text-center">2</th>
                 <th class="p-1 text-center">3</th>
@@ -50,8 +47,8 @@
         <tbody>
             @foreach($days as $day)
                 <tr class="text-center">
-                    <td>{{ \Carbon\Carbon::parse($day->date)->locale('ar')->dayName }}</td>
-                    <td>{{ $day->date }}</td>
+                    <td class="text-end">{{ \Carbon\Carbon::parse($day->date)->locale('ar')->dayName }}</td>
+                    <td class="text-end">{{ $day->date }}</td>
                     @for ($i = 1; $i <= 7; $i++)
                         <?php
                             $session = $day->sessions()->where('session_number', $i)->first() ?? null;
