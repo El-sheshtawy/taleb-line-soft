@@ -34,6 +34,7 @@
         </style>
         <thead>
             <tr>
+                <th class="p-1 text-center">م</th>
                 <th class="p-1 text-center">اليوم</th>
                 <th class="p-1 text-center">التاريخ</th>
                 <th class="p-1 text-center">1</th>
@@ -49,6 +50,9 @@
         <tbody>
             @foreach($days as $day)
                 <tr class="text-center">
+                    <td>
+                        {{-- م column content --}}
+                    </td>
                     <td>{{ \Carbon\Carbon::parse($day->date)->locale('ar')->dayName }}</td>
                     <td>{{ $day->date }}</td>
                     @for ($i = 1; $i <= 7; $i++)
