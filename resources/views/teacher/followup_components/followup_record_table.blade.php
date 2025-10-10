@@ -5,11 +5,9 @@
                 .table th:nth-child(1),
                 .table td:nth-child(1) {
                     width: 18% !important;
-                    font-size: 10px !important;
-                    white-space: normal !important;
+                    font-size: 9px !important;
+                    white-space: nowrap !important;
                     padding: 1px !important;
-                    word-wrap: break-word !important;
-                    overflow-wrap: break-word !important;
                 }
                 .table th:nth-child(2),
                 .table td:nth-child(2) {
@@ -47,7 +45,7 @@
         <tbody>
             @foreach($days as $day)
                 <tr class="text-center">
-                    <td class="text-end">{{ \Carbon\Carbon::parse($day->date)->locale('ar')->dayName }}</td>
+                    <td class="text-end">{{ \Carbon\Carbon::parse($day->date)->locale('ar')->shortDayName }}</td>
                     <td class="text-end">{{ $day->date }}</td>
                     @for ($i = 1; $i <= 7; $i++)
                         <?php
