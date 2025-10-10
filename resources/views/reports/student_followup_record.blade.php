@@ -1,10 +1,37 @@
 <div class="mb-3">
-    <h6 class="text-danger">سجل متابعة الطالب: {{ $student->name }}</h6>
-    <p class="mb-1"><strong>الفصل:</strong> {{ $student->classRoom->name ?? '-' }} | <strong>الصف:</strong> {{ $student->grade->name ?? '-' }} | <span class="text-danger"><strong>عدد أيام الغياب:</strong> {{ $days->where('is_absent', true)->count() }}</span></p>
+    <div class="d-flex justify-content-between align-items-center">
+        <h6 class="text-danger mb-0">سجل متابعة الطالب: {{ $student->name }}</h6>
+        <span class="text-danger"><strong>عدد أيام الغياب:</strong> {{ $days->where('is_absent', true)->count() }}</span>
+    </div>
+    <p class="mb-1"><strong>الفصل:</strong> {{ $student->classRoom->name ?? '-' }} | <strong>الصف:</strong> {{ $student->grade->name ?? '-' }}</p>
 </div>
 
 <div class="table-responsive mb-1"> 
     <table class="table table-secondary table-bordered align-middle mb-0">
+        <style>
+            @media (max-width: 768px) {
+                .table th:nth-child(1),
+                .table td:nth-child(1) {
+                    width: 12% !important;
+                    font-size: 10px !important;
+                }
+                .table th:nth-child(2),
+                .table td:nth-child(2) {
+                    width: 20% !important;
+                    font-size: 10px !important;
+                }
+                .table th:nth-child(n+3):nth-child(-n+9),
+                .table td:nth-child(n+3):nth-child(-n+9) {
+                    width: 8% !important;
+                    font-size: 10px !important;
+                }
+                .table th:last-child,
+                .table td:last-child {
+                    width: 8% !important;
+                    font-size: 10px !important;
+                }
+            }
+        </style>
         <thead>
             <tr>
                 <th class="p-1 text-center">اليوم</th>
