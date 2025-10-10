@@ -297,10 +297,10 @@ class StudentSessionController extends Controller
         $days = $student->days()
             ->with(['sessions.followUpItem'])
             ->whereHas('sessions.followUpItem')
-            ->orderBy('date', 'desc')
+            ->orderBy('date', 'asc')
             ->get();
     
-        $html = view('teacher.followup_components.followup_record_table', [
+        $html = view('reports.student_followup_record', [
             'days' => $days,
             'student' => $student
         ])->render();
