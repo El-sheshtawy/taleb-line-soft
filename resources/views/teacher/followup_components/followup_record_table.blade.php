@@ -1,11 +1,16 @@
-<div class="table-responsive mb-1"> 
-    <table class="table table-secondary table-bordered align-middle mb-0">
+<div class="table-responsive mb-1" style="overflow-x: visible;"> 
+    <table class="table table-secondary align-middle mb-0" style="width: 100%; table-layout: fixed;">
         <style>
+            .table {
+                table-layout: fixed !important;
+                width: 100% !important;
+            }
             @media (max-width: 768px) {
                 .table th:nth-child(1),
                 .table td:nth-child(1) {
-                    width: 12% !important;
+                    width: 25% !important;
                     font-size: 10px !important;
+                    white-space: nowrap !important;
                 }
                 .table th:nth-child(2),
                 .table td:nth-child(2) {
@@ -14,12 +19,12 @@
                 }
                 .table th:nth-child(n+3):nth-child(-n+9),
                 .table td:nth-child(n+3):nth-child(-n+9) {
-                    width: 8% !important;
+                    width: 6.5% !important;
                     font-size: 10px !important;
                 }
                 .table th:last-child,
                 .table td:last-child {
-                    width: 8% !important;
+                    width: 6.5% !important;
                     font-size: 10px !important;
                 }
             }
