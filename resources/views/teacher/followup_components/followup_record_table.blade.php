@@ -4,14 +4,17 @@
             @media (max-width: 768px) {
                 .table th:nth-child(1),
                 .table td:nth-child(1) {
-                    width: 12% !important;
+                    width: 18% !important;
                     font-size: 10px !important;
                     white-space: nowrap !important;
+                    padding: 1px !important;
                 }
                 .table th:nth-child(2),
                 .table td:nth-child(2) {
-                    width: 20% !important;
+                    width: 18% !important;
                     font-size: 10px !important;
+                    white-space: nowrap !important;
+                    padding: 1px !important;
                 }
                 .table th:nth-child(n+3):nth-child(-n+9),
                 .table td:nth-child(n+3):nth-child(-n+9) {
@@ -27,8 +30,8 @@
         </style>
         <thead>
             <tr>
-                <th class="p-1 text-center">اليوم</th>
-                <th class="p-1 text-center">التاريخ</th>
+                <th class="p-1 text-end">اليوم</th>
+                <th class="p-1 text-end">التاريخ</th>
                 <th class="p-1 text-center">1</th>
                 <th class="p-1 text-center">2</th>
                 <th class="p-1 text-center">3</th>
@@ -42,8 +45,8 @@
         <tbody>
             @foreach($days as $day)
                 <tr class="text-center">
-                    <td>{{ \Carbon\Carbon::parse($day->date)->locale('ar')->dayName }}</td>
-                    <td>{{ $day->date }}</td>
+                    <td class="text-end">{{ \Carbon\Carbon::parse($day->date)->locale('ar')->dayName }}</td>
+                    <td class="text-end">{{ $day->date }}</td>
                     @for ($i = 1; $i <= 7; $i++)
                         <?php
                             $session = $day->sessions()->where('session_number', $i)->first() ?? null;
