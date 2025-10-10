@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-<div class="mb-3">
+<div class="mb-3" style="background-color: #fffacd; padding: 15px; border-radius: 8px;">
     <h6 class="mb-0"><span class="text-danger">سجل متابعة الطالب:</span> {{ $student->name }}</h6>
     <div class="d-flex justify-content-between align-items-center mb-1">
         <p class="mb-0"><strong>الصف{{ $student->grade->name ?? '-' }}-{{ $student->classRoom->name ?? '-' }}</strong></p>
@@ -10,7 +10,7 @@
     </div>
 </div>
 
-<div class="table-responsive mb-1"> 
+<div class="table-responsive mb-1" style="background-color: #fffacd; padding: 10px; border-radius: 5px;"> 
     <table class="table table-secondary table-bordered align-middle mb-0">
         <style>
             @media (max-width: 768px) {
