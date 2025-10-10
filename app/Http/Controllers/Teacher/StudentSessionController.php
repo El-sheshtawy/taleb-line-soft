@@ -300,7 +300,7 @@ class StudentSessionController extends Controller
             ->orderBy('date', 'asc')
             ->get();
     
-        $html = view('reports.student_followup_record', [
+        $html = view('teacher.followup_components.followup_record_table', [
             'days' => $days,
             'student' => $student
         ])->render();
