@@ -1,9 +1,6 @@
 <div class="mb-3">
-    <div class="d-flex justify-content-between align-items-center">
-        <h6 class="mb-0"><span class="text-danger">سجل متابعة الطالب:</span> {{ $student->name }}</h6>
-        <span><strong>أيام الغياب:</strong> {{ $days->where('is_absent', true)->count() }}</span>
-    </div>
-    <p class="mb-1"><strong>الفصل:</strong> {{ $student->classRoom->name ?? '-' }} | <strong>الصف:</strong> {{ $student->grade->name ?? '-' }}</p>
+    <h6 class="mb-0"><span class="text-danger">سجل متابعة الطالب:</span> {{ $student->name }}</h6>
+    <p class="mb-1"><strong>الفصل:</strong> {{ $student->classRoom->name ?? '-' }} | <strong>الصف:</strong> {{ $student->grade->name ?? '-' }} | <strong>أيام الغياب:</strong> {{ $days->where('is_absent', true)->count() }}</p>
 </div>
 
 <div class="table-responsive mb-1"> 
