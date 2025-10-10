@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-<div style="background-color: #fffacd; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+<div style="background-color: #ffeb3b; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
     <div class="mb-3">
         <h6 class="mb-0"><span class="text-danger">سجل متابعة الطالب:</span> {{ $student->name }}</h6>
         <div class="d-flex justify-content-between align-items-center mb-1">
