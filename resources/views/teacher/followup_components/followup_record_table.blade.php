@@ -1,9 +1,13 @@
 <div class="table-responsive mb-1" style="overflow-x: visible;"> 
-    <table class="table table-secondary align-middle mb-0" style="width: 100%; table-layout: fixed;">
+    <table class="table align-middle mb-0" style="width: 100%; table-layout: fixed; border: none;">
         <style>
             .table {
                 table-layout: fixed !important;
                 width: 100% !important;
+                border: none !important;
+            }
+            .table th, .table td {
+                border: none !important;
             }
             @media (max-width: 768px) {
                 .table th:nth-child(1),
