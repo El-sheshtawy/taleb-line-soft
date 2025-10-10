@@ -90,25 +90,22 @@
             </div>
             
             <!-- Date Filter -->
-            <div class="d-flex align-items-center justify-content-center gap-2 p-2 text-center" style="background:#0E2550">
+            <div class="d-flex align-items-center justify-content-between gap-2 p-2 text-center" style="background:#0E2550">
                 <form method="GET" class="d-flex align-items-center gap-2" id="filterForm">
-                    <div class="d-flex align-items-center gap-2">
-                        <input type="checkbox" name="show_all_absences" id="showAllAbsences" value="1" 
-                               {{ request('show_all_absences') ? 'checked' : '' }}
-                               onchange="toggleDateFilter()" class="form-check-input">
-                        <label for="showAllAbsences" class="text-white">عرض جميع الطلاب الغائبين</label>
-                    </div>
                     <div id="dateSection" class="d-flex align-items-center gap-2" style="{{ request('show_all_absences') ? 'display: none !important;' : '' }}">
                         <label for="date" class="text-white">{{ $dayName }}:</label>
                         <input type="date" name="date" id="date" value="{{ $selectedDate }}" 
                                style="font-size:16px;background:#ffd400;border-radius:5px;border:none;padding:5px;" 
                                onchange="this.form.submit()">
-                        <span class="text-white">- عدد الغائبين: <span class="badge bg-danger">{{ $absentTodayCount }}</span></span>
+                        <span class="badge bg-danger">{{ $absentTodayCount }}</span>
                     </div>
                     <div id="allAbsencesSection" class="text-white" style="{{ !request('show_all_absences') ? 'display: none;' : '' }}">
-                        <span>- إجمالي الطلاب الغائبين: <span class="badge bg-danger">{{ $students->count() }}</span></span>
+                        <span class="badge bg-danger">{{ $students->count() }}</span>
                     </div>
                 </form>
+                <input type="checkbox" name="show_all_absences" id="showAllAbsences" value="1" 
+                       {{ request('show_all_absences') ? 'checked' : '' }}
+                       onchange="toggleDateFilter()" class="form-check-input" form="filterForm">
             </div>
             
             <!-- Search Box and Print Button -->
