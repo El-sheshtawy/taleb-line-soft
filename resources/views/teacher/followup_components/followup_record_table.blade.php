@@ -4,9 +4,8 @@
             @media (max-width: 768px) {
                 .table th:nth-child(1),
                 .table td:nth-child(1) {
-                    width: 25% !important;
+                    width: 12% !important;
                     font-size: 10px !important;
-                    white-space: nowrap;
                 }
                 .table th:nth-child(2),
                 .table td:nth-child(2) {
@@ -15,12 +14,12 @@
                 }
                 .table th:nth-child(n+3):nth-child(-n+9),
                 .table td:nth-child(n+3):nth-child(-n+9) {
-                    width: 6% !important;
+                    width: 8% !important;
                     font-size: 10px !important;
                 }
                 .table th:last-child,
                 .table td:last-child {
-                    width: 7% !important;
+                    width: 8% !important;
                     font-size: 10px !important;
                 }
             }
