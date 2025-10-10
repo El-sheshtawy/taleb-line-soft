@@ -1,14 +1,15 @@
 <div class="mb-3">
-    <h6 class="text-primary">سجل متابعة الطالب: {{ $student->name }}</h6>
-    <p class="mb-1"><strong>الصف:</strong> {{ $student->grade->name ?? '-' }} | <strong>الفصل:</strong> {{ $student->classRoom->name ?? '-' }}</p>
+    <h6 class="text-danger">سجل متابعة الطالب: {{ $student->name }}</h6>
+    <p class="mb-1"><strong>الفصل:</strong> {{ $student->classRoom->name ?? '-' }} | <strong>الصف:</strong> {{ $student->grade->name ?? '-' }}</p>
+    <p class="mb-1 text-danger"><strong>عدد أيام الغياب:</strong> {{ $days->where('is_absent', true)->count() }}</p>
 </div>
 
 <div class="table-responsive mb-1"> 
     <table class="table table-secondary table-bordered align-middle mb-0">
         <thead>
             <tr>
-                <th class="p-1 text-center">التاريخ</th>
                 <th class="p-1 text-center">اليوم</th>
+                <th class="p-1 text-center">التاريخ</th>
                 <th class="p-1 text-center">1</th>
                 <th class="p-1 text-center">2</th>
                 <th class="p-1 text-center">3</th>
@@ -22,8 +23,8 @@
         <tbody>
             @foreach($days as $day)
                 <tr class="text-center">
-                    <td>{{ $day->date }}</td>
                     <td>{{ \Carbon\Carbon::parse($day->date)->locale('ar')->dayName }}</td>
+                    <td>{{ $day->date }}</td>
                     @for ($i = 1; $i <= 7; $i++)
                         <?php
                             $session = $day->sessions()->where('session_number', $i)->first() ?? null;
