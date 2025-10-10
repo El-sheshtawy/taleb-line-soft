@@ -4,18 +4,18 @@
             @media (max-width: 768px) {
                 .table th:nth-child(1),
                 .table td:nth-child(1) {
-                    width: 15% !important;
-                    font-size: 10px !important;
-                }
-                .table th:nth-child(2),
-                .table td:nth-child(2) {
                     width: 25% !important;
                     font-size: 10px !important;
                     white-space: nowrap;
                 }
+                .table th:nth-child(2),
+                .table td:nth-child(2) {
+                    width: 20% !important;
+                    font-size: 10px !important;
+                }
                 .table th:nth-child(n+3):nth-child(-n+9),
                 .table td:nth-child(n+3):nth-child(-n+9) {
-                    width: 7% !important;
+                    width: 6% !important;
                     font-size: 10px !important;
                 }
                 .table th:last-child,
