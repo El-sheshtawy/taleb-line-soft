@@ -1,9 +1,6 @@
 <div class="mb-3">
-    <div class="d-flex justify-content-between align-items-center">
-        <h6 class="text-danger mb-0">سجل متابعة الطالب: {{ $student->name }}</h6>
-        <span class="text-danger"><strong>عدد أيام الغياب:</strong> {{ $days->where('is_absent', true)->count() }}</span>
-    </div>
-    <p class="mb-1"><strong>الفصل:</strong> {{ $student->classRoom->name ?? '-' }} | <strong>الصف:</strong> {{ $student->grade->name ?? '-' }}</p>
+    <h6 class="mb-0"><span class="text-danger">سجل متابعة الطالب:</span> {{ $student->name }}</h6>
+    <p class="mb-1"><strong>الفصل:</strong> {{ $student->classRoom->name ?? '-' }} | <strong>الصف:</strong> {{ $student->grade->name ?? '-' }} | <strong>عدد أيام الغياب:</strong> {{ $days->where('is_absent', true)->count() }}</p>
 </div>
 
 <div class="table-responsive mb-1"> 
@@ -51,7 +48,7 @@
             @foreach($days as $day)
                 <tr class="text-center">
                     <td>
-                        {{-- م column content --}}
+                        {{ $loop->iteration }}
                     </td>
                     <td>{{ \Carbon\Carbon::parse($day->date)->locale('ar')->dayName }}</td>
                     <td>{{ $day->date }}</td>
