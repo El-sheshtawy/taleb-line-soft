@@ -90,22 +90,28 @@
             </div>
             
             <!-- Date Filter -->
-            <div class="d-flex align-items-center justify-content-between gap-2 p-2 text-center" style="background:#0E2550">
-                <form method="GET" class="d-flex align-items-center gap-2" id="filterForm">
-                    <div id="dateSection" class="d-flex align-items-center gap-2" style="{{ request('show_all_absences') ? 'display: none !important;' : '' }}">
-                        <label for="date" class="text-white">{{ $dayName }}:</label>
-                        <input type="date" name="date" id="date" value="{{ $selectedDate }}" 
-                               style="font-size:16px;background:#ffd400;border-radius:5px;border:none;padding:5px;" 
-                               onchange="this.form.submit()">
-                        <span class="badge bg-danger">{{ $absentTodayCount }}</span>
+            <div class="p-2" style="background:#0E2550">
+                <div class="d-flex align-items-center justify-content-between gap-2">
+                    <form method="GET" class="d-flex align-items-center gap-2" id="filterForm">
+                        <div id="dateSection" class="d-flex align-items-center gap-2" style="{{ request('show_all_absences') ? 'display: none !important;' : '' }}">
+                            <label for="date" class="text-white">{{ $dayName }}:</label>
+                            <input type="date" name="date" id="date" value="{{ $selectedDate }}" 
+                                   style="font-size:16px;background:#ffd400;border-radius:5px;border:none;padding:5px;" 
+                                   onchange="this.form.submit()">
+                        </div>
+                    </form>
+                    <input type="checkbox" name="show_all_absences" id="showAllAbsences" value="1" 
+                           {{ request('show_all_absences') ? 'checked' : '' }}
+                           onchange="toggleDateFilter()" class="form-check-input" form="filterForm">
+                </div>
+                <div class="text-center mt-2">
+                    <div id="dateCountSection" class="text-white" style="{{ request('show_all_absences') ? 'display: none;' : '' }}">
+                        <span>عدد الغائبين: <span class="badge bg-danger">{{ $absentTodayCount }}</span></span>
                     </div>
-                    <div id="allAbsencesSection" class="text-white" style="{{ !request('show_all_absences') ? 'display: none;' : '' }}">
-                        <span class="badge bg-danger">{{ $students->count() }}</span>
+                    <div id="allAbsencesCountSection" class="text-white" style="{{ !request('show_all_absences') ? 'display: none;' : '' }}">
+                        <span>إجمالي الطلاب الغائبين: <span class="badge bg-danger">{{ $students->count() }}</span></span>
                     </div>
-                </form>
-                <input type="checkbox" name="show_all_absences" id="showAllAbsences" value="1" 
-                       {{ request('show_all_absences') ? 'checked' : '' }}
-                       onchange="toggleDateFilter()" class="form-check-input" form="filterForm">
+                </div>
             </div>
             
             <!-- Search Box and Print Button -->
@@ -188,15 +194,18 @@
         function toggleDateFilter() {
             const checkbox = document.getElementById('showAllAbsences');
             const dateSection = document.getElementById('dateSection');
-            const allAbsencesSection = document.getElementById('allAbsencesSection');
+            const dateCountSection = document.getElementById('dateCountSection');
+            const allAbsencesCountSection = document.getElementById('allAbsencesCountSection');
             const form = document.getElementById('filterForm');
             
             if (checkbox.checked) {
                 dateSection.style.display = 'none';
-                allAbsencesSection.style.display = 'block';
+                dateCountSection.style.display = 'none';
+                allAbsencesCountSection.style.display = 'block';
             } else {
                 dateSection.style.display = 'flex';
-                allAbsencesSection.style.display = 'none';
+                dateCountSection.style.display = 'block';
+                allAbsencesCountSection.style.display = 'none';
             }
             
             // Submit form when checkbox changes
