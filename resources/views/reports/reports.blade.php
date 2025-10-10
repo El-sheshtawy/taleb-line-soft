@@ -187,23 +187,57 @@
     
     <script>
         // Sort table by absence count
-        let sortDirection = 'desc'; // Start with descending (high to low)
+        let sortState = 'default'; // default -> desc -> asc -> default
+        let originalOrder = [];
+        
+        // Store original order on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const rows = Array.from(document.querySelectorAll('.student-row'));
+            originalOrder = rows.map(row => row.cloneNode(true));
+        });
         
         function sortByAbsence() {
             const tbody = document.querySelector('tbody');
             const rows = Array.from(tbody.querySelectorAll('.student-row'));
             const sortIcon = document.getElementById('sortIcon');
             
-            rows.sort((a, b) => {
-                const aCount = parseInt(a.cells[4].textContent.trim());
-                const bCount = parseInt(b.cells[4].textContent.trim());
-                
-                if (sortDirection === 'desc') {
-                    return bCount - aCount; // High to low
-                } else {
-                    return aCount - bCount; // Low to high
-                }
-            });
+            if (sortState === 'default') {
+                // Sort descending (high to low)
+                rows.sort((a, b) => {
+                    const aCount = parseInt(a.cells[4].textContent.trim());
+                    const bCount = parseInt(b.cells[4].textContent.trim());
+                    return bCount - aCount;
+                });
+                sortState = 'desc';
+                sortIcon.textContent = '↓';
+            } else if (sortState === 'desc') {
+                // Sort ascending (low to high)
+                rows.sort((a, b) => {
+                    const aCount = parseInt(a.cells[4].textContent.trim());
+                    const bCount = parseInt(b.cells[4].textContent.trim());
+                    return aCount - bCount;
+                });
+                sortState = 'asc';
+                sortIcon.textContent = '↑';
+            } else {
+                // Reset to default order
+                tbody.innerHTML = '';
+                originalOrder.forEach((row, index) => {
+                    const newRow = row.cloneNode(true);
+                    newRow.cells[0].textContent = index + 1;
+                    tbody.appendChild(newRow);
+                    
+                    // Re-append the corresponding record row if it exists
+                    const studentId = newRow.cells[4].getAttribute('onclick').match(/\d+/)[0];
+                    const recordRow = document.getElementById('studentRecord' + studentId);
+                    if (recordRow) {
+                        tbody.appendChild(recordRow);
+                    }
+                });
+                sortState = 'default';
+                sortIcon.textContent = '';
+                return;
+            }
             
             // Clear tbody and re-append sorted rows with their record rows
             tbody.innerHTML = '';
@@ -219,15 +253,6 @@
                     tbody.appendChild(recordRow);
                 }
             });
-            
-            // Toggle sort direction and update icon
-            if (sortDirection === 'desc') {
-                sortDirection = 'asc';
-                sortIcon.textContent = '↑';
-            } else {
-                sortDirection = 'desc';
-                sortIcon.textContent = '↓';
-            }
         }
         
         // Toggle date filter based on checkbox
