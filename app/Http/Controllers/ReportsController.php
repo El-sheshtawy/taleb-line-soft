@@ -27,21 +27,40 @@ class ReportsController extends Controller
         $students = collect();
         
         if ($school) {
-            // Get only students absent today
-            $students = Student::where('school_id', $school->id)
-                ->with(['grade', 'classRoom'])
-                ->withCount(['days as total_absences' => function($query) use ($selectedDate) {
-                    $query->where('is_absent', true)
-                          ->where('date', '<=', $selectedDate);
-                }])
-                ->whereHas('days', function($query) use ($selectedDate) {
-                    $query->where('is_absent', true)
-                          ->where('date', $selectedDate);
-                })
-                ->get()
-                ->sortBy([['grade.name', 'asc'], ['classRoom.name', 'asc'], ['name', 'asc']]);
-                
-            $absentTodayCount = $students->count();
+            if ($request->get('show_all_absences')) {
+                // Get all students with more than 0 total absences
+                $students = Student::where('school_id', $school->id)
+                    ->with(['grade', 'classRoom'])
+                    ->withCount(['days as total_absences' => function($query) {
+                        $query->where('is_absent', true);
+                    }])
+                    ->whereHas('days', function($query) {
+                        $query->where('is_absent', true);
+                    })
+                    ->get()
+                    ->filter(function($student) {
+                        return $student->total_absences > 0;
+                    })
+                    ->sortBy([['grade.name', 'asc'], ['classRoom.name', 'asc'], ['name', 'asc']]);
+                    
+                $absentTodayCount = 0; // Not applicable for all absences view
+            } else {
+                // Get only students absent today (default behavior)
+                $students = Student::where('school_id', $school->id)
+                    ->with(['grade', 'classRoom'])
+                    ->withCount(['days as total_absences' => function($query) use ($selectedDate) {
+                        $query->where('is_absent', true)
+                              ->where('date', '<=', $selectedDate);
+                    }])
+                    ->whereHas('days', function($query) use ($selectedDate) {
+                        $query->where('is_absent', true)
+                              ->where('date', $selectedDate);
+                    })
+                    ->get()
+                    ->sortBy([['grade.name', 'asc'], ['classRoom.name', 'asc'], ['name', 'asc']]);
+                    
+                $absentTodayCount = $students->count();
+            }
         } else {
             $absentTodayCount = 0;
         }
