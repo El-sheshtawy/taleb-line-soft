@@ -1,7 +1,6 @@
 <div class="mb-3">
     <h6 class="text-danger">سجل متابعة الطالب: {{ $student->name }}</h6>
-    <p class="mb-1"><strong>الفصل:</strong> {{ $student->classRoom->name ?? '-' }} | <strong>الصف:</strong> {{ $student->grade->name ?? '-' }}</p>
-    <p class="mb-1 text-danger"><strong>عدد أيام الغياب:</strong> {{ $days->where('is_absent', true)->count() }}</p>
+    <p class="mb-1"><strong>الفصل:</strong> {{ $student->classRoom->name ?? '-' }} | <strong>الصف:</strong> {{ $student->grade->name ?? '-' }} | <span class="text-danger"><strong>عدد أيام الغياب:</strong> {{ $days->where('is_absent', true)->count() }}</span></p>
 </div>
 
 <div class="table-responsive mb-1"> 
