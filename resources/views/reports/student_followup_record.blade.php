@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
 <div style="background-color: #fff59d; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
     <div class="mb-3">
-        <h6 class="mb-0"><span class="text-danger">سجل متابعة الطالب:</span> {{ $student->name }}</h6>
+        <div style="background-color: #87ceeb; padding: 10px; border-radius: 5px; margin-bottom: 10px;">
+            <h6 class="mb-0"><span class="text-danger">سجل متابعة الطالب:</span> {{ $student->name }}</h6>
+        </div>
         <div class="d-flex justify-content-between align-items-center mb-1">
             <p class="mb-0"><strong>الصف{{ $student->grade->name ?? '-' }}-{{ $student->classRoom->name ?? '-' }}</strong></p>
             <span class="text-dark"><strong>أيام الغياب:</strong> {{ $days->where('is_absent', true)->count() }}</span>
