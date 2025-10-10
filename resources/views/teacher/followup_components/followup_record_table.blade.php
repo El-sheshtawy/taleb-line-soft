@@ -4,27 +4,29 @@
             @media (max-width: 768px) {
                 .table th:nth-child(1),
                 .table td:nth-child(1) {
-                    width: 25% !important;
+                    min-width: 80px !important;
                     font-size: 10px !important;
                     white-space: nowrap !important;
-                    padding: 2px !important;
+                    padding: 2px 4px !important;
                 }
                 .table th:nth-child(2),
                 .table td:nth-child(2) {
-                    width: 25% !important;
+                    min-width: 90px !important;
                     font-size: 10px !important;
                     white-space: nowrap !important;
-                    padding: 2px !important;
+                    padding: 2px 4px !important;
                 }
                 .table th:nth-child(n+3):nth-child(-n+9),
                 .table td:nth-child(n+3):nth-child(-n+9) {
-                    width: 6% !important;
+                    min-width: 35px !important;
                     font-size: 10px !important;
+                    padding: 2px !important;
                 }
                 .table th:last-child,
                 .table td:last-child {
-                    width: 6% !important;
+                    min-width: 35px !important;
                     font-size: 10px !important;
+                    padding: 2px !important;
                 }
             }
         </style>
