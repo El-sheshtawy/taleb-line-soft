@@ -6,6 +6,7 @@
                 .table td:nth-child(1) {
                     width: 12% !important;
                     font-size: 10px !important;
+                    white-space: nowrap !important;
                 }
                 .table th:nth-child(2),
                 .table td:nth-child(2) {
