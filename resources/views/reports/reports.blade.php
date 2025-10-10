@@ -31,7 +31,7 @@
             
             .table th:nth-child(4),
             .table td:nth-child(4) {
-                width: 40% !important;
+                width: 30% !important;
                 font-size: 10px !important;
                 white-space: nowrap;
                 overflow: hidden;
