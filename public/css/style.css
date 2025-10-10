@@ -298,9 +298,15 @@ button{
 }
 .listOfName {
     background-color: #c7c7c7;
-    padding: 5px 0;
+    padding: 5px 10px;
     position: relative;
-    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .listOfName {
+        padding: 5px 0;
+        width: 100%;
+    }
 }
 .listOfName h4{
     padding: 6px 3px;
