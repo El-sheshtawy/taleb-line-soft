@@ -134,7 +134,7 @@
                             <th class="p-1">صف</th>
                             <th class="p-1">فصل</th>
                             <th class="p-1">الاسم</th>
-                            <th class="p-1">غياب</th>
+                            <th class="p-1" style="cursor: pointer;" onclick="sortByAbsence()">غياب <span id="sortIcon">↓</span></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -186,6 +186,50 @@
     <script src="{{ asset('js/sweetalert2.min.js') }}"></script>
     
     <script>
+        // Sort table by absence count
+        let sortDirection = 'desc'; // Start with descending (high to low)
+        
+        function sortByAbsence() {
+            const tbody = document.querySelector('tbody');
+            const rows = Array.from(tbody.querySelectorAll('.student-row'));
+            const sortIcon = document.getElementById('sortIcon');
+            
+            rows.sort((a, b) => {
+                const aCount = parseInt(a.cells[4].textContent.trim());
+                const bCount = parseInt(b.cells[4].textContent.trim());
+                
+                if (sortDirection === 'desc') {
+                    return bCount - aCount; // High to low
+                } else {
+                    return aCount - bCount; // Low to high
+                }
+            });
+            
+            // Clear tbody and re-append sorted rows with their record rows
+            tbody.innerHTML = '';
+            rows.forEach((row, index) => {
+                // Update row number
+                row.cells[0].textContent = index + 1;
+                tbody.appendChild(row);
+                
+                // Re-append the corresponding record row if it exists
+                const studentId = row.cells[4].getAttribute('onclick').match(/\d+/)[0];
+                const recordRow = document.getElementById('studentRecord' + studentId);
+                if (recordRow) {
+                    tbody.appendChild(recordRow);
+                }
+            });
+            
+            // Toggle sort direction and update icon
+            if (sortDirection === 'desc') {
+                sortDirection = 'asc';
+                sortIcon.textContent = '↑';
+            } else {
+                sortDirection = 'desc';
+                sortIcon.textContent = '↓';
+            }
+        }
+        
         // Toggle date filter based on checkbox
         function toggleDateFilter() {
             const checkbox = document.getElementById('showAllAbsences');
