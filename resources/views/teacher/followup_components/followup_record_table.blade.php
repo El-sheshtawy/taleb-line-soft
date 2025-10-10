@@ -4,36 +4,34 @@
             @media (max-width: 768px) {
                 .table th:nth-child(1),
                 .table td:nth-child(1) {
-                    width: 15% !important;
-                    font-size: 8px !important;
+                    width: 25% !important;
+                    font-size: 10px !important;
                     white-space: nowrap !important;
-                    padding: 1px 2px !important;
+                    padding: 2px !important;
                 }
                 .table th:nth-child(2),
                 .table td:nth-child(2) {
-                    width: 20% !important;
-                    font-size: 9px !important;
+                    width: 25% !important;
+                    font-size: 10px !important;
                     white-space: nowrap !important;
-                    padding: 1px 2px !important;
+                    padding: 2px !important;
                 }
                 .table th:nth-child(n+3):nth-child(-n+9),
                 .table td:nth-child(n+3):nth-child(-n+9) {
-                    width: 7.5% !important;
+                    width: 6% !important;
                     font-size: 10px !important;
-                    padding: 1px !important;
                 }
                 .table th:last-child,
                 .table td:last-child {
-                    width: 7.5% !important;
+                    width: 6% !important;
                     font-size: 10px !important;
-                    padding: 1px !important;
                 }
             }
         </style>
         <thead>
             <tr>
-                <th class="p-1 text-end">يوم</th>
-                <th class="p-1 text-end">تاريخ</th>
+                <th class="p-1 text-end">اليوم</th>
+                <th class="p-1 text-end">التاريخ</th>
                 <th class="p-1 text-center">1</th>
                 <th class="p-1 text-center">2</th>
                 <th class="p-1 text-center">3</th>
@@ -41,27 +39,13 @@
                 <th class="p-1 text-center">5</th>
                 <th class="p-1 text-center">6</th>
                 <th class="p-1 text-center">7</th>
-                <th class="p-1 text-center">غ</th>
+                <th class="p-1 text-center">غائب</th>
             </tr>
         </thead>
         <tbody>
             @foreach($days as $day)
-                <?php
-                    $dayName = \Carbon\Carbon::parse($day->date)->locale('ar')->dayName;
-                    // Map full day names to abbreviations
-                    $dayAbbr = [
-                        'السبت' => 'سبت',
-                        'الأحد' => 'أحد',
-                        'الاثنين' => 'اثنين',
-                        'الثلاثاء' => 'ثلاثاء',
-                        'الأربعاء' => 'أربعاء',
-                        'الخميس' => 'خميس',
-                        'الجمعة' => 'جمعة'
-                    ];
-                    $shortDay = $dayAbbr[$dayName] ?? $dayName;
-                ?>
                 <tr class="text-center">
-                    <td class="text-end" title="{{ $dayName }}">{{ $shortDay }}</td>
+                    <td class="text-end">{{ \Carbon\Carbon::parse($day->date)->locale('ar')->dayName }}</td>
                     <td class="text-end">{{ $day->date }}</td>
                     @for ($i = 1; $i <= 7; $i++)
                         <?php
