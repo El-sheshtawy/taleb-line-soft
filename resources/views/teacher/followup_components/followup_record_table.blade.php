@@ -4,15 +4,15 @@
             @media (max-width: 768px) {
                 .table th:nth-child(1),
                 .table td:nth-child(1) {
-                    min-width: 150px !important;
-                    width: auto !important;
+                    width: 35% !important;
+                    max-width: none !important;
                     font-size: 10px !important;
                     white-space: nowrap !important;
                     padding: 2px 4px !important;
                 }
                 .table th:nth-child(2),
                 .table td:nth-child(2) {
-                    min-width: 60px !important;
+                    width: 20% !important;
                     font-size: 9px !important;
                     white-space: nowrap !important;
                     padding: 2px 2px !important;
