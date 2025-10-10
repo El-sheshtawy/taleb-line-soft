@@ -302,25 +302,6 @@ button{
     padding: 5px 10px;
     position: relative;
 }
-
-@media (max-width: 768px) {
-    .app {
-        max-width: 100%;
-        margin: 0;
-        border-radius: 0;
-        border: none;
-    }
-    
-    .listOfName {
-        padding: 5px 0;
-        width: 100%;
-    }
-    
-    .collapse-inner {
-        margin: 0 -15px;
-        padding: 15px;
-    }
-}
 .listOfName h4{
     padding: 6px 3px;
     background-color: #15336a;
