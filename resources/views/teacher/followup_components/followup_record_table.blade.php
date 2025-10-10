@@ -30,8 +30,8 @@
         </style>
         <thead>
             <tr>
-                <th class="p-1 text-end">اليوم</th>
-                <th class="p-1 text-end">التاريخ</th>
+                <th class="p-1 text-end">يوم</th>
+                <th class="p-1 text-end">تاريخ</th>
                 <th class="p-1 text-center">1</th>
                 <th class="p-1 text-center">2</th>
                 <th class="p-1 text-center">3</th>
@@ -39,7 +39,7 @@
                 <th class="p-1 text-center">5</th>
                 <th class="p-1 text-center">6</th>
                 <th class="p-1 text-center">7</th>
-                <th class="p-1 text-center">غائب</th>
+                <th class="p-1 text-center">غ</th>
             </tr>
         </thead>
         <tbody>
