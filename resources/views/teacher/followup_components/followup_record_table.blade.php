@@ -6,8 +6,10 @@
                 .table td:nth-child(1) {
                     width: 18% !important;
                     font-size: 10px !important;
-                    white-space: nowrap !important;
+                    white-space: normal !important;
                     padding: 1px !important;
+                    word-wrap: break-word !important;
+                    overflow-wrap: break-word !important;
                 }
                 .table th:nth-child(2),
                 .table td:nth-child(2) {
