@@ -1,32 +1,26 @@
-<div class="table-responsive mb-1" style="margin: 0 -12px; width: calc(100% + 24px);">
+<div class="table-responsive mb-1"> 
     <table class="table table-secondary table-bordered align-middle mb-0">
         <style>
             @media (max-width: 768px) {
                 .table th:nth-child(1),
                 .table td:nth-child(1) {
-                    min-width: 120px !important;
+                    width: 12% !important;
                     font-size: 10px !important;
-                    white-space: nowrap !important;
-                    padding: 2px 4px !important;
                 }
                 .table th:nth-child(2),
                 .table td:nth-child(2) {
-                    min-width: 50px !important;
-                    font-size: 8px !important;
-                    white-space: nowrap !important;
-                    padding: 2px 1px !important;
+                    width: 20% !important;
+                    font-size: 10px !important;
                 }
                 .table th:nth-child(n+3):nth-child(-n+9),
                 .table td:nth-child(n+3):nth-child(-n+9) {
-                    min-width: 35px !important;
+                    width: 8% !important;
                     font-size: 10px !important;
-                    padding: 2px !important;
                 }
                 .table th:last-child,
                 .table td:last-child {
-                    min-width: 35px !important;
+                    width: 8% !important;
                     font-size: 10px !important;
-                    padding: 2px !important;
                 }
             }
         </style>
