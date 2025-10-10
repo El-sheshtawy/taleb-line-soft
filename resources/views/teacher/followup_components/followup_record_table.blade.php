@@ -26,8 +26,8 @@
         </style>
         <thead>
             <tr>
-                <th class="p-1 text-end">اليوم</th>
-                <th class="p-1 text-end">التاريخ</th>
+                <th class="p-1 text-center">اليوم</th>
+                <th class="p-1 text-center">التاريخ</th>
                 <th class="p-1 text-center">1</th>
                 <th class="p-1 text-center">2</th>
                 <th class="p-1 text-center">3</th>
@@ -41,8 +41,8 @@
         <tbody>
             @foreach($days as $day)
                 <tr class="text-center">
-                    <td class="text-end">{{ \Carbon\Carbon::parse($day->date)->locale('ar')->dayName }}</td>
-                    <td class="text-end">{{ $day->date }}</td>
+                    <td>{{ \Carbon\Carbon::parse($day->date)->locale('ar')->dayName }}</td>
+                    <td>{{ $day->date }}</td>
                     @for ($i = 1; $i <= 7; $i++)
                         <?php
                             $session = $day->sessions()->where('session_number', $i)->first() ?? null;
