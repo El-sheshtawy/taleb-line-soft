@@ -1,8 +1,11 @@
 <div class="mb-3">
     <h6 class="mb-0"><span class="text-danger">سجل متابعة الطالب:</span> {{ $student->name }}</h6>
     <div class="d-flex justify-content-between align-items-center mb-1">
-        <p class="mb-0"><strong>الفصل:</strong> {{ $student->classRoom->name ?? '-' }} | <strong>الصف:</strong> {{ $student->grade->name ?? '-' }}</p>
-        <span><strong>أيام الغياب:</strong> {{ $days->where('is_absent', true)->count() }}</span>
+        <p class="mb-0"><strong>الصف{{ $student->grade->name ?? '-' }}-{{ $student->classRoom->name ?? '-' }}</strong></p>
+        <div class="d-flex align-items-center gap-3">
+            <span><strong>أيام الغياب:</strong> {{ $days->where('is_absent', true)->count() }}</span>
+            <button class="btn btn-sm text-danger" onclick="window.print()">طباعة</button>
+        </div>
     </div>
 </div>
 
