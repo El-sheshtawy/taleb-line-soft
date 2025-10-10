@@ -195,18 +195,12 @@
         function toggleDateFilter() {
             const checkbox = document.getElementById('showAllAbsences');
             const dateSection = document.getElementById('dateSection');
-            const dateCountSection = document.getElementById('dateCountSection');
-            const allAbsencesCountSection = document.getElementById('allAbsencesCountSection');
             const form = document.getElementById('filterForm');
             
             if (checkbox.checked) {
                 dateSection.style.display = 'none';
-                dateCountSection.style.display = 'none';
-                allAbsencesCountSection.style.display = 'block';
             } else {
                 dateSection.style.display = 'flex';
-                dateCountSection.style.display = 'block';
-                allAbsencesCountSection.style.display = 'none';
             }
             
             // Submit form when checkbox changes
